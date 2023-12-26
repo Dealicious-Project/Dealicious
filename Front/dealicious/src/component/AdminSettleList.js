@@ -14,7 +14,7 @@ const AdminSettleList = () => {
 
   const search = () => {
     const date = {sdate:startDate, edate:endDate};
-    axios.post(`http://localhost:8090/settlelist`,date)
+    axios.post(`${url}/settlelist`,date)
     .then(res => {
       console.log(res);
       setSettleList([]);

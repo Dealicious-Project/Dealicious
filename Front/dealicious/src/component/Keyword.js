@@ -11,7 +11,7 @@ const Keyword = () => {
   const token = useSelector(state => state.persistedReducer.token);
 
   useEffect(() => {
-    axios.get(`http://localhost:8090/keywordlist`, {
+    axios.get(`${url}/keywordlist`, {
       headers: {
         Authorization: token,
       }
@@ -33,7 +33,7 @@ const Keyword = () => {
   };
 
   const registerKeyword = () => {
-    axios.get(`http://localhost:8090/registerkeyword/` + keyword, {
+    axios.get(`${url}/registerkeyword/` + keyword, {
       headers: {
         Authorization: token,
       }
@@ -52,7 +52,7 @@ const Keyword = () => {
 
   const deletekeyword = (item) => {
     const updatedList = keywordList.filter(keyword => keyword.content !== item.content);
-    axios.post(`http://localhost:8090/deletekeyword`, item, {
+    axios.post(`${url}/deletekeyword`, item, {
       headers: {
         Authorization: token,
       }

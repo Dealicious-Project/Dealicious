@@ -12,11 +12,11 @@ const AdminLogin = () => {
 
     const submit = (e) => {
         e.preventDefault();
-        axios.post(`http://localhost:8090/login`,{email:adminid,password:password})
+        axios.post(`${url}/login`,{email:adminid,password:password})
         .then(res=> {
             console.log(res.headers.authorization);
             dispatch({ type: "token", payload: res.headers.authorization });
-            axios.get("http://localhost:8090/adminlogin", {
+            axios.get(`${url}/adminlogin`, {
                     headers: {
                         Authorization: res.headers.authorization,
                     }

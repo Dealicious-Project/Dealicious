@@ -16,7 +16,7 @@ const AdminMain = () => {
   const handleSelect  = (e) => {
     console.log(e.target.value);
     setSelected(e.target.value);
-    axios.get(`http://localhost:8090/adminmain/`+e.target.value)
+    axios.get(`${url}/adminmain/`+e.target.value)
       .then(res => {
         console.log(res);
         setPayList([]);
@@ -31,7 +31,7 @@ const AdminMain = () => {
 
   useEffect(() => {
 
-    axios.get(`http://localhost:8090/adminmain/`+"all")
+    axios.get(`${url}/adminmain/`+"all")
       .then(res => {
         console.log(res);
         setPayList([]);

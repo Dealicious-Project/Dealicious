@@ -37,11 +37,11 @@ const Login = () => {
             return;
         }
 
-        axios.post("http://localhost:8090/login", user)
+        axios.post("$url/login", user)
             .then(res => {
                 console.log(res.headers.authorization);
                 dispatch({ type: "token", payload: res.headers.authorization });
-                axios.get("http://localhost:8090/user", {
+                axios.get("${url}/user", {
                     headers: {
                         Authorization: res.headers.authorization,
                     }
@@ -67,11 +67,11 @@ const Login = () => {
     }
 
     function goToNaver() {
-        window.location.href = "http://localhost:8090/oauth2/authorization/naver"
+        window.location.href = "${url}/oauth2/authorization/naver"
     }
 
     function goToKakao() {
-        window.location.href = "http://localhost:8090/oauth2/authorization/kakao"
+        window.location.href = "${url}/oauth2/authorization/kakao"
     }
 
     return (

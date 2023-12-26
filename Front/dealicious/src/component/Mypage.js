@@ -14,7 +14,7 @@ const Mypage = () => {
     const [filterOption, setFilterOption] = useState("전체");
 
     useEffect(() => {
-        axios.get(`http://localhost:8090/mypagelist/${user.email}`)
+        axios.get(`${url}/mypagelist/${user.email}`)
             .then(res => {
                 console.log(res.data);
                 setSaleList([]);
@@ -46,7 +46,7 @@ const Mypage = () => {
             </FormGroup>
             <div style={{ paddingBottom: "30px", display: "flex", paddingBottom: "30px" }}>
                 <div style={{ paddingBottom: "20px", textAlign: "left" }}>
-                    <img src={user.profileimgurl ? `http://localhost:8090/img/${user.profileimgurl}` : Image} width="100px" height="100px" alt='' style={{ borderRadius: "50px", width: "65px", height: "65px" }} />
+                    <img src={user.profileimgurl ? `${url}/img/${user.profileimgurl}` : Image} width="100px" height="100px" alt='' style={{ borderRadius: "50px", width: "65px", height: "65px" }} />
                 </div>
                 <div style={{ fontSize: "20px", fontWeight: "bold", textAlign: "left", paddingLeft: "20px", width: "220px" }}>
                     &nbsp;{user.nickname}
@@ -127,12 +127,12 @@ const Mypage = () => {
                                     <div style={{ display: "inline-block", paddingRight: index % 3 === 2 ? "0px" : "10px" }}>
                                         {item.status === "거래완료" ? (
                                             <div style={{ width: "120px", height: "120px", borderRadius: "10px", position: "relative", opacity: "0.5" }}>
-                                                <img src={`http://localhost:8090/img/${item.fileurl.split(',')[0]}`} style={{ width: "120px", height: "120px", borderRadius: "10px" }} />
+                                                <img src={`${url}/img/${item.fileurl.split(',')[0]}`} style={{ width: "120px", height: "120px", borderRadius: "10px" }} />
                                                 <a style={{ fontWeight: "bold", color: "white", position: "absolute", top: "41%", left: "26%" }}>판매완료</a>
                                             </div>
                                         ) : (
                                             <div style={{ width: "120px", height: "120px", borderRadius: "10px", position: "relative" }}>
-                                                <img src={`http://localhost:8090/img/${item.fileurl.split(',')[0]}`} style={{ width: "120px", height: "120px", borderRadius: "10px" }} />
+                                                <img src={`${url}/img/${item.fileurl.split(',')[0]}`} style={{ width: "120px", height: "120px", borderRadius: "10px" }} />
                                             </div>
                                         )}
                                         {item.amount.length > 15 ? (

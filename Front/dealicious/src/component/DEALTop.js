@@ -21,7 +21,7 @@ const DEALTop = () => {
 
   useEffect(() => {
     if(user.email !== undefined && user.email !== '') {
-    axios.get(`http://localhost:8090/noticnt`, {
+    axios.get(`${url}/noticnt`, {
             headers: {
                 Authorization: token,
             }

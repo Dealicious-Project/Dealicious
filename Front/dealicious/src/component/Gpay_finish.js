@@ -27,7 +27,7 @@ const Gpay_finish = () => {
     });
     useEffect(() => {
         axios
-            .get(`http://localhost:8090/gpay/${num}`)
+            .get(`${url}/gpay/${num}`)
             .then(res => {
                 console.log(res.data);
                 setSale(res.data);
@@ -51,7 +51,7 @@ const Gpay_finish = () => {
             </div>
             <div style={{textAlign:"left", paddingBottom:"20px", borderBottom:"1px solid lightgray", display:"flex"}}>
                 &nbsp;&nbsp;
-                <img src={`http://localhost:8090/img/${sale.fileurl.split(',')[0]}`}style={{ width: "100px", height: "100px" }}></img>
+                <img src={`${url}/img/${sale.fileurl.split(',')[0]}`}style={{ width: "100px", height: "100px" }}></img>
                 <div style={{ marginLeft: "10px" }}>
                     <div style={{ marginLeft: "10px", fontSize: "25px", marginBottom: "5px" }}> {sale.title}</div>
                     <div style={{ marginLeft: "10px" }}> {sale.amount*1.05} 원</div>

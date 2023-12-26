@@ -12,7 +12,7 @@ function ChatList() {
     const token = useSelector(state => state.persistedReducer.token);
 
     useEffect(() => { //컴포넌트가 마운트될 때 connect() 함수를 호출하여 Stomp 클라이언트를 연결하고, 컴포넌트가 언마운트될때  disconnect() 함수를 호출하여 연결을 끊습니다.
-        axios.get(`http://localhost:8090/chatroomlist`, {
+        axios.get(`${url}/chatroomlist`, {
             headers: {
                 Authorization: token,
             }
@@ -70,7 +70,7 @@ function ChatList() {
                                         <td style={{ width: "120px", fontSize: "15px", paddingLeft: "10px" }}>{item.nickname}</td>
                                         <td style={{ paddingRight: "15px", width: "70px", color: "gray", fontSize: "12px" }}>{item.category}&nbsp;</td>
                                         <td style={{ width: "150px", color: "gray", fontSize: "13px" }}>{timediff(item.chatdate)}&nbsp;</td>
-                                        <td rowSpan={2}><img src={`http://localhost:8090/img/${item.fileurl.split(',')[0]}`} alt='' style={{ width: "50px", height: "50px" }} /></td>
+                                        <td rowSpan={2}><img src={`${url}/img/${item.fileurl.split(',')[0]}`} alt='' style={{ width: "50px", height: "50px" }} /></td>
                                     </tr>
                                     <tr>
                                         <td colSpan={4} style={{ width: "300px", fontSize: "13px", color: "gray", paddingLeft: "10px" }}>{item.chat}</td>

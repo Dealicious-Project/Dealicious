@@ -11,7 +11,7 @@ const Mypage_review = () => {
     const [reviewList, setReviewList] = useState([]);
     const user = useSelector(state => state.persistedReducer.user);
     useEffect(() => {
-        axios.get(`http://localhost:8090/myreviewlist/${user.email}`)
+        axios.get(`${url}/myreviewlist/${user.email}`)
             .then(res => {
                 console.log(user.email)
                 console.log(res.data);
@@ -34,7 +34,7 @@ const Mypage_review = () => {
             </FormGroup>
             <div style={{ paddingBottom: "30px", display: "flex", paddingBottom: "30px" }}>
                 <div style={{ paddingBottom: "20px", textAlign: "left" }}>
-                    <img src={user.profileimgurl ? `http://localhost:8090/img/${user.profileimgurl}` : Image} width="100px" height="100px" alt='' style={{ borderRadius: "50px", width: "65px", height: "65px" }} />
+                    <img src={user.profileimgurl ? `${url}/img/${user.profileimgurl}` : Image} width="100px" height="100px" alt='' style={{ borderRadius: "50px", width: "65px", height: "65px" }} />
                 </div>
                 <div style={{ fontSize: "20px", fontWeight: "bold", textAlign: "left", paddingLeft: "20px", width: "220px" }}>
                     &nbsp;{user.nickname}
@@ -80,7 +80,7 @@ const Mypage_review = () => {
                         <div key={index} style={{ marginLeft: "5px", display: "flex", width: "100%", height: "90px", borderBottom: "1px solid lightgray" }}>
                             <div style={{ height: "70px", marginTop: "7.5px" }}>
                                 <img
-                                    src={review.profileimgurl ? `http://localhost:8090/img/${review.profileimgurl}` : Image}
+                                    src={review.profileimgurl ? `${url}/img/${review.profileimgurl}` : Image}
                                     style={{ borderRadius: "50px", width: "55px", height: "55px" }}
                                 />
                             </div>
@@ -98,7 +98,7 @@ const Mypage_review = () => {
                                 <img src={review.ggull === "1" ? "\ggul.png" : "\ggul2.png"} style={{ width: "34px", height: "19px" }} />
                             </div>
                             <div style={{ width: "70px", height: "70px", borderRadius: "10px", textAlign: "right" }}>
-                                <img src={`http://localhost:8090/img/${review.fileurl.split(',')[0]}`} style={{ width: "70px", height: "70px", borderRadius: "10px" }} />
+                                <img src={`${url}/img/${review.fileurl.split(',')[0]}`} style={{ width: "70px", height: "70px", borderRadius: "10px" }} />
                             </div>
                         </div>
                     ))}

@@ -19,7 +19,7 @@ const Join3 = () => {
 
     const handleNicknameCheck = () => {
         console.log(nickname);
-        axios.get("http://localhost:8090/nicknamecheck/" + nickname)
+        axios.get(`${url}/nicknamecheck/` + nickname)
             .then(res => {
                 console.log(res.data);
                 setIsNicknameAvailable(res.data);

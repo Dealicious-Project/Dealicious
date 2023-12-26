@@ -33,7 +33,7 @@ const Changepassword = () => {
                 return;
             }
             const response = await axios.put(
-                'http://localhost:8090/changepassword',
+                '${url}/changepassword',
                 formData,
                 {
                     headers: {

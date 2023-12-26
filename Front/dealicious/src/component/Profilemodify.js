@@ -34,7 +34,7 @@ const Profilemodify = () => {
         console.log("1")
         if (isNicknameAvailable) {
             console.log("2")
-            axios.put("http://localhost:8090/profilemodify", formData)
+            axios.put("${url}/profilemodify", formData)
                 .then(res => {
                     console.log(res);
                     dispatch({ type: "user", payload: res.data });
@@ -59,7 +59,7 @@ const Profilemodify = () => {
             return;
         }
 
-        axios.get("http://localhost:8090/nicknamecheck/" + user.nickname)
+        axios.get("${url}/nicknamecheck/" + user.nickname)
             .then(res => {
                 console.log(res.data);
                 setIsNicknameAvailable(res.data);
@@ -75,7 +75,7 @@ const Profilemodify = () => {
     }
     useEffect(() => {
         if (temp.profileimgurl) {
-            setPreviewImage(`http://localhost:8090/img/${temp.profileimgurl}`);
+            setPreviewImage(`${url}/img/${temp.profileimgurl}`);
         } else {
             setPreviewImage(Image);
         }

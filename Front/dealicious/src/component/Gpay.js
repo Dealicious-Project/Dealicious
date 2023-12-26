@@ -40,7 +40,7 @@ const Gpay = () => {
         document.head.appendChild(iamport);
 
         axios
-            .get(`http://localhost:8090/gpay/${num}`)
+            .get(`${url}/gpay/${num}`)
             .then(res => {
                 console.log(res.data);
                 setSale(res.data);
@@ -77,7 +77,7 @@ const Gpay = () => {
                 console.log(rsp.imp_uid);
                 console.log("결제성공");
                 const pay = {salenum:num,amount:sale.amount*1.05,imp_uid:rsp.imp_uid,buyerEmail:user.email};
-                axios.post(`http://localhost:8090/pay`, pay)
+                axios.post(`${url}/pay`, pay)
                     .then(res => {
                         console.log("어드민 계좌 입금 성공");
                         navigate(`/gpay_finish/${num}`)
@@ -113,7 +113,7 @@ const Gpay = () => {
             <div style={{ textAlign: "left", paddingBottom: "20px", borderBottom: "1px solid lightgray", display: "flex" }}>
                 &nbsp;&nbsp;
 
-                <img src={`http://localhost:8090/img/${sale.fileurl.split(',')[0]}`} style={{ width: "100px", height: "100px" }}></img>
+                <img src={`${url}/img/${sale.fileurl.split(',')[0]}`} style={{ width: "100px", height: "100px" }}></img>
                 <div style={{ marginLeft: "10px" }}>
                     <div style={{ marginLeft: "10px", fontSize: "25px", marginBottom: "5px" }}> {sale.title}</div>
                     <div style={{ marginLeft: "10px" }}> {sale.amount} </div>

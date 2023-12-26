@@ -37,7 +37,7 @@ const SaleModify = () => {
     const [currentImage, setCurrentImage] = useState();
     const { sect, num } = useParams();
     useEffect(() => {
-        axios.get(`http://localhost:8090/saledetail/${sect}/${num}`)
+        axios.get(`${url}/saledetail/${sect}/${num}`)
             .then(res => {
                 console.log(res.data);
                 setSale(res.data.sale);
@@ -146,7 +146,7 @@ const SaleModify = () => {
                 formData.append("file", file.data);
         }
 
-        axios.post('http://localhost:8090/salemodify', formData)
+        axios.post('${url}/salemodify', formData)
             .then(res => {
                 console.log(res);
                 let saleNum = res.data;
@@ -159,7 +159,7 @@ const SaleModify = () => {
         calculateTimeAgo(submissionTime); // 함수 호출하여 시간 차이 계산
     }
     const deleteSale = () => {
-        axios.delete(`http://localhost:8090/saledelete/${num}`)
+        axios.delete(`${url}/saledelete/${num}`)
             .then(res => {
                 navigate(`/salelist`);
             })
@@ -204,7 +204,7 @@ const SaleModify = () => {
                             files.map((file, index) =>
                                 <span key={index}>
                                     <div style={{ position: "relative", display: 'inline-block', marginRight: "10px" }}>
-                                        <img src={file.type === 'i' ? `http://localhost:8090/img/${file.data}` : URL.createObjectURL(file.data)} width="45px" height="45px" alt='' id={index} onClick={imageClick} />
+                                        <img src={file.type === 'i' ? `${url}/img/${file.data}` : URL.createObjectURL(file.data)} width="45px" height="45px" alt='' id={index} onClick={imageClick} />
                                         <button data-idx={index} onClick={deleteClick} style={{ position: "absolute", top: "-15px", right: "-15px", background: "none", border: "none", cursor: "pointer" }}><GiCancel /></button>
                                     </div>
                                 </span>

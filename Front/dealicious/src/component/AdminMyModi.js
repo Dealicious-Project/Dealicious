@@ -22,7 +22,7 @@ const AdminMyModi = () => {
     setData({ ...data, [e.target.name]: e.target.value });
   }
   const changeadminpassword = () => {
-    axios.post("http://localhost:8090/changeadminpassword", data)
+    axios.post(`${url}/changeadminpassword`, data)
             .then(res => {
                 alert(res.data);
                 navigate(`/adminmy`);
