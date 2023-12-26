@@ -41,7 +41,7 @@ const Login = () => {
             .then(res => {
                 console.log(res.headers.authorization);
                 dispatch({ type: "token", payload: res.headers.authorization });
-                axios.get("${url}/user", {
+                axios.get("http://43.203.108.152:8090/user", {
                     headers: {
                         Authorization: res.headers.authorization,
                     }
@@ -67,11 +67,11 @@ const Login = () => {
     }
 
     function goToNaver() {
-        window.location.href = "${url}/oauth2/authorization/naver"
+        window.location.href = "http://43.203.108.152:8090/oauth2/authorization/naver"
     }
 
     function goToKakao() {
-        window.location.href = "${url}/oauth2/authorization/kakao"
+        window.location.href = "http://43.203.108.152:8090/oauth2/authorization/kakao"
     }
 
     return (

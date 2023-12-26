@@ -7,7 +7,7 @@ const Logout = () => {
     const token = useSelector(state => state.persistedReducer.token);
 
     useEffect(()=> {
-        axios.get("${url}/logout1", {
+        axios.get("http://43.203.108.152:8090/logout1", {
                     headers: {
                         Authorization: token,
                     }

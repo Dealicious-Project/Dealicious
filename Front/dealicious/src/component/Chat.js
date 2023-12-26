@@ -51,7 +51,7 @@ const Chat = () => {
     // 여기서 실제로 등록하는 로직을 구현.
     // 예시로 console에 선택한 별점을 출력
     
-    axios.get(`${url}/salelike/${num}`)
+    axios.get(`http://43.203.108.152:8090/salelike/${num}`)
     .then(res=>{
       console.log(`등록된 별점: ${rating}`);
         console.log(res.data)

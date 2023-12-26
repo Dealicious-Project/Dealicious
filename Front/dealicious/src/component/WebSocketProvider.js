@@ -13,7 +13,7 @@ export const WebSocketProvider = ({ children }) => {
   const user = useSelector(state => state.persistedReducer.user);
   useEffect(() => {
     const createWebSocket = () => {
-      const sock = new SockJS('${url}/ws');
+      const sock = new SockJS('http://43.203.108.152:8090/ws');
       return Stomp.over(sock);
     };
 

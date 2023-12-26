@@ -10,7 +10,7 @@ const Oauth2 = () => {
     useEffect(()=> {
         console.log("token:"+token);
         dispatch({type:"token", payload:token})
-        axios.get("${url}/user", {
+        axios.get("http://43.203.108.152:8090/user", {
                     headers: {
                         Authorization: token,
                     }

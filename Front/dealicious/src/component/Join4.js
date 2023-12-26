@@ -56,7 +56,7 @@ const Join4 = () => {
         };
         //headers로 토큰 넘긴 이유는 소셜로그인했을때 가입되면서 추가정보 등록 이어나가기 위해서.
         if (successEmail) {
-            axios.post("${url}/join", userData, {
+            axios.post("http://43.203.108.152:8090/join", userData, {
                 headers: {
                     Authorization: token,
                 }
@@ -103,7 +103,7 @@ const Join4 = () => {
     }
 
     const verificationEmail = () => {
-        axios.post(`${url}/emails/verification-requests`, { email: email })
+        axios.post(`http://43.203.108.152:8090/emails/verification-requests`, { email: email })
             .then(res => {
                 console.log(res.data);
             })
@@ -112,7 +112,7 @@ const Join4 = () => {
             });
     }
     const verificationEmailCode = () => {
-        axios.post(`${url}/emails/verifications`, { email: email, code: code })
+        axios.post(`http://43.203.108.152:8090/emails/verifications`, { email: email, code: code })
             .then(res => {
                 console.log(res.data);
                 console.log("되냐?")

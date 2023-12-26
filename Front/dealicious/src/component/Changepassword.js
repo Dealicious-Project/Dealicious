@@ -33,7 +33,7 @@ const Changepassword = () => {
                 return;
             }
             const response = await axios.put(
-                '${url}/changepassword',
+                'http://43.203.108.152:8090/changepassword',
                 formData,
                 {
                     headers: {

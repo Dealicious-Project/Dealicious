@@ -6,7 +6,7 @@ const User = () => {
     const token = useSelector(state=>state.persistedReducer.token);
     console.log("token:"+token);
     useEffect(()=> {
-        axios.get("${url}/user",{
+        axios.get("http://43.203.108.152:8090/user",{
             headers : {
                 Authorization : token,
             }

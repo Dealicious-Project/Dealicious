@@ -22,7 +22,7 @@ const AdminMyModi = () => {
     setData({ ...data, [e.target.name]: e.target.value });
   }
   const changeadminpassword = () => {
-    axios.post(`${url}/changeadminpassword`, data)
+    axios.post(`http://43.203.108.152:8090/changeadminpassword`, data)
             .then(res => {
                 alert(res.data);
                 navigate(`/adminmy`);

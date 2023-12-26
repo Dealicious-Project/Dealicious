@@ -11,7 +11,7 @@ const NotiKeyword = () => {
   const navigate = useNavigate();
   const [noticnt, setNoticnt] = useState();
   useEffect(() => {
-    axios.get(`${url}/notikeyword`, {
+    axios.get(`http://43.203.108.152:8090/notikeyword`, {
       headers: {
         Authorization: token,
       }
@@ -20,7 +20,7 @@ const NotiKeyword = () => {
         setNotikeywordList((_noti_keyword_list) => [
           ..._noti_keyword_list, ...res.data
         ]);
-        axios.get(`${url}/notiacticnt`, {
+        axios.get(`http://43.203.108.152:8090/notiacticnt`, {
           headers: {
             Authorization: token,
           }

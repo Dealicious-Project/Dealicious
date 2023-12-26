@@ -9,7 +9,7 @@ const Search = () => {
   const [hotlist, setHotlist] = useState([]);
   const navigate = useNavigate();
   const search = () => {
-    axios.get(`${url}/search/${keyword}`)
+    axios.get(`http://43.203.108.152:8090/search/${keyword}`)
       .then(res => {
         console.log("검색어 추가완료");
         navigate(`/salelist/search/${keyword}`);
@@ -19,7 +19,7 @@ const Search = () => {
       })
   }
   useEffect(() => {
-    axios.get(`${url}/hotlist`)
+    axios.get(`http://43.203.108.152:8090/hotlist`)
       .then(res => {
         console.log(res.data);
         setHotlist([]);

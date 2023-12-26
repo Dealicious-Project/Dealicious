@@ -25,7 +25,7 @@ const AdminJoin = () => {
         }
     };
     const handleIdCheck = () => {
-        axios.get(`${url}/adminidcheck/` + adminid)
+        axios.get(`http://43.203.108.152:8090/adminidcheck/` + adminid)
             .then(res => {
                 console.log(res.data);
                 setIsAdminidAvailable(res.data);
@@ -67,7 +67,7 @@ const AdminJoin = () => {
                 admincode: admincode,
                 password: password
             };
-            axios.post(`${url}/adminjoin`, userData, {
+            axios.post(`http://43.203.108.152:8090/adminjoin`, userData, {
                 headers: {
                     Authorization: token,
                 }

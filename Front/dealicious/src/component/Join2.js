@@ -18,7 +18,7 @@ const Join2 = () => {
       setErrorMessage("키워드를 입력하세요");
     } else {
       if (type === "univ") {
-        axios.post('${url}/univ/getSchoolName', { typename: typename })
+        axios.post('http://43.203.108.152:8090/univ/getSchoolName', { typename: typename })
           .then(response => {
             setSearchResults(response.data);
           })
@@ -26,7 +26,7 @@ const Join2 = () => {
             console.error('Error making AJAX request:', error);
           });
       } else if (type === "com") {
-        axios.post('${url}/corp/getCorpName', { typename: typename })
+        axios.post('http://43.203.108.152:8090/corp/getCorpName', { typename: typename })
           .then(response => {
             setSearchResults(response.data);
           })

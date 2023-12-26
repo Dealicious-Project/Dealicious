@@ -19,7 +19,7 @@ const Join3 = () => {
 
     const handleNicknameCheck = () => {
         console.log(nickname);
-        axios.get(`${url}/nicknamecheck/` + nickname)
+        axios.get(`http://43.203.108.152:8090/nicknamecheck/` + nickname)
             .then(res => {
                 console.log(res.data);
                 setIsNicknameAvailable(res.data);

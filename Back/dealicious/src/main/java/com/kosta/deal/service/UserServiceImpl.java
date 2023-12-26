@@ -33,8 +33,7 @@ public class UserServiceImpl implements UserService {
 	private FileVoRepository fileVoRepository;
 	@Autowired
 	private MailService mailService;
-	@Autowired
-	private RedisService redisService;
+	
 	@Autowired
 	private ReviewRepository reviewRepository;
 	@Autowired
@@ -89,23 +88,23 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void sendCodeToEmail(String toEmail) throws Exception {
-		this.checkDuplicatedEmail(toEmail);
-        String title = "Dealicious 이메일 인증 번호";
-        String authCode = this.createCode();
-        mailService.sendEmail(toEmail, title, authCode);
-        // 이메일 인증 요청 시 인증 번호 Redis에 저장 ( key = "AuthCode " + Email / value = AuthCode )
-        redisService.setValues(AUTH_CODE_PREFIX + toEmail,
-                authCode, Duration.ofMillis(this.authCodeExpirationMillis));
+//		this.checkDuplicatedEmail(toEmail);
+//        String title = "Dealicious 이메일 인증 번호";
+//        String authCode = this.createCode();
+//        mailService.sendEmail(toEmail, title, authCode);
+//        // 이메일 인증 요청 시 인증 번호 Redis에 저장 ( key = "AuthCode " + Email / value = AuthCode )
+//        redisService.setValues(AUTH_CODE_PREFIX + toEmail,
+//                authCode, Duration.ofMillis(this.authCodeExpirationMillis));
 	}
 
 	@Override
 	public void verifiedCode(String email, String authCode) throws Exception {
-		this.checkDuplicatedEmail(email);
-        String redisAuthCode = redisService.getValues(AUTH_CODE_PREFIX + email);
-        boolean authResult = redisService.checkExistsValue(redisAuthCode) && redisAuthCode.equals(authCode);
-        if (!authResult) {
-        	throw new Exception("오류");
-        }
+//		this.checkDuplicatedEmail(email);
+//        String redisAuthCode = redisService.getValues(AUTH_CODE_PREFIX + email);
+//        boolean authResult = redisService.checkExistsValue(redisAuthCode) && redisAuthCode.equals(authCode);
+//        if (!authResult) {
+//        	throw new Exception("오류");
+//        }
 	}
 
 	@Override

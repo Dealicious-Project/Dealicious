@@ -11,7 +11,7 @@ const Keyword = () => {
   const token = useSelector(state => state.persistedReducer.token);
 
   useEffect(() => {
-    axios.get(`${url}/keywordlist`, {
+    axios.get(`http://43.203.108.152:8090/keywordlist`, {
       headers: {
         Authorization: token,
       }
@@ -33,7 +33,7 @@ const Keyword = () => {
   };
 
   const registerKeyword = () => {
-    axios.get(`${url}/registerkeyword/` + keyword, {
+    axios.get(`http://43.203.108.152:8090/registerkeyword/` + keyword, {
       headers: {
         Authorization: token,
       }
@@ -52,7 +52,7 @@ const Keyword = () => {
 
   const deletekeyword = (item) => {
     const updatedList = keywordList.filter(keyword => keyword.content !== item.content);
-    axios.post(`${url}/deletekeyword`, item, {
+    axios.post(`http://43.203.108.152:8090/deletekeyword`, item, {
       headers: {
         Authorization: token,
       }
