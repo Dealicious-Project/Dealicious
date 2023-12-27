@@ -104,7 +104,7 @@ const NotiActivity = () => {
         <div>
           {notiactiList.map((item, index) =>
             <div key={index} style={{ borderBottom: "1px solid gray", width: "390px", cursor: "pointer" }} onClick={() => goChat(item.channelId)}>
-              <div style={{ display: "flex", paddingBottom: "15px", paddingTop: "15px" }}>
+              <div style={{ display: "flex", paddingBottom: "10px", paddingTop: "10px" }}>
                 <div><img src='ggulggulee.png' style={{ width: "40px", height: "40px", marginTop: "5px" }}></img></div>
                 <div style={{ width: "340px", marginLeft: "5px" }}>
                   <div style={{ textAlign: "left" }}>{item.title}</div>

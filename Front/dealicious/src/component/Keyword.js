@@ -13,7 +13,7 @@ const Keyword = () => {
   const token = useSelector(state => state.persistedReducer.token);
 
   useEffect(() => {
-    axios.get(url+`keywordlist`, {
+    axios.get(url + `keywordlist`, {
       headers: {
         Authorization: token,
       }
@@ -35,7 +35,7 @@ const Keyword = () => {
   };
 
   const registerKeyword = () => {
-    axios.get(url+`registerkeyword/` + keyword, {
+    axios.get(url + `registerkeyword/` + keyword, {
       headers: {
         Authorization: token,
       }
@@ -54,7 +54,7 @@ const Keyword = () => {
 
   const deletekeyword = (item) => {
     const updatedList = keywordList.filter(keyword => keyword.content !== item.content);
-    axios.post(url+`deletekeyword`, item, {
+    axios.post(url + `deletekeyword`, item, {
       headers: {
         Authorization: token,
       }
@@ -66,19 +66,14 @@ const Keyword = () => {
       .catch(err => {
         console.log(err);
       })
-
-
-    
   }
 
   return (
-
-    <div className='main' style={{overflow:"scroll", height:"632px", overflowX:"hidden", paddingTop:"10px"}}>
-      <br/>
-      <div style={{textAlign:"left",color:"gray"}}>
-      <Link to="/notikeyword"><GoArrowLeft  size={30} style={{color:"gray"}}/></Link>&nbsp;&nbsp;&nbsp;<a style={{fontSize:"18px"}}>알림 키워드 등록</a>
+    <div className='main' style={{ overflow: "scroll", height: "632px", overflowX: "hidden" }}>
+      <div style={{ textAlign: "left", color: "gray", display:"flex" }}>
+        <Link to="/notikeyword"><GoArrowLeft size={20} style={{ color: "gray", lineHeight:"25.5px" }} /></Link>
+        &nbsp;&nbsp;<div style={{ fontSize: "17px", lineHeight:"25.5px" }}>알림 키워드 등록</div>
       </div>
-      <br />
       <table>
         <tr style={{ height: "40px" }}>
           <td style={{ width: "320px", borderBottom: "1px solid gray" }}><input onChange={handleInputChange} style={{ width: "320px", border: "white" }} placeholder='키워드를 입력해주세요.(예:자전거)' value={keyword}></input></td>
@@ -92,8 +87,8 @@ const Keyword = () => {
         <tbody>
           {keywordList.map((item, index) =>
             <tr key={index}>
-              <td style={{paddingLeft:"20px", textAlign: "left", width:"130px" }}>{item.content}</td>
-              <td><AiOutlineClose onClick={()=>deletekeyword(item)} style={{cursor:"pointer"}}/></td>
+              <td style={{ paddingLeft: "20px", textAlign: "left", width: "130px" }}>{item.content}</td>
+              <td><AiOutlineClose onClick={() => deletekeyword(item)} style={{ cursor: "pointer" }} /></td>
             </tr>
           )}
         </tbody>
