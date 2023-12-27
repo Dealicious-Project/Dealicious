@@ -84,7 +84,7 @@ const Login = () => {
     }
 
     return (
-        <div className='main' style={{ overflow: "scroll", height: "742px", overflowX: "hidden", paddingLeft: "0px", paddingRight: "0px", paddingBottom: "0px", paddingTop: "61px" }}>
+        <div className='main' style={{ overflow: "scroll", height: "742px", overflowX: "hidden", paddingLeft: "0px", paddingRight: "0px", paddingBottom: "0px", paddingTop: "41px" }}>
             <div style={{ paddingRight: "50px", paddingLeft: "50px" }}>
                 <div style={{ width: "330px", textAlign: "left", paddingBottom: "20px" }}>
                     <a href="/"><FaArrowLeft size={30} color="darkgray" /></a>

@@ -61,6 +61,10 @@ public class NotiServiceImpl implements NotiService {
 	@Override
 	public List<Notification> findNotiActiList(String email) throws Exception {
 		List<Notification> notilist = dslRepository.findNotiActiList(email);
+		for(Notification n : notilist) {
+			n.setIsRead("1");
+			notiRepository.save(n);
+		}
 		return notilist;
 	}
 
@@ -70,6 +74,8 @@ public class NotiServiceImpl implements NotiService {
 		List<Tuple> notilist = dslRepository.findNotiKeywordList(email);
 		for(Tuple t : notilist) {
 			Notification notification = t.get(0, Notification.class);
+			notification.setIsRead("1");
+			notiRepository.save(notification);
 			Sale sale = t.get(1, Sale.class);
 			Map<String, Object> map = new HashMap<>();
 			map.put("notification", notification);

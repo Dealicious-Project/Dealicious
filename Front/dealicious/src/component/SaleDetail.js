@@ -150,7 +150,8 @@ function SaleDetail() {
   };
 
   const gochat = () => {
-    if (user.email !== '') {
+    if (user.email !== '' && user.email !==null && user.email !==undefined) {
+      console.log(user)
       const uniqueString = uuidv4();
       const chatRoom = { channelId: uniqueString, creator: user.email, partner: writer.email, saleNum: num };
       console.log(chatRoom);
@@ -177,9 +178,11 @@ function SaleDetail() {
   }
 
   const pay = () => {
-    if (user.email === writer.email)
+    if (user.email === writer.email) {
       alert("내가 작성한 글에는 누를 수 없습니다")
-    else if (user.email !== writer.email && user.email !== '') {
+    } else if (user.email == '' || user.email === undefined) {
+      alert("로그인해주세요")
+    } else if (user.email !== writer.email && user.email !== '') {
       const uniqueString = uuidv4();
       const chatRoom = { channelId: uniqueString, creator: user.email, partner: writer.email, saleNum: num };
       console.log(chatRoom);
@@ -197,9 +200,7 @@ function SaleDetail() {
         });
 
     }
-    else if (user.email == '' || user.email === undefined) {
-      alert("로그인해주세요")
-    }
+
   }
 
 
@@ -225,11 +226,8 @@ function SaleDetail() {
         height: "632px",
         overflowX: "hidden",
       }}
-
     >
       <div style={{ marginTop: "10px", marginBottom: "20px", display: "flex" }}>
-
-
         <Link to="/salelist">
           <div><IoArrowBackOutline size="30" color="14C38E" /></div>
         </Link>

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useWebSocket } from './WebSocketProvider';
+import { Button } from 'reactstrap';
 
 const Keyword = () => {
   const { url } = useWebSocket();
@@ -69,30 +70,27 @@ const Keyword = () => {
   }
 
   return (
-    <div className='main' style={{ overflow: "scroll", height: "632px", overflowX: "hidden" }}>
-      <div style={{ textAlign: "left", color: "gray", display:"flex" }}>
-        <Link to="/notikeyword"><GoArrowLeft size={20} style={{ color: "gray", lineHeight:"25.5px" }} /></Link>
-        &nbsp;&nbsp;<div style={{ fontSize: "17px", lineHeight:"25.5px" }}>알림 키워드 등록</div>
-      </div>
-      <table>
-        <tr style={{ height: "40px" }}>
-          <td style={{ width: "320px", borderBottom: "1px solid gray" }}><input onChange={handleInputChange} style={{ width: "320px", border: "white" }} placeholder='키워드를 입력해주세요.(예:자전거)' value={keyword}></input></td>
-          <td style={{ width: "10px" }}></td>
-          <td style={{ width: "55px" }}><button style={{ width: "55px", borderRadius: "15px", backgroundColor: "#14C38E", border: "white", fontWeight: "bold", color: "white", height: "40px" }} onClick={registerKeyword}>등록</button></td>
-        </tr>
-      </table>
+    <div className='main' style={{ overflow: "scroll", height: "632px", overflowX: "hidden", paddingTop: "10px" }}>
       <br />
-      <p style={{ fontWeight: "bold", textAlign: "left" }}>등록한 키워드</p>
-      <table>
-        <tbody>
-          {keywordList.map((item, index) =>
-            <tr key={index}>
-              <td style={{ paddingLeft: "20px", textAlign: "left", width: "130px" }}>{item.content}</td>
-              <td><AiOutlineClose onClick={() => deletekeyword(item)} style={{ cursor: "pointer" }} /></td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+      <div style={{ display: "flex", width: "390px" }}>
+        <div style={{ lineHeight: "30px" }}>
+          <Link to="/notiKeyword"><GoArrowLeft size={20} style={{ color: "gray" }} /></Link>
+        </div>
+        <div style={{ textAlign: "left", color: "gray", width: "320px", borderBottom: "1px solid gray", height: "40px" }}>
+          <input onChange={handleInputChange} style={{ marginLeft: "10px", border: "white", width: "280px", lineHeight: "30px" }} placeholder='키워드를 입력해주세요.(예:자전거)' value={keyword}></input>
+        </div>
+        <div style={{ width: "70px", textAlign: "right" }}>
+          <Button style={{ marginLeft: "10px", width: "50px", backgroundColor: "#14C38E", borderStyle: "none", color: "white", height: "40px", fontSize: "13px" }} onClick={registerKeyword}>등록</Button>
+        </div>
+      </div>
+      <br />
+      <div style={{ fontWeight: "bold", textAlign: "left", marginBottom: "5px" }}>나의 키워드</div>
+      {keywordList.map((item, index) =>
+        <div key={index} style={{ display: "flex" }}>
+          <div style={{ paddingLeft: "20px", textAlign: "left", width: "130px" }}>{item.content}</div>
+          <div><AiOutlineClose onClick={() => deletekeyword(item)} style={{ cursor: "pointer" }} /></div>
+        </div>
+      )}
     </div>
   );
 }

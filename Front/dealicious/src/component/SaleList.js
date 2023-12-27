@@ -47,7 +47,7 @@ const SaleList = () => {
     const observer = new IntersectionObserver((entries) => {//IntersectionObserver를 생성하여 관찰 대상 요소(observerRef.current)의 교차점을 감시
       if (entries[0].isIntersecting && saleList.length > 0) {//관찰 대상 요소가 뷰포트와 교차되고 데이터가 있을 때(saleList.length > 0), Axios를 사용하여 서버에서 데이터를 가져오는 GET 요청
         if (category == null && keyword == null) {
-          if(user === "" || user === undefined) {
+          if(user.email === "" || user.email === undefined) {
             axios.get(url + `salelist/${page + 1}`)
             .then(res => {
               const newSaleList = res.data;//새로운 데이터가 수신되면(newSaleList.length > 0), setSaleList 함수를 사용하여 새 데이터를 기존 saleList에 추가하고 페이지 번호를 업데이트
@@ -82,7 +82,7 @@ const SaleList = () => {
           }
           
         } else if (keyword == null) {
-          if(user === "" || user === undefined) {
+          if(user.email === "" || user.email === undefined) {
           axios.get(url + `salelist/${page + 1}/${category}`)
             .then(res => {
               const newSaleList = res.data;
@@ -116,7 +116,7 @@ const SaleList = () => {
             });
           }
         } else {
-          if(user === "" || user === undefined) {
+          if(user.email === "" || user.email === undefined) {
             axios.get(url + `salesearchlist/${page + 1}/${keyword}`)
             .then(res => {
               const newSaleList = res.data;
@@ -167,7 +167,8 @@ const SaleList = () => {
 
   useEffect(() => {
     if (category == null && keyword == null) {
-      if(user === "" || user === undefined) {
+      console.log(user)
+      if(user.email === "" || user.email === undefined) {
         axios.get(url + `salelist/${page}`)
         .then(res => {
           console.log(res);
@@ -198,7 +199,7 @@ const SaleList = () => {
       }
       
     } else if (keyword == null) {
-      if(user === "" || user === undefined) {
+      if(user.email === "" || user.email === undefined) {
       axios.get(url + `salelist/${page}/${category}`)
         .then(res => {
           console.log(res);
@@ -270,7 +271,7 @@ const SaleList = () => {
   console.log(user.email);
 
   return (
-    <div className='main' style={{ textAlign: 'left', overflow: "scroll", height: "632px", overflowX: "hidden", paddingLeft: "20px", paddingRight: "20px", paddingTop: "0px" }}>
+    <div className='main' style={{ textAlign: 'left', overflow: "scroll", height: "632px", overflowX: "hidden", paddingLeft: "20px", paddingRight: "20px", paddingTop: "0px", paddingBottom:"0px" }}>
       {user.email === "" || user.email === undefined ?
         <Link to="/mypagenl" style={{ marginLeft: "330px", marginTop: "550px", textAlign: "right", position: "absolute", backgroundColor: "white", width: "40px", height: "40px", borderRadius: "50px" }}><FiPlusCircle size="40" color="#14C38E" /></Link>
         : <Link to="/salewrite" style={{ marginLeft: "330px", marginTop: "550px", textAlign: "right", position: "absolute", backgroundColor: "white", width: "40px", height: "40px", borderRadius: "50px" }}>

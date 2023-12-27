@@ -10,7 +10,6 @@ import { useWebSocket } from './WebSocketProvider';
 
 const Mypage_zzim = () => {
     const { url } = useWebSocket();
-    const [files, setFiles] = useState(null);
     const Image = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
     const [saleList, setSaleList] = useState([]);
     const token = useSelector(state => state.persistedReducer.token);

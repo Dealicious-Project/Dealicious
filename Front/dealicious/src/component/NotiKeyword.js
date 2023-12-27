@@ -76,9 +76,9 @@ const NotiKeyword = () => {
     <div className='main' style={{ paddingBottom:"0px"}}>
       <div>
         <div style={{ display: "flex" }}>
-          <div onClick={goActi} style={{ width: "195px", fontSize: "17px", cursor: "pointer", fontWeight:"bold", color:"lightgray" }}>활동 알림</div>
+          <div onClick={goActi} style={{ width: "195px", fontSize: "16px", cursor: "pointer", color:"lightgray" }}>활동 알림</div>
           <Link to="/notikeyword" style={{ textDecoration: "none", color: "black" }}>
-            <div style={{ width: "195px", fontWeight: "bold", fontSize: "17px" }}>키워드 알림</div>
+            <div style={{ width: "195px", fontSize: "16px" }}>키워드 알림</div>
           </Link>
         </div>
         <div style={{ height: "2px", backgroundColor: "#D9D9D9", width: "390px", position: "relative" }}>
@@ -93,7 +93,7 @@ const NotiKeyword = () => {
               <Button style={{ width: "100px", height: "30px", borderRadius: "5px", backgroundColor: "#D9D9D9", borderStyle:"none", color:"black", fontSize:"11px" }}>키워드 등록하기</Button>
             </Link>
           </div>
-          {notikeywordList.map((item) =>
+          {notikeywordList.length===0?"키워드알림 없음": notikeywordList.map((item) =>
             <Link to={"/saledetail/only-detail/" + item.notification.salenum} style={{ color: "black", textDecoration: "none" }}>
               <div style={{ borderBottom: "1px solid gray", width: "390px" }}>
                 <div style={{ display: "flex", paddingBottom: "10px", paddingTop: "10px" }}>

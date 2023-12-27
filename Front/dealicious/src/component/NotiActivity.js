@@ -92,17 +92,16 @@ const NotiActivity = () => {
       <div>
         <div style={{ display: "flex" }}>
           <Link to="/notiactivity" style={{ textDecoration: "none", color: "black" }}>
-            <div style={{ width: "195px", fontWeight: "bold", fontSize: "17px" }}>활동 알림</div>
+            <div style={{ width: "195px", fontSize: "16px" }}>활동 알림</div>
           </Link>
-          <div onClick={goKeyword} style={{ width: "195px", fontSize: "17px", cursor: "pointer", fontWeight:"bold", color:"lightgray" }}>키워드 알림</div>
+          <div onClick={goKeyword} style={{ width: "195px", fontSize: "16px", cursor: "pointer", color:"lightgray" }}>키워드 알림</div>
         </div>
         <div style={{ height: "2px", backgroundColor: "#D9D9D9", width: "390px", position: "relative" }}>
           <div style={{ position: "absolute", height: "3px", width: "195px", backgroundColor: "#14C38E" }} />
         </div>
       </div>
       <div style={{ overflow: "scroll", height: "584.5px", overflowX: "hidden", paddingTop: "0px" }}>
-        <div>
-          {notiactiList.map((item, index) =>
+        <div>{notiactiList.length===0?"활동알림 없음": notiactiList.map((item, index) =>
             <div key={index} style={{ borderBottom: "1px solid gray", width: "390px", cursor: "pointer" }} onClick={() => goChat(item.channelId)}>
               <div style={{ display: "flex", paddingBottom: "10px", paddingTop: "10px" }}>
                 <div><img src='ggulggulee.png' style={{ width: "40px", height: "40px", marginTop: "5px" }}></img></div>
@@ -116,6 +115,7 @@ const NotiActivity = () => {
               </div>
             </div>
           )}
+          
         </div>
       </div>
     </div>

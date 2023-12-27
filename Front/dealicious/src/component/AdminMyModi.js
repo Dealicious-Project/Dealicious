@@ -57,13 +57,13 @@ const AdminMyModi = () => {
           </thead>
           <tbody>
             <tr>
-              <td><Input type='text' name='currentpassword' value={data.currentpassword} onChange={changePassword} style={{ width: "371px", height: "45px", borderRadius: "10px", border: "1px solid gray" }} placeholder='현재 비밀번호를 입력하세요'></Input></td>
+              <td><Input type='password' name='currentpassword' value={data.currentpassword} onChange={changePassword} style={{ width: "371px", height: "45px", borderRadius: "10px", border: "1px solid gray" }} placeholder='현재 비밀번호를 입력하세요'></Input></td>
             </tr>
             <tr>
-              <td><Input type='text' name='changepassword1' style={{ width: "371px", height: "45px", borderRadius: "10px", border: "1px solid gray" }} onChange={changePassword} value={data.changepassword1} placeholder='변경할 비밀번호를 입력하세요'></Input></td>
+              <td><Input type='password' name='changepassword1' style={{ width: "371px", height: "45px", borderRadius: "10px", border: "1px solid gray" }} onChange={changePassword} value={data.changepassword1} placeholder='변경할 비밀번호를 입력하세요'></Input></td>
             </tr>
             <tr>
-              <td><Input type='text' name='changepassword2' style={{ width: "371px", height: "45px", borderRadius: "10px", border: "1px solid gray" }} onChange={changePassword} value={data.changepassword2} placeholder='변경할 비밀번호를 한번 더 입력하세요'></Input></td>
+              <td><Input type='password' name='changepassword2' style={{ width: "371px", height: "45px", borderRadius: "10px", border: "1px solid gray" }} onChange={changePassword} value={data.changepassword2} placeholder='변경할 비밀번호를 한번 더 입력하세요'></Input></td>
             </tr>
           </tbody>
         </Table>

@@ -313,12 +313,12 @@ const StompChatting = () => {
             item.type == "chat" ?
               item.writerId == user.email ?
                 <div style={{ textAlign: "right", marginBottom: "15px" }}>
-                  <div style={{ display: "inline-block", width: "auto", maxWidth: "625px", borderRadius: "10px", backgroundColor: "#14C38E", padding: "10px", color: "white" }}>{item.chat}</div>
+                  <div style={{ display: "inline-block", width: "auto", maxWidth: "265px", borderRadius: "10px", backgroundColor: "#14C38E", padding: "10px", color: "white" }}>{item.chat}</div>
                 </div>
                 :
-                <div style={{ textAlign: "left", marginBottom: "15px", height: "44px", maxHeight: "100%", display: "flex" }}>
+                <div style={{ textAlign: "left", marginBottom: "15px", maxHeight: "100%", display: "flex" }}>
                   <div style={{ marginRight: "5px" }}>{chatpartner.profileimgurl == null ? <img src={Image} style={{ width: "44px", borderRadius: "50px" }}></img> : <img src={url + `img/${chatpartner.profileimgurl}`} style={{ width: "44px", borderRadius: "50px" }}></img>}</div>
-                  <div style={{ width: "auto", borderRadius: "10px", backgroundColor: "#D9D9D9", padding: "10px", maxWidth: "325px", height: "44px" }}>{item.chat}</div>
+                  <div style={{ width: "auto", borderRadius: "10px", backgroundColor: "#D9D9D9", padding: "10px", maxWidth: "265px" }}>{item.chat}</div>
                 </div>
               :
               item.type == "completepay" ?
@@ -397,7 +397,7 @@ const StompChatting = () => {
                 </div>
                 :
                 <div style={{ textAlign: "left", marginBottom: "15px" }}>
-                  <div style={{ display: "inline-block", marginRight: "8px" }}>{chatpartner.profileimgurl==null ? <img src='/profile.png' style={{ width: "50px" }}></img>:<img src={url+`img/${chatpartner.profileimgurl}`} style={{ width: "50px" }}></img>}</div>
+                  <div style={{ display: "inline-block", marginRight: "8px" }}>{chatpartner.profileimgurl==null ? <img src={Image} style={{ width: "44px", borderRadius: "50px" }}></img>:<img src={url+`img/${chatpartner.profileimgurl}`} style={{ width: "50px" }}></img>}</div>
                   <img src={url+`img/${item.data}`} style={{ width: "80px", height:"80px" }}></img>
                 </div>
           }

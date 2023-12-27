@@ -154,7 +154,7 @@ function ChatList() {
                         <div key={index} style={{ cursor: "pointer", paddingTop: "10px", paddingBottom: "10px", borderBottom: "1px solid lightgray", display: "flex" }} onClick={() => goChatRoom(item.channelId)}>
                             <div>{item.profileimgurl == null ? <img src={Image} alt='' style={{ width: "50px", height: "50px", borderRadius: "50px" }} /> : <img src={url + `img/${item.profileimgurl}`} alt='' style={{ width: "50px", height: "50px", borderRadius: "50px" }} />}</div>
                             <div style={{ width: "280px" }}>
-                                <div style={{ fontSize: "16px", paddingLeft: "10px", fontWeight: "bold", height: "25px", paddingTop: "5px" }}>{item.nickname}</div>
+                                <div style={{ fontSize: "16px", paddingLeft: "10px", fontWeight: "bold", height: "25px", paddingTop: "5px", paddingBottom: "2px" }}>{item.nickname}</div>
                                 <div style={{ display: "flex", height: "20px" }}>
                                     <div style={{ fontSize: "12.5px", color: "gray", paddingLeft: "10px", width: "205px" }}>{truncateText(item.chat, 25)}</div>
                                     <div style={{ width: "70px", color: "gray", fontSize: "12px", textAlign: "right", marginRight:"5px" }}>{timediff(item.chatdate)}&nbsp;</div>

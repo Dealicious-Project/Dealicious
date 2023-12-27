@@ -109,6 +109,7 @@ public class SaleDslRepository {
 				.join(user)
 				.on(sale.email.eq(user.email))
 				.where(sale.checkdelete.eq("0").and(user.typename.eq(typename)))
+				.orderBy(sale.writedate.desc()) 
 				.offset(pageRequest.getOffset())
 				.limit(pageRequest.getPageSize())
 				.fetch();
@@ -121,6 +122,7 @@ public class SaleDslRepository {
 				.join(user)
 				.on(sale.email.eq(user.email))
 				.where(sale.checkdelete.eq("0").and(user.typename.eq(typename)).and(sale.category.eq(category)))
+				.orderBy(sale.writedate.desc()) 
 				.offset(pageRequest.getOffset())
 				.limit(pageRequest.getPageSize())
 				.fetch();
@@ -133,6 +135,7 @@ public class SaleDslRepository {
 				.join(user)
 				.on(sale.email.eq(user.email))
 				.where(sale.checkdelete.eq("0").and(user.typename.eq(typename)).and(sale.title.like("%" + keyword + "%")))
+				.orderBy(sale.writedate.desc()) 
 				.offset(pageRequest.getOffset())
 				.limit(pageRequest.getPageSize())
 				.fetch();

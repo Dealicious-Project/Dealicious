@@ -25,17 +25,11 @@ const AdminMy = () => {
             <tr>
               <td>아이디</td><td>{admin.adminid}</td>
             </tr>
-            <tr>
-              <td>계좌번호</td><td>{admin.bank}{admin.accountid}</td>
-            </tr>
-            <tr>
-              <td>어드민계좌잔액</td><td>{admin.balance}</td>
-            </tr>
           </tbody>
         </Table>
       </div>
       <Link to="/adminmymodi">
-        <Button style={{ width: "200px", height: "45px", backgroundColor: "#14C38E", borderStyle: "none", color: "white" }}>회원 정보 수정</Button>
+        <Button style={{ width: "200px", height: "45px", backgroundColor: "#14C38E", borderStyle: "none", color: "white" }}>비밀번호 수정</Button>
       </Link>
     </div>
   );
