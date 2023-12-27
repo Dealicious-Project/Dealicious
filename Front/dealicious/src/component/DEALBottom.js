@@ -3,7 +3,7 @@ import { TbExchange } from 'react-icons/tb';
 import { IoChatboxEllipsesOutline } from 'react-icons/io5';
 import { IoPerson } from 'react-icons/io5';
 import { Nav } from 'reactstrap';
-import { Link, useNavigate, useLocation  } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -13,24 +13,24 @@ const DEALBottom = () => {
   const user = useSelector(state => state.persistedReducer.user);
   const token = useSelector(state => state.persistedReducer.token);
   const [chatcnt, setChatcnt] = useState(0);
-  const {receivedata,resetData, url} = useWebSocket();
+  const { receivedata, resetData, url } = useWebSocket();
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    if(user.email !== undefined && user.email !== '') {
-    axios.get(url+`chatcnt`, {
-            headers: {
-                Authorization: token,
-            }
+    if (user.email !== undefined && user.email !== '') {
+      axios.get(url + `chatcnt`, {
+        headers: {
+          Authorization: token,
+        }
+      })
+        .then(res => {
+          setChatcnt(res.data);
         })
-            .then(res => {
-              setChatcnt(res.data);
-            })
-            .catch(err => {
-                console.log(err);
-            })
-  }
+        .catch(err => {
+          console.log(err);
+        })
+    }
   }, [navigate]);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const DEALBottom = () => {
       if (receivedata.type == 'chat' || receivedata.type == 'data') {
         console.log(`/chat/${receivedata.channelId}`)
         console.log(location.pathname)
-        if(location.pathname !== `/chat/${receivedata.channelId}`) {
+        if (location.pathname !== `/chat/${receivedata.channelId}`) {
           console.log("여기?")
           setChatcnt(chatcnt + 1);
         }
@@ -62,13 +62,15 @@ const DEALBottom = () => {
         </Link>
       </div>
       <div>
-        <Link to={user.email===""||user.email===undefined?"/mypagenl":"/chatlist"}>
-        {chatcnt > 0 && <div style={{ borderRadius: "50px", position: "absolute", marginLeft: "60px", marginTop:"10px",width: "18px", height: "18px", backgroundColor: "red", justifyContent: "center", alignItems: "center", display: "flex", color: "white", fontSize: "15px" }}>{chatcnt}</div>}
+        <Link to={user.email === "" || user.email === undefined ? "/mypagenl" : "/chatlist"}>
+          {chatcnt > 0 &&
+            <div className="font" style={{ borderRadius: "50px", position: "absolute", marginLeft: "12px", marginTop:"4px", width: "12px", height: "12px", backgroundColor: "#FA5858", justifyContent: "center", alignItems: "center", display: "flex", color: "white", fontSize: "9px" }}>{chatcnt}</div>
+          }
           <IoChatboxEllipsesOutline size="23" color="72DBBB" />
         </Link>
       </div>
       <div>
-        <Link to={user.email===""||user.email===undefined?"/mypagenl":"/mypage"}>
+        <Link to={user.email === "" || user.email === undefined ? "/mypagenl" : "/mypage"}>
           <IoPerson size="23" color="72DBBB" />
         </Link>
       </div>

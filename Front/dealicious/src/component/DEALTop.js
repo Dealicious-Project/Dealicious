@@ -101,7 +101,7 @@ const DEALTop = () => {
   return (
     <div className="t_wrapper" style={{ zIndex: 0 }}>
       <Navbar color='white' expand="md" className="navbar-expand-md">
-        <NavbarBrand className="d-flex justify-content-between align-items-center w-100" style={{marginRight:"3px"}}>
+        <NavbarBrand className="d-flex justify-content-between align-items-center w-100" style={{ marginRight: "3px" }}>
           <div className="logo" onClick={goHome} style={{ cursor: "pointer" }}>
             DEALicious
           </div>
@@ -109,8 +109,10 @@ const DEALTop = () => {
             <Link to='/search'>
               <IoIosSearch size='23' color='14C38E' />
             </Link>
-            <div onClick={goNotification} style={{ cursor: "pointer",marginLeft:"10px" }}>
-              {noticnt >= 1 && <div style={{ borderRadius: "50px", position: "absolute", marginLeft: "10px", width: "18px", height: "18px", backgroundColor: "red", justifyContent: "center", alignItems: "center", display: "flex", color: "white", fontSize: "15px" }}>{noticnt}</div>}
+            <div onClick={goNotification} style={{ cursor: "pointer", marginLeft: "10px" }}>
+              {noticnt >= 1 &&
+                <div className="font" style={{ borderRadius: "50px", position: "absolute", marginLeft: "12px", marginTop:"4px", width: "12px", height: "12px", backgroundColor: "#FA5858", justifyContent: "center", alignItems: "center", display: "flex", color: "white", fontSize: "9px" }}>{noticnt}</div>
+              }
               <PiBell size='23' color='14C38E' />
             </div>
           </div>

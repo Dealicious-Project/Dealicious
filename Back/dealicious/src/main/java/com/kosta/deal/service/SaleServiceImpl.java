@@ -150,8 +150,8 @@ public class SaleServiceImpl implements SaleService {
 		for(Keyword k : keywordlist) {
 			if(sale1.getTitle().contains(k.getContent())) {
 				Notification noti1 = new Notification();
-				noti1.setTitle("등록하신 '"+k.getContent()+"' 키워드 상품이 등록되었습니다.");
-		    	noti1.setContent("지금 바로 확인하러 가실까요?");
+				noti1.setTitle(k.getContent());
+		    	noti1.setContent("지금 바로 확인하러 가기");
 		    	noti1.setEmail(k.getEmail());
 		    	noti1.setType("keyword");
 		    	noti1.setSalenum(sale1.getNum());

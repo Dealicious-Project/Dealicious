@@ -1,28 +1,34 @@
 .text {
-    /* 텍스트를 감싸는 컨테이너 스타일 */
-    text-align: right; /* 텍스트를 오른쪽으로 정렬합니다 */
-    margin-left: "100px";
-  }
-.title{
-    text-align: center;
+  /* 텍스트를 감싸는 컨테이너 스타일 */
+  text-align: right;
+  /* 텍스트를 오른쪽으로 정렬합니다 */
+  margin-left: "100px";
 }
-.price{
-    text-align: left;
+
+.title {
+  text-align: center;
 }
-.row{
-    display: flex;
-  justify-content: space-between; 
+
+.price {
+  text-align: left;
 }
+
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
 .container {
   position: relative;
   width: 100%;
-  max-width: 400px; /* 이미지 크기에 맞게 조정 */
+  max-width: 400px;
+  /* 이미지 크기에 맞게 조정 */
   text-align: center;
 }
 
 
 
-.text{
+.text {
   position: absolute;
   top: 58%;
   left: 11%;
@@ -32,5 +38,3 @@
   /* 텍스트 배경 색상 */
   padding: 20px;
 }
-
-

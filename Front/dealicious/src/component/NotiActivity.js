@@ -88,34 +88,35 @@ const NotiActivity = () => {
   }
 
   return (
-    <div className='main' style={{ overflow: "scroll", height: "632px", overflowX: "hidden", paddingTop: "10px" }}>
-      <br />
+    <div className='main' style={{ paddingBottom: "0px" }}>
       <div>
         <div style={{ display: "flex" }}>
           <Link to="/notiactivity" style={{ textDecoration: "none", color: "black" }}>
-            <div style={{ width: "200px", fontWeight: "bold", fontSize: "17px" }}>활동 알림</div>
+            <div style={{ width: "195px", fontWeight: "bold", fontSize: "17px" }}>활동 알림</div>
           </Link>
-
-          {noticnt >= 1 && <div style={{ borderRadius: "50px", position: "absolute", marginTop: "5px", marginLeft: "140px", width: "18px", height: "18px", backgroundColor: "red", justifyContent: "center", alignItems: "center", display: "flex", color: "white", fontSize: "15px" }}>{noticnt}</div>}<div onClick={goKeyword} style={{ width: "200px", fontSize: "17px", cursor: "pointer" }}>키워드 알림</div>
-
+          <div onClick={goKeyword} style={{ width: "195px", fontSize: "17px", cursor: "pointer", fontWeight:"bold", color:"lightgray" }}>키워드 알림</div>
         </div>
         <div style={{ height: "2px", backgroundColor: "#D9D9D9", width: "390px", position: "relative" }}>
-          <div style={{ position: "absolute", height: "3px", width: "192.5px", backgroundColor: "#14C38E" }} />
+          <div style={{ position: "absolute", height: "3px", width: "195px", backgroundColor: "#14C38E" }} />
         </div>
-        {notiactiList.map((item, index) =>
-          <div key={index} style={{ borderBottom: "1px solid gray", width: "390px", cursor: "pointer" }} onClick={() => goChat(item.channelId)}>
-            <div style={{ display: "flex", paddingBottom: "15px", paddingTop: "15px" }}>
-              <div><img src='ggulee.png' style={{ width: "40px", height: "40px", marginTop: "5px" }}></img></div>
-              <div style={{ width: "340px", marginLeft:"5px" }}>
-                <div style={{ textAlign: "left" }}>{item.title}</div>
-                <div style={{ display: "flex" }}>
-                  <div style={{ textAlign: "left", color: "gray", fontSize: "14px", width: "240px" }}>{item.content}</div>
-                  <div style={{ textAlign: "right", color: "gray", fontSize: "14px", width: "95px" }}>{timediff(item.notidate)}</div>
+      </div>
+      <div style={{ overflow: "scroll", height: "584.5px", overflowX: "hidden", paddingTop: "0px" }}>
+        <div>
+          {notiactiList.map((item, index) =>
+            <div key={index} style={{ borderBottom: "1px solid gray", width: "390px", cursor: "pointer" }} onClick={() => goChat(item.channelId)}>
+              <div style={{ display: "flex", paddingBottom: "15px", paddingTop: "15px" }}>
+                <div><img src='ggulggulee.png' style={{ width: "40px", height: "40px", marginTop: "5px" }}></img></div>
+                <div style={{ width: "340px", marginLeft: "5px" }}>
+                  <div style={{ textAlign: "left" }}>{item.title}</div>
+                  <div style={{ display: "flex" }}>
+                    <div style={{ textAlign: "left", color: "gray", fontSize: "14px", width: "240px" }}>{item.content}</div>
+                    <div style={{ textAlign: "right", color: "gray", fontSize: "14px", width: "95px" }}>{timediff(item.notidate)}</div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );

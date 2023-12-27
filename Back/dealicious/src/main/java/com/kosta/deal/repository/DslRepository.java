@@ -196,11 +196,18 @@ public class DslRepository {
 				.orderBy(notification.notidate.desc()).fetch();
 	}
 
-	public List<Notification> findNotiKeywordList(String email) {
+	public List<Tuple> findNotiKeywordList(String email) {
 		QNotification notification = QNotification.notification;
-		return jpaQueryFactory.selectFrom(notification)
-				.where(notification.email.eq(email).and(notification.type.eq("keyword")))
-				.orderBy(notification.notidate.desc()).fetch();
+		QSale sale = QSale.sale;
+		return jpaQueryFactory.select(notification, sale)
+				.from(notification)
+	            .join(sale)
+	            .on(notification.salenum.eq(sale.num))
+	            .where(notification.email.eq(email).and(notification.type.eq("keyword")))
+	            .orderBy(notification.notidate.desc())
+	            .fetchJoin()
+	            .fetch();
+
 	}
 
 	public List<Sale> findZzimListByUserEmail(String email) {

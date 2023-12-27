@@ -76,15 +76,15 @@ public class NotiController {
 	}
 	
 	@GetMapping("/notikeyword")
-	public ResponseEntity<List<Notification>> notikeyword(Authentication authentication) {
+	public ResponseEntity<List<Map<String, Object>>> notikeyword(Authentication authentication) {
 		try {
 			PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
 			User user = principalDetails.getUser();
-			List<Notification> notilist = notiService.findNotiKeywordList(user.getEmail());
-			return new ResponseEntity<List<Notification>>(notilist,HttpStatus.OK);
+			List<Map<String, Object>> notilist = notiService.findNotiKeywordList(user.getEmail());
+			return new ResponseEntity<List<Map<String, Object>>>(notilist,HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<List<Notification>>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<List<Map<String, Object>>>(HttpStatus.BAD_REQUEST);
 		}
 	}
 	

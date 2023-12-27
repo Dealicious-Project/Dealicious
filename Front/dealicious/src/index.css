@@ -26,6 +26,9 @@
   margin: 0 auto;
   width: 430px;
 }
+.font {
+  font-family: 'NotoSansKR-VariableFont_wght';
+}
 .main {
   font-family: 'NotoSansKR-VariableFont_wght';
   width: 430px;

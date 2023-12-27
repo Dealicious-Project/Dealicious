@@ -12,7 +12,7 @@ public interface NotiService {
 	void addKeyword(String keyword) throws Exception;
 	Integer findNotiCnt(String email) throws Exception;
 	List<Notification> findNotiActiList(String email) throws Exception;
-	List<Notification> findNotiKeywordList(String email) throws Exception;
+	List<Map<String, Object>> findNotiKeywordList(String email) throws Exception;
 	List<Keyword> findKeywordList(String email) throws Exception;
 	void registerkeyword(Keyword keyword) throws Exception;
 	void deletekeyword(Keyword keyword) throws Exception;

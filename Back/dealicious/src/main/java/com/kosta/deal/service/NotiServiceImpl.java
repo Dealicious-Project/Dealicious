@@ -1,5 +1,6 @@
 package com.kosta.deal.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,10 +12,12 @@ import org.springframework.stereotype.Service;
 import com.kosta.deal.entity.Hot;
 import com.kosta.deal.entity.Keyword;
 import com.kosta.deal.entity.Notification;
+import com.kosta.deal.entity.Sale;
 import com.kosta.deal.repository.DslRepository;
 import com.kosta.deal.repository.HotRepository;
 import com.kosta.deal.repository.KeywordRepository;
 import com.kosta.deal.repository.NotiRepository;
+import com.querydsl.core.Tuple;
 
 @Service
 public class NotiServiceImpl implements NotiService {
@@ -62,9 +65,18 @@ public class NotiServiceImpl implements NotiService {
 	}
 
 	@Override
-	public List<Notification> findNotiKeywordList(String email) throws Exception {
-		List<Notification> notilist = dslRepository.findNotiKeywordList(email);
-		return notilist;
+	public List<Map<String, Object>> findNotiKeywordList(String email) throws Exception {
+		List<Map<String, Object>> res = new ArrayList<>();
+		List<Tuple> notilist = dslRepository.findNotiKeywordList(email);
+		for(Tuple t : notilist) {
+			Notification notification = t.get(0, Notification.class);
+			Sale sale = t.get(1, Sale.class);
+			Map<String, Object> map = new HashMap<>();
+			map.put("notification", notification);
+			map.put("sale", sale);
+			res.add(map);
+		}
+		return res;
 	}
 
 	@Override
