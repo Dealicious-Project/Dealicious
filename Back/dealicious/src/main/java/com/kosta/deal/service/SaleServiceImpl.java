@@ -55,9 +55,11 @@ public class SaleServiceImpl implements SaleService {
 	private NotiRepository notiRepository;
 	@Autowired
 	private UserListService userListService;
+	
 	@Value("${upload.path}")
 	private String upload;
 	// salelist 무한 스크롤 페이지 처리
+	
 	@Override
 	public List<Sale> saleListByPage(Integer page) throws Exception {
 		PageRequest pageRequest = PageRequest.of(page - 1, 10, Sort.by(Sort.Direction.DESC, "num"));// PageRequest																											// 페이징																								// API

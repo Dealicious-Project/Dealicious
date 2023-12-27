@@ -9,6 +9,7 @@ import java.util.Map;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,6 +51,8 @@ public class ChatController {
     private final UserService userService;
 	private final ChatRepository chatRepository;
 	private final FileVoRepository fileVoRepository;
+	@Value("${upload.path}")
+	private String upload;
     // 새로운 사용자가 웹 소켓을 연결할 때 실행됨
     // @EventListener은 한개의 매개변수만 가질 수 있다.
     @EventListener
@@ -73,13 +76,13 @@ public class ChatController {
     		if(chat.getType().equals("data")) {
     			String imageData = chat.getData();
     	        byte[] decodedImage = Base64.getDecoder().decode(imageData);
-    			String dir = "c:/upload/";
-    			FileVo fileVo = FileVo.builder().directory(dir)
+    			
+    			FileVo fileVo = FileVo.builder().directory(upload)
 						.data(decodedImage).build();
 				fileVoRepository.save(fileVo);
 
 				// upload 폴더에 upload
-				File uploadFile = new File(dir + fileVo.getNum());
+				File uploadFile = new File(upload + fileVo.getNum());
 				FileUtils.writeByteArrayToFile(uploadFile, decodedImage);
 				chat.setData(Integer.toString(fileVo.getNum()));
 

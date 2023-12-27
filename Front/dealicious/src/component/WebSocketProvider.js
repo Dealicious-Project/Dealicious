@@ -10,7 +10,7 @@ const WebSocketContext = createContext();
 export const WebSocketProvider = ({ children }) => {
   const [stompClient, setStompClient] = useState(null);
   const [receivedata, setReceivedata] = useState(null);
-  const url = "http://43.203.108.152/:8090/";
+  const url = "http://43.203.108.152:8090/";
   // const url = "http://localhost:8090/";
   const user = useSelector(state => state.persistedReducer.user);
   useEffect(() => {
