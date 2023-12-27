@@ -18,7 +18,7 @@ const Main = () => {
   const [secondHalf, setSecondHalf] = useState([]);
   console.log(user.typename)
   useEffect(() => {
-    axios.get(url+`hotsalelist`)
+    axios.get(url + `hotsalelist`)
       .then(res => {
         console.log(res.data);
         if (res.data.length <= 3) {
@@ -46,16 +46,16 @@ const Main = () => {
         <img src="..\dealmain.png" style={{ width: "390px" }} alt="Dealicious Main" />
       </Link>
       <br /><br />
-      <div style={{ textAlign: "left", fontSize: "20px", marginLeft:"2.5px" }}>
-        <div>지금 <span style={{ color: "#72DBBB" ,fontWeight:"bold" }}>{user.typename === "" || user.typename === undefined ? "딜리셔스" : user.typename}</span>에서</div>
+      <div style={{ textAlign: "left", fontSize: "18px", marginLeft: "2.5px", fontWeight: "bold" }}>
+        <div>지금 <span style={{ color: "#72DBBB" }}>{user.typename === "" || user.typename === undefined ? "딜리셔스" : user.typename}</span>에서</div>
         <div>가장 인기있는 상품<FaFire size='20' color='F4900C' /></div>
       </div>
-      <div style={{ display: "flex", marginBottom: "10px", marginTop:"5px", marginLeft:"2.5px" }}>
+      <div style={{ display: "flex", marginBottom: "10px", marginTop: "5px", marginLeft: "2.5px" }}>
         {firstHalf.map((item, index) => (
           <Link to={`/saledetail/only-detail/${item.num}`} style={{ textDecoration: "none", color: "black" }} key={index}>
             <div style={{ marginRight: "10px" }}>
               <img
-                src={url+`img/${item.fileurl.split(',')[0]}`}
+                src={url + `img/${item.fileurl.split(',')[0]}`}
                 style={{ width: "120px", height: "120px", borderRadius: "5px" }}
                 alt={`Item ${index + 1}`}
               />
@@ -72,7 +72,7 @@ const Main = () => {
           <Link to={`/saledetail/only-detail/${item.num}`} style={{ textDecoration: "none", color: "black" }} key={index}>
             <div style={{ marginRight: "10px" }}>
               <img
-                src={url+`img/${item.fileurl.split(',')[0]}`}
+                src={url + `img/${item.fileurl.split(',')[0]}`}
                 style={{ width: "120px", height: "120px", borderRadius: "5px" }}
                 alt={`Item ${index + 4}`}
               />
@@ -84,40 +84,39 @@ const Main = () => {
           </Link>
         ))}
       </div>
-      <div style={{ textAlign: "left", fontSize: "20px", display: "flex", paddingTop:"20px" }}>
-        <div style={{ height: "30px" }}>카테고리&nbsp;&nbsp;</div>
-        <Link to="/salelist" style={{ fontSize: "15px", color: "gray", height: "30px", marginTop: "3px" }}>
-          전체보기 <MdArrowForward size="15" style={{ height: "30px", marginBottom: "2.5px" }} />
+      <div style={{ textAlign: "left", display: "flex", paddingTop: "20px", paddingBottom:"10px" }}>
+        <div style={{ height: "30px", fontWeight: "bold", fontSize: "18px", lineHeight: "30px" }}>카테고리&nbsp;&nbsp;</div>
+        <Link to="/salelist" style={{ fontSize: "12px", color: "gray", height: "30px" }}>
+          전체보기 <MdArrowForward size="13" style={{ height: "30px", marginBottom: "2.5px" }} />
         </Link>
       </div>
-      <br />
       <div style={{ display: "flex", width: "390px" }}>
-        <Link to="/salelist/mobile" style={{ color: "black", width: "33%" }}>
+        <Link to="/salelist/mobile" style={{ color: "black", width: "34%" }}>
           <FaMobileAlt size="50" color="#E25D5D" style={{ marginBottom: "5px" }} /><br />
-          <div style={{ color: "gray", fontSize:"14px" }}>모바일/태블릿</div>
+          <div style={{ color: "gray", fontSize: "14px" }}>모바일/태블릿</div>
         </Link>
         <Link to="/salelist/clothes" style={{ color: "black", width: "33%" }}>
           <IoShirt size="50" color="#F39238" style={{ marginBottom: "5px" }} /><br />
-          <div style={{ color: "gray", fontSize:"14px" }}>의류</div>
+          <div style={{ color: "gray", fontSize: "14px" }}>의류</div>
         </Link>
         <Link to="/salelist/free" style={{ color: "black", width: "33%" }}>
           <BiSolidDonateHeart size="50" color="#F3E138" style={{ marginBottom: "5px" }} /><br />
-          <div style={{ color: "gray", fontSize:"14px" }}>나눔</div>
+          <div style={{ color: "gray", fontSize: "14px" }}>나눔</div>
         </Link>
       </div>
       <br />
       <div style={{ display: "flex", width: "390px", paddingBottom: "10px" }}>
-        <Link to="/salelist/ticket" style={{ color: "black", width: "33%" }}>
+        <Link to="/salelist/ticket" style={{ color: "black", width: "34%" }}>
           <IoTicketSharp size="50" color="#3FCC80" style={{ marginBottom: "5px" }} /><br />
-          <div style={{ color: "gray", fontSize:"14px" }}>티켓/쿠폰</div>
+          <div style={{ color: "gray", fontSize: "14px" }}>티켓/쿠폰</div>
         </Link>
         <Link to="/salelist/pc" style={{ color: "black", width: "33%" }}>
           <GiLaptop size="50" color="#3FA2CC" style={{ marginBottom: "5px" }} /><br />
-          <div style={{ color: "gray", fontSize:"14px" }}>노트북/PC</div>
+          <div style={{ color: "gray", fontSize: "14px" }}>노트북/PC</div>
         </Link>
         <Link to="/salelist/others" style={{ color: "black", width: "33%" }}>
           <MdOutlineMoreHoriz size="50" color="gray" style={{ marginBottom: "5px" }} /><br />
-          <div style={{ color: "gray", fontSize:"14px" }}>기타</div>
+          <div style={{ color: "gray", fontSize: "14px" }}>기타</div>
         </Link>
       </div>
     </div>

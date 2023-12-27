@@ -151,15 +151,15 @@ const SaleList = () => {
   return (
     <div className='main' style={{ textAlign: 'left', overflow: "scroll", height: "632px", overflowX: "hidden", paddingLeft: "20px", paddingRight: "20px", paddingTop: "0px" }}>
       {user.email === "" || user.email === undefined ?
-        <Link to="/mypagenl" style={{ marginLeft: "320px", marginTop: "550px", textAlign: "right", position: "absolute", backgroundColor: "white", width: "45px", height: "45px", borderRadius: "50px" }}><FiPlusCircle size="40" color="#14C38E" /></Link>
-        : <Link to="/salewrite" style={{ marginLeft: "320px", marginTop: "550px", textAlign: "right", position: "absolute", backgroundColor: "white", width: "45px", height: "45px", borderRadius: "50px" }}>
-          <FiPlusCircle size="40" color="#14C38E" />
+        <Link to="/mypagenl" style={{ marginLeft: "330px", marginTop: "550px", textAlign: "right", position: "absolute", backgroundColor: "white", width: "30px", height: "30px", borderRadius: "50px" }}><FiPlusCircle size="40" color="#14C38E" /></Link>
+        : <Link to="/salewrite" style={{ marginLeft: "330px", marginTop: "550px", textAlign: "right", position: "absolute", backgroundColor: "white", width: "30px", height: "30px", borderRadius: "50px" }}>
+          <FiPlusCircle size="33" color="#14C38E" />
         </Link>}
       {saleList.length === 0 ?
         <div style={{ textAlign: "center", marginTop: "50px", width: "305px", marginLeft: "40px" }}>
           <img src="\ggulee.png" style={{ width: "100px" }} /><br />
           <b>현재 텅 비어있어요!</b><br />
-          <a style={{ color: '#14C38E', fontWeight: "bold" }}>우리{user.type === "" || user.type === undefined ? "딜리셔스" : user.type === "univ" ? "학교" : "회사"}</a>에서 안전한 중고거래<br />
+          <a style={{ color: '#14C38E', fontWeight: "bold" }}>{user.type === "" || user.type === undefined ? "딜리셔스" : user.type === "univ" ? "우리 학교" : "우리 회사"}</a>에서 안전한 중고거래<br />
           <Link to="/salewrite" style={{ color: "black" }}>내가 먼저 시작하기<FaArrowRight /></Link>
         </div> :
         <div>
