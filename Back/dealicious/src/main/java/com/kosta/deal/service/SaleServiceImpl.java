@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -54,7 +55,8 @@ public class SaleServiceImpl implements SaleService {
 	private NotiRepository notiRepository;
 	@Autowired
 	private UserListService userListService;
-
+	@Value("${upload.path}")
+	private String upload;
 	// salelist 무한 스크롤 페이지 처리
 	@Override
 	public List<Sale> saleListByPage(Integer page) throws Exception {
@@ -118,17 +120,17 @@ public class SaleServiceImpl implements SaleService {
 
 	@Override
 	public Integer saleWrite(Sale sale, List<MultipartFile> files) throws Exception {
-		String dir = "c:/upload/";
+	
 		if (files != null && !files.isEmpty()) {
 			String fileNums = "";
 			for (MultipartFile file : files) {
 				// file table에 insert
-				FileVo fileVo = FileVo.builder().directory(dir).name(file.getOriginalFilename()).size(file.getSize())
+				FileVo fileVo = FileVo.builder().directory(upload).name(file.getOriginalFilename()).size(file.getSize())
 						.contenttype(file.getContentType()).data(file.getBytes()).build();
 				fileVoRepository.save(fileVo);
 
 				// upload 폴더에 upload
-				File uploadFile = new File(dir + fileVo.getNum());
+				File uploadFile = new File(upload + fileVo.getNum());
 				file.transferTo(uploadFile);
 				// file 번호 목록 만들기
 				if (!fileNums.equals(""))
@@ -189,8 +191,8 @@ public class SaleServiceImpl implements SaleService {
 
 	@Override
 	public void readImage(Integer num, OutputStream out) throws Exception {
-		String dir = "c:/upload/";
-		FileInputStream fis = new FileInputStream(dir + num);
+		
+		FileInputStream fis = new FileInputStream(upload + num);
 		FileCopyUtils.copy(fis, out);
 		fis.close();
 	}
@@ -219,19 +221,19 @@ public class SaleServiceImpl implements SaleService {
 		sale1.setGgull(sale.getGgull());
 
 		if (files != null && files.size() != 0) {
-			String dir = "c:/upload/";
+			
 			String fileNums = "";
 			for (MultipartFile file : files) {
 				// file table에 insert
 				if (file.isEmpty()) {
 					fileNums += (fileNums.equals("") ? "" : ",") + file.getOriginalFilename();
 				} else {
-					FileVo fileVo = FileVo.builder().directory(dir).name(file.getOriginalFilename())
+					FileVo fileVo = FileVo.builder().directory(upload).name(file.getOriginalFilename())
 							.size(file.getSize()).contenttype(file.getContentType()).data(file.getBytes()).build();
 					fileVoRepository.save(fileVo);
 
 					// upload 폴더에 upload
-					File uploadFile = new File(dir + fileVo.getNum());
+					File uploadFile = new File(upload + fileVo.getNum());
 					file.transferTo(uploadFile);
 					fileNums += (fileNums.equals("") ? "" : ",") + fileVo.getNum();
 				}

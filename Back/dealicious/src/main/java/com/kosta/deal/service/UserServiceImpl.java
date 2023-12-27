@@ -37,14 +37,16 @@ public class UserServiceImpl implements UserService {
 	private FileVoRepository fileVoRepository;
 	@Autowired
 	private MailService mailService;
-	@Autowired
-	private RedisService redisService;
+	
 	@Autowired
 	private ReviewRepository reviewRepository;
 	@Autowired
 	private DslRepository dslRepository;
 	@Autowired
 	private EmailCodeRepository emailCodeRepository;
+	
+	@Value("${upload.path}")
+	private String upload;
 
 	@Override
 	public User login(String email, String password) throws Exception {
@@ -68,14 +70,14 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void uploadProfileimg(User user, MultipartFile file) throws Exception {
-		String dir="c:/upload/";
+		
 		if (file != null && !file.isEmpty()) {
             try {
-                FileVo fileVo = FileVo.builder().directory(dir).name(file.getOriginalFilename())
+                FileVo fileVo = FileVo.builder().directory(upload).name(file.getOriginalFilename())
                         .size(file.getSize()).contenttype(file.getContentType()).data(file.getBytes()).build();
                 fileVoRepository.save(fileVo);
                 
-                File uploadFile = new File(dir + fileVo.getNum());
+                File uploadFile = new File(upload + fileVo.getNum());
                 file.transferTo(uploadFile);
 
                 String fileNums = Integer.toString(fileVo.getNum());
