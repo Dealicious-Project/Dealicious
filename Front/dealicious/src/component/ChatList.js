@@ -35,7 +35,7 @@ function ChatList() {
         // 데이터를 기반으로 원하는 작업 수행
         if (receivedata) {
             console.log('Received data:', receivedata);
-            if (receivedata.type == "chat" || receivedata.type == "completepay" || receivedata.type == "completereceipt") {
+            if (receivedata.type == "chat" || receivedata.type == "completepay" || receivedata.type == "completereceipt"|| receivedata.type == "data") {
                 console.log("넣어주는곳")
                 setChatRoomList((prevChatRoomList) => {
                     const isChannelIdExists = prevChatRoomList.some(chatRoom => chatRoom.channelId === receivedata.channelId);

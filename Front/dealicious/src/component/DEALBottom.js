@@ -37,7 +37,7 @@ const DEALBottom = () => {
     // 데이터를 기반으로 원하는 작업 수행
     if (receivedata) {
       console.log('Received data:', receivedata);
-      if (receivedata.type == 'chat') {
+      if (receivedata.type == 'chat' || receivedata.type == 'data') {
         console.log(`/chat/${receivedata.channelId}`)
         console.log(location.pathname)
         if(location.pathname !== `/chat/${receivedata.channelId}`) {

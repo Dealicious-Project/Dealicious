@@ -7,10 +7,11 @@ import { useSelector } from 'react-redux';
 import { GoArrowLeft } from "react-icons/go";
 import { IoMdSend } from "react-icons/io";
 import './img.css';
-import { Button } from 'reactstrap';
+import { Button, Input } from 'reactstrap';
 import Modal from 'react-modal';
 import { FaImage, FaStar } from "react-icons/fa6";
 import { useWebSocket } from './WebSocketProvider';
+import { FaCamera } from "react-icons/fa";
 
 
 
@@ -41,7 +42,6 @@ const StompChatting = () => {
   });
   const [chatpartner, setChatpartner] = useState({ email: '', nickname: '', password: '', type: '', typename: '', tel: '', accountbank: '', accountbank: '', admincode: '', profileimgurl: '' });
   const messagesRef = useRef(null);
-  const client = useRef({});
   const { channelId } = useParams();
   const user = useSelector(state => state.persistedReducer.user);
   const { sendDataToServer } = useWebSocket();
@@ -80,7 +80,7 @@ const StompChatting = () => {
     if (receivedata) {
       console.log('Received data:', receivedata);
       if (receivedata.channelId == channelId) {
-        if (receivedata.type == "chat" || receivedata.type == "completepay" || receivedata.type == "completereceipt") {
+        if (receivedata.type == "chat" || receivedata.type == "completepay" || receivedata.type == "completereceipt" || receivedata.type == "data") {
           console.log("넣어주는곳")
           setChatList((_chat_list) => [
             ..._chat_list, receivedata
@@ -114,6 +114,32 @@ const StompChatting = () => {
       };
       setChat('');
       sendDataToServer(dataToSend);
+    }
+  };
+
+  const onFileChange = (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const imageData = e.target.result.split(',')[1];
+
+        const dataToSend = {
+          channelId: channelId,
+          writerId: user.email,
+          receiverId: chatpartner.email,
+          type: "data",
+          chat: "이미지 전송",
+          data: imageData, // 이미지를 Base64로 인코딩한 문자열을 추가
+        };
+        setChat('');
+        sendDataToServer(dataToSend);
+      };
+
+      reader.readAsDataURL(file);
+    } else {
+      alert('Please connect to WebSocket and select a file.');
     }
   };
 
@@ -326,6 +352,7 @@ const StompChatting = () => {
                     </Modal>
                   </div>
                 :
+                item.type == "completereceipt" ?
                 <div style={{ borderLeft: "3px solid #D9D9D9", paddingLeft: "10px", textAlign: "left", paddingBottom: "8px", paddingTop:"8px", marginBottom:"15px" }}>
                   <div className='logo'>DEALicious</div>
                   <div><span style={{ fontWeight: "bold" }}>"{sale.title}"</span> 의 거래가 완료되었어요.</div>
@@ -364,12 +391,25 @@ const StompChatting = () => {
                     </div>
                   </Modal>
                 </div>
+                : item.writerId == user.email ?
+                <div style={{ textAlign: "right", marginBottom: "15px" }}>
+                  <img src={url+`img/${item.data}`} style={{ width: "80px", height:"80px" }}></img>
+                </div>
+                :
+                <div style={{ textAlign: "left", marginBottom: "15px" }}>
+                  <div style={{ display: "inline-block", marginRight: "8px" }}>{chatpartner.profileimgurl==null ? <img src='/profile.png' style={{ width: "50px" }}></img>:<img src={url+`img/${chatpartner.profileimgurl}`} style={{ width: "50px" }}></img>}</div>
+                  <img src={url+`img/${item.data}`} style={{ width: "80px", height:"80px" }}></img>
+                </div>
           }
           </div>)}
         </div>
       </div>
       <div style={{ paddingTop: "8px", textAlign: "left", width: "390px", height: "50px", backgroundColor: "white" }}>
-        <FaImage size="30" style={{ color: "#D9D9D9" }} />
+        {/* <FaImage size="30" style={{ color: "#D9D9D9" }} /> */}
+        <span onClick={() => document.getElementById("file").click()}>
+                        <FaCamera size="30" color='gray' />
+                    </span>
+        <Input type="file" id="file" onChange={onFileChange} hidden/>
         <input style={{ marginLeft: "10px", border: "white", width: "300px", height: "40px", borderRadius: "10px", backgroundColor: "#D9D9D9" }} placeholder='  채팅하기' onChange={handleChange} value={chat}></input>
         <IoMdSend size="40" style={{ marginLeft: "10px", color: "#D9D9D9" }} onClick={publish} />
       </div>

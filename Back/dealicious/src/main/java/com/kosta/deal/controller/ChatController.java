@@ -1,9 +1,12 @@
 package com.kosta.deal.controller;
 
+import java.io.File;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
@@ -25,8 +28,11 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 import com.kosta.deal.config.auth.PrincipalDetails;
 import com.kosta.deal.entity.Chat;
 import com.kosta.deal.entity.ChatRoom;
+import com.kosta.deal.entity.FileVo;
 import com.kosta.deal.entity.Sale;
 import com.kosta.deal.entity.User;
+import com.kosta.deal.repository.ChatRepository;
+import com.kosta.deal.repository.FileVoRepository;
 import com.kosta.deal.service.ChatService;
 import com.kosta.deal.service.SaleService;
 import com.kosta.deal.service.UserService;
@@ -42,6 +48,8 @@ public class ChatController {
     private final ChatService chatService;
     private final SaleService saleService;
     private final UserService userService;
+	private final ChatRepository chatRepository;
+	private final FileVoRepository fileVoRepository;
     // 새로운 사용자가 웹 소켓을 연결할 때 실행됨
     // @EventListener은 한개의 매개변수만 가질 수 있다.
     @EventListener
@@ -62,7 +70,21 @@ public class ChatController {
     @MessageMapping("/chat")
     public void sendMessage(Chat chat, SimpMessageHeaderAccessor accessor) {
     	try {
-			chatService.addChat(chat);
+    		if(chat.getType().equals("data")) {
+    			String imageData = chat.getData();
+    	        byte[] decodedImage = Base64.getDecoder().decode(imageData);
+    			String dir = "c:/upload/";
+    			FileVo fileVo = FileVo.builder().directory(dir)
+						.data(decodedImage).build();
+				fileVoRepository.save(fileVo);
+
+				// upload 폴더에 upload
+				File uploadFile = new File(dir + fileVo.getNum());
+				FileUtils.writeByteArrayToFile(uploadFile, decodedImage);
+				chat.setData(Integer.toString(fileVo.getNum()));
+
+    		}
+    		chatRepository.save(chat);
 			sendingOperations.convertAndSend("/sub/chat/" + chat.getReceiverId(), chat);
 			sendingOperations.convertAndSend("/sub/chat/" + chat.getWriterId(), chat);
 		} catch (Exception e) {
