@@ -242,7 +242,7 @@ const SaleModify = () => {
             <Input
                 type="text"
                 placeholder="제목을 입력해주세요"
-                style={{ width: "385px", height: "40px", borderColor: "lightgray" }}
+                style={{ width: "390px", height: "40px", borderColor: "lightgray" }}
                 name="title"
                 value={sale.title}
                 onChange={handleInputChange}
@@ -287,7 +287,7 @@ const SaleModify = () => {
                 <div>
                     <div style={{ fontSize: "18px", marginBottom: "10px", marginTop: "20px" }}>상세설명</div>
                     <Input type='textarea'
-                        style={{ width: "385px", height: "300px", resize: "none" }} name="content" value={sale.content} onChange={handleInputChange}
+                        style={{ width: "390px", height: "300px", resize: "none" }} name="content" value={sale.content} onChange={handleInputChange}
                         placeholder='상세설명을 입력하세요
 구매날짜, 하자 등 자세하게 작성할수록
 

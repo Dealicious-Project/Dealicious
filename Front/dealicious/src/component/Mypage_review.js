@@ -89,7 +89,7 @@ const Mypage_review = () => {
                 <div style={{ width: "60px", marginRight: "10px" }}><Link to="/myzzim" style={{ fontSize: "18px", color: "black", textDecoration: "none" }}>찜한 글</Link></div>
                 <div style={{ width: "80px" }}><Link to="/myreview" style={{ fontSize: "18px", color: "black", textDecoration: "none", fontWeight: "bold" }}>받은 후기</Link>   </div>
             </div>
-            <div style={{ height: "2px", backgroundColor: "#D9D9D9", width: "385px", position: "relative" }}>
+            <div style={{ height: "2px", backgroundColor: "#D9D9D9", width: "390px", position: "relative" }}>
                 <div style={{ position: "absolute", height: "3px", width: "90px", backgroundColor: "#14C38E", marginLeft: "153px" }} />
             </div>
             <div style={{ height: "10px" }} />
@@ -103,7 +103,7 @@ const Mypage_review = () => {
             ) : (
                 <div>
                     {reviewList.map((review, index) => (
-                        <div key={index} style={{ display: "flex", width: "385px", height: "80px", borderBottom: "1px solid lightgray" }}>
+                        <div key={index} style={{ display: "flex", width: "390px", height: "80px", borderBottom: "1px solid lightgray" }}>
                             <div style={{ height: "70px", marginTop: "7.5px", marginLeft: "5px" }}>
                                 <img
                                     src={review.profileimgurl ? url + `img/${review.profileimgurl}` : Image}

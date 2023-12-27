@@ -46,14 +46,14 @@ const NotiKeyword = () => {
     const diffInMinutes = diffInMilliseconds / (1000 * 60); // 분 단위의 차이
 
     if (diffInMinutes < 60) {
-      return `${Math.floor(diffInMinutes)} 분 전`;
+      return `${Math.floor(diffInMinutes)}분 전`;
     } else if (diffInMinutes < 1440) {
       const hoursDiff = Math.floor(diffInMinutes / 60);
       const remainingMinutes = Math.floor(diffInMinutes % 60);
-      return `${hoursDiff} 시간 전`;
+      return `${hoursDiff}시간 전`;
     } else {
       const daysDiff = Math.floor(diffInMinutes / 1440);
-      return `${daysDiff} 일 전`;
+      return `${daysDiff}일 전`;
     }
 
   };
@@ -73,7 +73,7 @@ const NotiKeyword = () => {
   }
 
   return (
-    <div className='main' style={{ overflow: "scroll", height: "632px", overflowX: "hidden", paddingTop: "10px", paddingLeft: "20px", paddingRight: "20px" }}>
+    <div className='main' style={{ overflow: "scroll", height: "632px", overflowX: "hidden", paddingTop: "10px" }}>
       <br />
       <div>
         <div style={{ display: "flex" }}>
@@ -84,19 +84,19 @@ const NotiKeyword = () => {
             <div style={{ width: "200px", fontWeight: "bold", fontSize: "17px" }}>키워드 알림</div>
           </Link>
         </div>
-        <div style={{ height: "2px", backgroundColor: "#D9D9D9", width: "385px", position: "relative" }}>
-          <div style={{ position: "absolute", height: "3px", width: "192.5px", backgroundColor: "#14C38E", marginLeft: "192.5px" }} />
+        <div style={{ height: "2px", backgroundColor: "#D9D9D9", width: "390px", position: "relative" }}>
+          <div style={{ position: "absolute", height: "3px", width: "195px", backgroundColor: "#14C38E", marginLeft: "195px" }} />
         </div>
 
-        {notikeywordList.map((item, index) =>
+        {notikeywordList.map((item) =>
           <Link to={"/saledetail/only-detail/" + item.salenum} style={{ color: "black", textDecoration: "none" }}>
-            <div style={{ borderBottom: "1px solid gray", width: "385px" }}>
+            <div style={{ borderBottom: "1px solid gray", width: "390px" }}>
               <div style={{ display: "flex", paddingBottom: "15px", paddingTop: "15px" }}>
-                <div><img src='gg.png' style={{ width: "50px", height: "50px", marginTop: "5px" }}></img></div>
+                <div><img src={""} style={{ width: "50px", height: "50px", marginTop: "5px" }}></img></div>
                 <div style={{ marginLeft: "10px", width: "330px" }}>
                   <div style={{ textAlign: "left", marginBottom: "5px" }}>{item.title}</div>
                   <div style={{ display: "flex" }}>
-                    <div style={{ textAlign: "left", color: "gray", fontSize: "15px", width: "200px" }}>{item.content}</div>
+                    <div style={{ textAlign: "left", color: "gray", fontSize: "15px", width: "240px" }}>{item.content}</div>
                     <div style={{ textAlign: "right", color: "gray", fontSize: "14px", width: "125px" }}>{timediff(item.notidate)}</div>
                   </div>
                 </div>
@@ -106,13 +106,13 @@ const NotiKeyword = () => {
         )}
 
       </div>
-      
-        <div style={{ height: "80px"}}>
+
+      <div style={{ height: "80px" }}>
         <Link to="/keyword">
-          <button style={{ width: "150px", height: "40px", borderRadius: "5px", backgroundColor: "#D9D9D9", border: "white", fontWeight: "bold",marginTop:"20px" }}>키워드 등록하기</button>
+          <button style={{ width: "150px", height: "40px", borderRadius: "5px", backgroundColor: "#D9D9D9", border: "white", fontWeight: "bold", marginTop: "20px" }}>키워드 등록하기</button>
         </Link>
-        </div>
-      
+      </div>
+
     </div>
   );
 }

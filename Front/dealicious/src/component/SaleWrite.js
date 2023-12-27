@@ -253,7 +253,7 @@ const SaleWrite = () => {
             <Input
                 type="text"
                 placeholder="제목을 입력해주세요"
-                style={{ width: "385px", height: "40px", borderColor: "lightgray" }}
+                style={{ width: "390px", height: "40px", borderColor: "lightgray" }}
                 name="title"
                 value={sale.title}
                 onInput={changecontent}
@@ -301,7 +301,7 @@ const SaleWrite = () => {
             <div>
                 <div style={{ fontSize: "18px", marginBottom: "10px", marginTop: "20px" }}>상세설명</div>
                 <Input type='textarea'
-                    style={{ width: "385px", height: "300px", resize: "none" }} name="content" value={sale.content} onInput={changecontent} onChange={handleInputChange}
+                    style={{ width: "390px", height: "300px", resize: "none" }} name="content" value={sale.content} onInput={changecontent} onChange={handleInputChange}
                     placeholder='상세설명을 입력하세요
                     구매날짜, 하자 등 자세하게 작성할수록
                     구매자에게 편리합니다'></Input>
@@ -315,7 +315,7 @@ const SaleWrite = () => {
                     fontWeight: "bold",
                     fontSize: "18px",
                     borderRadius: "10px",
-                    width: "385px",
+                    width: "390px",
                     height: "50px",
                     backgroundColor: '#14C38E',
                     color: "white",

@@ -182,7 +182,7 @@ function SaleDetail() {
     else if (user.email !== writer.email && user.email !== '') {
       navigate(`/gpay/${num}`)
     }
-    else if (user.email == '' || user.email===undefined) {
+    else if (user.email == '' || user.email===undefined ) {
       alert("로그인해주세요")
     }
   }
@@ -238,7 +238,7 @@ function SaleDetail() {
                 <img
                   src={url+`img/${imgnum}`}
                   alt={`slide-${index}`}
-                  style={{ width: "385px", height: "210px", borderRadius: "10px" }}
+                  style={{ width: "390px", height: "210px", borderRadius: "10px" }}
                 />
               </div>
             ))}
@@ -307,7 +307,7 @@ function SaleDetail() {
         <Input
           type="textarea"
           style={{
-            width: "385px",
+            width: "390px",
             marginTop: "10px",
             marginBottom: "15px",
             height: "285px",

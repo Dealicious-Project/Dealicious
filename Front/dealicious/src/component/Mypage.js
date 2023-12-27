@@ -101,7 +101,7 @@ const Mypage = () => {
                 <div style={{ width: "60px", marginRight: "5px" }}><Link to="/myzzim" style={{ fontSize: "18px", color: "black", textDecoration: "none" }}>찜한 글</Link></div>
                 <div style={{ width: "80px" }}><Link to="/myreview" style={{ fontSize: "18px", color: "black", textDecoration: "none" }}>받은 후기</Link>   </div>
             </div>
-            <div style={{ height: "2px", backgroundColor: "#D9D9D9", width: "385px", position: "relative" }}>
+            <div style={{ height: "2px", backgroundColor: "#D9D9D9", width: "390px", position: "relative" }}>
                 <div style={{ position: "absolute", height: "3px", width: "90px", backgroundColor: "#14C38E" }} />
             </div>
             <div style={{ height: "10px" }} />

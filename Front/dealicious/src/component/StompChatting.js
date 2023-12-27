@@ -285,12 +285,12 @@ const StompChatting = () => {
   };
   const Image = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
   return (
-    <div className='main' style={{height:"632px"}}>
+    <div className='main' style={{height:"632px", padding:"10px 15px 10px 20px"}}>
       <div style={{ textAlign: "left", color: "#14C38E", display: "flex", verticalAlign: "middle" }}>
         <Link to="/chatlist"><GoArrowLeft size={20} style={{ height: "40px", color: "black" }} /></Link>
         <div style={{ fontSize: "18px", marginLeft: "10px", height: "40px", lineHeight: "40px", color: "black" }}>{chatpartner.nickname}</div>
       </div>
-      <div style={{ width: "385px", borderTop: "1px solid #D9D9D9", borderBottom: "1px solid #D9D9D9", height: "85px" }}>
+      <div style={{ width: "390px", borderTop: "1px solid #D9D9D9", borderBottom: "1px solid #D9D9D9", height: "85px" }}>
         <div style={{ marginTop: "10px", marginBottom: "10px" }}>
           <div style={{ display: "flex" }}>
 

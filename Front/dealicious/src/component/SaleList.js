@@ -30,14 +30,14 @@ const SaleList = () => {
     const diffInMinutes = diffInMilliseconds / (1000 * 60); // 분 단위의 차이
 
     if (diffInMinutes < 60) {
-      return `${Math.floor(diffInMinutes)} 분 전`;
+      return `${Math.floor(diffInMinutes)}분 전`;
     } else if (diffInMinutes < 1440) {
       const hoursDiff = Math.floor(diffInMinutes / 60);
       const remainingMinutes = Math.floor(diffInMinutes % 60);
-      return `${hoursDiff} 시간 전`;
+      return `${hoursDiff}시간 전`;
     } else {
       const daysDiff = Math.floor(diffInMinutes / 1440);
-      return `${daysDiff} 일 전`;
+      return `${daysDiff}일 전`;
     }
 
   };
@@ -151,8 +151,8 @@ const SaleList = () => {
   return (
     <div className='main' style={{ textAlign: 'left', overflow: "scroll", height: "632px", overflowX: "hidden", paddingLeft: "20px", paddingRight: "20px", paddingTop: "0px" }}>
       {user.email === "" || user.email === undefined ?
-        <Link to="/mypagenl" style={{ marginLeft: "330px", marginTop: "550px", textAlign: "right", position: "absolute", backgroundColor: "white", width: "30px", height: "30px", borderRadius: "50px" }}><FiPlusCircle size="40" color="#14C38E" /></Link>
-        : <Link to="/salewrite" style={{ marginLeft: "330px", marginTop: "550px", textAlign: "right", position: "absolute", backgroundColor: "white", width: "30px", height: "30px", borderRadius: "50px" }}>
+        <Link to="/mypagenl" style={{ marginLeft: "330px", marginTop: "550px", textAlign: "right", position: "absolute", backgroundColor: "white", width: "40px", height: "40px", borderRadius: "50px" }}><FiPlusCircle size="40" color="#14C38E" /></Link>
+        : <Link to="/salewrite" style={{ marginLeft: "330px", marginTop: "550px", textAlign: "right", position: "absolute", backgroundColor: "white", width: "40px", height: "40px", borderRadius: "50px" }}>
           <FiPlusCircle size="33" color="#14C38E" />
         </Link>}
       {saleList.length === 0 ?
