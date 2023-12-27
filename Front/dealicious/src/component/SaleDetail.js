@@ -31,7 +31,7 @@ function SaleDetail() {
       ...prevSale,
       status: e.target.value
     }));
-    axios.get(url+`changesalestatus/${num}/${e.target.value}`)
+    axios.get(url + `changesalestatus/${num}/${e.target.value}`)
       .then(res => {
         console.log(res);
       })
@@ -73,7 +73,7 @@ function SaleDetail() {
   useEffect(() => {
     if (user.email === "" || user.email === undefined) {
       axios
-        .get(url+`saledetail/${sect}/${num}`)
+        .get(url + `saledetail/${sect}/${num}`)
         .then(res => {
           console.log(res.data);
 
@@ -93,7 +93,7 @@ function SaleDetail() {
         });
     } else {
       axios
-        .get(url+`saledetail/${sect}/${user.email}/${num}`)
+        .get(url + `saledetail/${sect}/${user.email}/${num}`)
         .then(res => {
           console.log(res.data);
 
@@ -132,7 +132,7 @@ function SaleDetail() {
     }
   };
   const selectGood = () => {
-    if (user.email === '' || user.email===undefined) {
+    if (user.email === '' || user.email === undefined) {
       Swal.fire({
         icon: 'info',
         title: '로그인이 필요합니다.',
@@ -140,7 +140,7 @@ function SaleDetail() {
         confirmButtonText: '확인',
       });
     } else {
-      axios.get(url+`salelike/${user.email}/${num}`)
+      axios.get(url + `salelike/${user.email}/${num}`)
         .then(res => {
           console.log(res.data)
           setSale({ ...sale, zzimcnt: res.data.zzimCnt });
@@ -154,7 +154,7 @@ function SaleDetail() {
       const uniqueString = uuidv4();
       const chatRoom = { channelId: uniqueString, creator: user.email, partner: writer.email, saleNum: num };
       console.log(chatRoom);
-      axios.post(url+`findchatroom`, chatRoom, {
+      axios.post(url + `findchatroom`, chatRoom, {
         headers: {
           Authorization: token,
         }
@@ -180,9 +180,24 @@ function SaleDetail() {
     if (user.email === writer.email)
       alert("내가 작성한 글에는 누를 수 없습니다")
     else if (user.email !== writer.email && user.email !== '') {
-      navigate(`/gpay/${num}`)
+      const uniqueString = uuidv4();
+      const chatRoom = { channelId: uniqueString, creator: user.email, partner: writer.email, saleNum: num };
+      console.log(chatRoom);
+      axios.post(url + `findchatroom`, chatRoom, {
+        headers: {
+          Authorization: token,
+        }
+      })
+        .then(res => {
+          console.log(res.data);
+          navigate(`/gpay/${num}`);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
     }
-    else if (user.email == '' || user.email===undefined ) {
+    else if (user.email == '' || user.email === undefined) {
       alert("로그인해주세요")
     }
   }
@@ -236,7 +251,7 @@ function SaleDetail() {
             {fileurlList.map((imgnum, index) => (
               <div key={index}>
                 <img
-                  src={url+`img/${imgnum}`}
+                  src={url + `img/${imgnum}`}
                   alt={`slide-${index}`}
                   style={{ width: "390px", height: "210px", borderRadius: "10px" }}
                 />
@@ -248,7 +263,7 @@ function SaleDetail() {
         <div style={{ marginTop: "15px" }}>
           <div style={{ display: "flex" }}>
             <div rowSpan={2}>
-              <img src={writer.fileurl == null ? Image : url+`img/${writer.fileurl}`} style={{ width: "60px", height: "60px", marginRight: "10px", borderRadius: "50px" }} />
+              <img src={writer.fileurl == null ? Image : url + `img/${writer.fileurl}`} style={{ width: "60px", height: "60px", marginRight: "10px", borderRadius: "50px" }} />
             </div>
             <div
               style={{

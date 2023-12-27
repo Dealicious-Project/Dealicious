@@ -40,7 +40,8 @@ const DEALBottom = () => {
       if (receivedata.type == 'chat' || receivedata.type == 'data') {
         console.log(`/chat/${receivedata.channelId}`)
         console.log(location.pathname)
-        if (location.pathname !== `/chat/${receivedata.channelId}`) {
+        if(location.pathname !== `/chat/${receivedata.channelId}` && receivedata.writerId !== user.email) {
+
           console.log("여기?")
           setChatcnt(chatcnt + 1);
         }

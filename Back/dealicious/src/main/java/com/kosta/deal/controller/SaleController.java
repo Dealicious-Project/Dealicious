@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,8 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-
+import com.kosta.deal.config.auth.PrincipalDetails;
 import com.kosta.deal.entity.Sale;
+import com.kosta.deal.entity.User;
 import com.kosta.deal.service.SaleService;
 import com.kosta.deal.util.PageInfo;
 
@@ -43,6 +45,19 @@ public class SaleController {
 		}
 	}
 	
+	@GetMapping("/salelistbyuser/{page}")  
+	public ResponseEntity<List<Sale>> salelistbyuser(Authentication authentication, @PathVariable(required=false) Integer page) {
+		try {
+			PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+	    	User user = principalDetails.getUser();
+			List<Sale> saleList = saleService.salelistbyuser(page,user);		
+			return new ResponseEntity<List<Sale>>(saleList, HttpStatus.OK);
+		} catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<List<Sale>>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
 	@GetMapping("/salelist/{page}/{category}")
 	public ResponseEntity<List<Sale>>saleListByCategory(@PathVariable(required=false)Integer page,
 			@PathVariable(required=false)String category){
@@ -54,11 +69,39 @@ public class SaleController {
 			return new ResponseEntity<List<Sale>>(HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	@GetMapping("/salelistbyuser/{page}/{category}")
+	public ResponseEntity<List<Sale>>categorylistbyuser(Authentication authentication, @PathVariable(required=false)Integer page,
+			@PathVariable(required=false)String category){
+		try {
+			PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+	    	User user = principalDetails.getUser();
+			List<Sale>saleList=saleService.categorylistbyuser(category,page, user);
+			return new ResponseEntity<List<Sale>> (saleList,HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<List<Sale>>(HttpStatus.BAD_REQUEST);
+		}
+	}
 	@GetMapping("/salesearchlist/{page}/{keyword}")
 	public ResponseEntity<List<Sale>>salesearchlist(@PathVariable(required=false)Integer page,
 			@PathVariable(required=false)String keyword){
 		try {
 			List<Sale>saleList=saleService.salesearchlistByPage(keyword,page);
+			return new ResponseEntity<List<Sale>> (saleList,HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<List<Sale>>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/salesearchlistbyuser/{page}/{keyword}")
+	public ResponseEntity<List<Sale>>salesearchlistbyuser(Authentication authentication, @PathVariable(required=false)Integer page,
+			@PathVariable(required=false)String keyword){
+		try {
+			PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+	    	User user = principalDetails.getUser();
+			List<Sale>saleList=saleService.salesearchlistbyuser(keyword,page,user);
 			return new ResponseEntity<List<Sale>> (saleList,HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -204,6 +247,19 @@ public class SaleController {
 	public ResponseEntity<List<Sale>> hotsalelist() {
 		try {
 			List<Sale> saleList = saleService.hotsalelist();		
+			return new ResponseEntity<List<Sale>>(saleList, HttpStatus.OK);
+		} catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<List<Sale>>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/hotsalelistbyuser")
+	public ResponseEntity<List<Sale>> hotsalelistbyuser(Authentication authentication) {
+		try {
+			PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+	    	User user = principalDetails.getUser();
+			List<Sale> saleList = saleService.hotsalelistbyuser(user);		
 			return new ResponseEntity<List<Sale>>(saleList, HttpStatus.OK);
 		} catch(Exception e) {
 			e.printStackTrace();

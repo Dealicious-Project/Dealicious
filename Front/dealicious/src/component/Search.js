@@ -52,10 +52,12 @@ const Search = () => {
       <br />
       <div style={{ fontWeight: "bold", textAlign: "left", marginBottom: "5px" }}>인기 검색어</div>
       {hotlist.map((item, index) =>
-        <Link to={"/salelist/" + item.content} key={index} style={{ textDecoration: "none", color: "black" }}>
-          <div style={{ height: "25px", marginLeft: "20px", textAlign: "left", fontSize:"15px" }}>{item.content}</div>
-        </Link>
-      )}
+      <Link to={"/salelist/search/"+item.content} key={index} style={{textDecoration: "none", color: "black" }}>
+
+          <div style={{ height:"35px",marginLeft:"20px",textAlign: "left" }}>{item.content}</div>
+
+      </Link>
+      )} 
 
     </div>
   );

@@ -24,6 +24,7 @@ import com.kosta.deal.entity.Keyword;
 import com.kosta.deal.entity.Notification;
 import com.kosta.deal.entity.Sale;
 import com.kosta.deal.entity.SaleLike;
+import com.kosta.deal.entity.User;
 import com.kosta.deal.repository.ChatRepository;
 import com.kosta.deal.repository.DslRepository;
 import com.kosta.deal.repository.FileVoRepository;
@@ -310,5 +311,31 @@ public class SaleServiceImpl implements SaleService {
 	@Override
 	public List<Sale> hotsalelist() throws Exception {
 		return saleDslRepository.hotsalelist();
+	}
+
+	@Override
+	public List<Sale> hotsalelistbyuser(User user) throws Exception {
+		return saleDslRepository.hotsalelistbyuser(user);
+	}
+
+	@Override
+	public List<Sale> salelistbyuser(Integer page, User user) throws Exception {
+		PageRequest pageRequest = PageRequest.of(page - 1, 10, Sort.by(Sort.Direction.DESC, "num"));// PageRequest																											// 페이징																								// API
+		List<Sale> sales = saleDslRepository.salelistbyuser(pageRequest,user.getTypename());
+		return sales;
+	}
+
+	@Override
+	public List<Sale> categorylistbyuser(String category, Integer page, User user) throws Exception {
+		PageRequest pageRequest = PageRequest.of(page - 1, 10, Sort.by(Sort.Direction.DESC, "num"));// PageRequest																											// 페이징																								// API
+		List<Sale> sales = saleDslRepository.categorylistbyuser(pageRequest,user.getTypename(),category);
+		return sales;
+	}
+
+	@Override
+	public List<Sale> salesearchlistbyuser(String keyword, Integer page, User user) throws Exception {
+		PageRequest pageRequest = PageRequest.of(page - 1, 10, Sort.by(Sort.Direction.DESC, "num"));// PageRequest																											// 페이징																								// API
+		List<Sale> sales = saleDslRepository.searchlistbyuser(pageRequest,user.getTypename(),keyword);
+		return sales;
 	}
 }

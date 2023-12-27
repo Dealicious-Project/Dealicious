@@ -13,12 +13,14 @@ import { useWebSocket } from './WebSocketProvider';
 
 const Main = () => {
   const { url } = useWebSocket();
+  const token = useSelector(state => state.persistedReducer.token);
   const user = useSelector(state => state.persistedReducer.user);
   const [firstHalf, setFirstHalf] = useState([]);
   const [secondHalf, setSecondHalf] = useState([]);
   console.log(user.typename)
   useEffect(() => {
-    axios.get(url + `hotsalelist`)
+    if(user.typename === "" || user.typename === undefined || user.typename === null) {
+      axios.get(url+`hotsalelist`)
       .then(res => {
         console.log(res.data);
         if (res.data.length <= 3) {
@@ -31,6 +33,26 @@ const Main = () => {
       .catch(err => {
         console.log(err);
       });
+    } else {
+      axios.get(url+`hotsalelistbyuser`,{
+        headers: {
+          Authorization: token,
+        }
+      })
+      .then(res => {
+        console.log(res.data);
+        if (res.data.length <= 3) {
+          setFirstHalf(res.data);
+        } else {
+          setFirstHalf(res.data.slice(0, 3));
+          setSecondHalf(res.data.slice(3));
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    }
+    
   }, []);
   const formatPrice = (amount) => {
     if (!amount) return '';

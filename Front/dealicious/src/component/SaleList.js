@@ -13,6 +13,7 @@ const SaleList = () => {
   const { category, keyword } = useParams();
   const [page, setPage] = useState(1); // 페이지 번호
   const user = useSelector(state => state.persistedReducer.user);
+  const token = useSelector(state => state.persistedReducer.token);
   const observerRef = useRef(null);
   const formatPrice = (amount) => {
     if (!amount) return '';
@@ -46,7 +47,8 @@ const SaleList = () => {
     const observer = new IntersectionObserver((entries) => {//IntersectionObserver를 생성하여 관찰 대상 요소(observerRef.current)의 교차점을 감시
       if (entries[0].isIntersecting && saleList.length > 0) {//관찰 대상 요소가 뷰포트와 교차되고 데이터가 있을 때(saleList.length > 0), Axios를 사용하여 서버에서 데이터를 가져오는 GET 요청
         if (category == null && keyword == null) {
-          axios.get(url + `salelist/${page + 1}`)
+          if(user === "" || user === undefined) {
+            axios.get(url + `salelist/${page + 1}`)
             .then(res => {
               const newSaleList = res.data;//새로운 데이터가 수신되면(newSaleList.length > 0), setSaleList 함수를 사용하여 새 데이터를 기존 saleList에 추가하고 페이지 번호를 업데이트
               if (newSaleList.length > 0) {
@@ -59,34 +61,95 @@ const SaleList = () => {
             .catch(err => {
               console.log(err);
             });
+          } else {
+            axios.get(url + `salelistbyuser/${page + 1}`,{
+              headers: {
+                Authorization: token,
+              }
+            })
+            .then(res => {
+              const newSaleList = res.data;
+              if (newSaleList.length > 0) {
+                setSaleList(prevSaleList => [...prevSaleList, ...newSaleList]);
+                setPage(page + 1);
+              } else {    
+                observer.disconnect();
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            });
+          }
+          
         } else if (keyword == null) {
+          if(user === "" || user === undefined) {
           axios.get(url + `salelist/${page + 1}/${category}`)
             .then(res => {
-              const newSaleList = res.data;//새로운 데이터가 수신되면(newSaleList.length > 0), setSaleList 함수를 사용하여 새 데이터를 기존 saleList에 추가하고 페이지 번호를 업데이트
+              const newSaleList = res.data;
               if (newSaleList.length > 0) {
                 setSaleList(prevSaleList => [...prevSaleList, ...newSaleList]);
                 setPage(page + 1);
-              } else {    //새로운 데이터가 없으면 Intersection Observer를 중지하여 추가 요청을 방지
+              } else {    
                 observer.disconnect();
               }
             })
             .catch(err => {
               console.log(err);
             });
-        } else {
-          axios.get(url + `salesearchlist/${page + 1}/${keyword}`)
+          } else {
+            axios.get(url + `salelistbyuser/${page + 1}/${category}`,{
+              headers: {
+                Authorization: token,
+              }
+            })
             .then(res => {
-              const newSaleList = res.data;//새로운 데이터가 수신되면(newSaleList.length > 0), setSaleList 함수를 사용하여 새 데이터를 기존 saleList에 추가하고 페이지 번호를 업데이트
+              const newSaleList = res.data;
               if (newSaleList.length > 0) {
                 setSaleList(prevSaleList => [...prevSaleList, ...newSaleList]);
                 setPage(page + 1);
-              } else {    //새로운 데이터가 없으면 Intersection Observer를 중지하여 추가 요청을 방지
+              } else {    
                 observer.disconnect();
               }
             })
             .catch(err => {
               console.log(err);
             });
+          }
+        } else {
+          if(user === "" || user === undefined) {
+            axios.get(url + `salesearchlist/${page + 1}/${keyword}`)
+            .then(res => {
+              const newSaleList = res.data;
+              if (newSaleList.length > 0) {
+                setSaleList(prevSaleList => [...prevSaleList, ...newSaleList]);
+                setPage(page + 1);
+              } else {    
+                observer.disconnect();
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            });
+          } else {
+            axios.get(url + `salesearchlistbyuser/${page + 1}/${keyword}`,{
+              headers: {
+                Authorization: token,
+              }
+            })
+            .then(res => {
+              const newSaleList = res.data;
+              if (newSaleList.length > 0) {
+                setSaleList(prevSaleList => [...prevSaleList, ...newSaleList]);
+                setPage(page + 1);
+              } else {    
+                observer.disconnect();
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            });
+          }
+          
         }
       }
     }, { threshold: 1 });
@@ -104,7 +167,8 @@ const SaleList = () => {
 
   useEffect(() => {
     if (category == null && keyword == null) {
-      axios.get(url + `salelist/${page}`)
+      if(user === "" || user === undefined) {
+        axios.get(url + `salelist/${page}`)
         .then(res => {
           console.log(res);
           setSaleList([]);
@@ -115,7 +179,26 @@ const SaleList = () => {
         .catch(err => {
           console.log(err);
         })
+      } else {
+        axios.get(url + `salelistbyuser/${page}`,{
+          headers: {
+            Authorization: token,
+          }
+        })
+        .then(res => {
+          console.log(res);
+          setSaleList([]);
+          setSaleList((_sale_list) => [
+            ..._sale_list, ...res.data
+          ]);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+      }
+      
     } else if (keyword == null) {
+      if(user === "" || user === undefined) {
       axios.get(url + `salelist/${page}/${category}`)
         .then(res => {
           console.log(res);
@@ -128,8 +211,12 @@ const SaleList = () => {
         .catch(err => {
           console.log(err);
         })
-    } else {
-      axios.get(url + `salesearchlist/${page}/${keyword}`)
+      } else {
+        axios.get(url + `salelistbyuser/${page}/${category}`,{
+          headers: {
+            Authorization: token,
+          }
+        })
         .then(res => {
           console.log(res);
           setSaleList([]);
@@ -141,6 +228,40 @@ const SaleList = () => {
         .catch(err => {
           console.log(err);
         })
+      }
+    } else {
+      if(user === "" || user === undefined) {
+        axios.get(url + `salesearchlist/${page}/${keyword}`)
+        .then(res => {
+          console.log(res);
+          setSaleList([]);
+          console.log(res.data);
+          setSaleList((_sale_list) => [
+            ..._sale_list, ...res.data
+          ]);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+      } else {
+        axios.get(url + `salesearchlistbyuser/${page}/${keyword}`,{
+          headers: {
+            Authorization: token,
+          }
+        })
+        .then(res => {
+          console.log(res);
+          setSaleList([]);
+          console.log(res.data);
+          setSaleList((_sale_list) => [
+            ..._sale_list, ...res.data
+          ]);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+      }
+     
     }
 
   }, []);

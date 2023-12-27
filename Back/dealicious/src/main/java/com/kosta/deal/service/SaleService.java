@@ -7,7 +7,7 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kosta.deal.entity.Sale;
-import com.kosta.deal.util.PageInfo;
+import com.kosta.deal.entity.User;
 
 public interface SaleService {
 	
@@ -42,4 +42,9 @@ public interface SaleService {
 	List<Sale> salesearchlistByPage(String keyword, Integer page)throws Exception;
 	
 	List<Sale> hotsalelist() throws Exception;
+	List<Sale> hotsalelistbyuser(User user) throws Exception;
+	
+	List<Sale> salelistbyuser(Integer page, User user) throws Exception;
+	List<Sale> categorylistbyuser(String category, Integer page, User user) throws Exception;
+	List<Sale> salesearchlistbyuser(String keyword, Integer page, User user) throws Exception;
 }
