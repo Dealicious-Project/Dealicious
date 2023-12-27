@@ -16,8 +16,8 @@ public class CorsConfig {		//CORS:웹 애플리케이션이 다른 도메인에�
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration config = new CorsConfiguration();//실제 CORS 설정을 담고 있는 클래스로, 여기서는 자격 증명 허용, 허용된 출처, 허용된 헤더 및 메서드
 		config.setAllowCredentials(true);
-//		config.addAllowedOrigin("http://localhost:3000"); //Access-Control-Allow-Origin (Response에 자동으로 추가해줌)
-		config.addAllowedOrigin("*");   //이거 맞음?
+		config.addAllowedOrigin("http://43.203.108.152:3000"); //Access-Control-Allow-Origin (Response에 자동으로 추가해줌)
+//		config.addAllowedOrigin("*");   //이거 맞음?
 		
 		config.addAllowedHeader("*"); //Access-Control-Allow-Headers
 		config.addAllowedMethod("*"); //Access-Control-Allow-Method
