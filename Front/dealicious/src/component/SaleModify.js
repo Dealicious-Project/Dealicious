@@ -7,16 +7,20 @@ import { Input, Button } from 'reactstrap';
 import { FaCamera } from "react-icons/fa";
 import axios from 'axios';
 import { GiCancel } from "react-icons/gi";
+import Swal from 'sweetalert2';
+import { useWebSocket } from './WebSocketProvider';
 
 const formatPrice = (amount) => {
+
     if (!amount) return '';
     const numericPrice = parseInt(amount.replace(/[^0-9]/g, ''));
 
     const formattedPrice = numericPrice.toLocaleString('ko-KR');
     return `${formattedPrice}원`;
-  };
+};
 
 const SaleModify = () => {
+    const { url } = useWebSocket();
     const MAX_TITLE_LENGTH = 20;
     const navigate = useNavigate();
     const [files, setFiles] = useState([]);
@@ -37,7 +41,7 @@ const SaleModify = () => {
     const [currentImage, setCurrentImage] = useState();
     const { sect, num } = useParams();
     useEffect(() => {
-        axios.get(`http://43.203.108.152:8090/saledetail/${sect}/${num}`)
+        axios.get(url+`saledetail/${sect}/${num}`)
             .then(res => {
                 console.log(res.data);
                 setSale(res.data.sale);
@@ -86,8 +90,10 @@ const SaleModify = () => {
     }
 
     const deleteClick = (e) => {
-        let idx = e.target.dataset.idx;
-        files.splice(idx, 1);
+        console.log("deleteClick");
+        // let idx = e.target.dataset.idx;
+        console.log(e);
+        files.splice(e, 1);
         setFiles([...files]);
         setImageCount((prevCount) => Math.max(0, prevCount - 1));
     }
@@ -101,6 +107,7 @@ const SaleModify = () => {
         if (selectImg == null)
             setFiles([...files, { type: 'f', data: e.target.files[0] }]);
         else {
+            console.log("fileChange");
             let id = selectImg.target.id;
             files.splice(id, 1, { type: 'f', data: e.target.files[0] })
             setFiles([...files]);
@@ -146,7 +153,7 @@ const SaleModify = () => {
                 formData.append("file", file.data);
         }
 
-        axios.post('http://43.203.108.152:8090/salemodify', formData)
+        axios.post(url+'salemodify', formData)
             .then(res => {
                 console.log(res);
                 let saleNum = res.data;
@@ -158,16 +165,34 @@ const SaleModify = () => {
         const submissionTime = new Date(); // 등록 시간
         calculateTimeAgo(submissionTime); // 함수 호출하여 시간 차이 계산
     }
-    const deleteSale = () => {
-        axios.delete(`http://43.203.108.152:8090/saledelete/${num}`)
-            .then(res => {
-                navigate(`/salelist`);
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    };
+    const deleteSale = (seq) => {
+        Swal.fire({
+            title: '글을 삭제하시겠습니까?',
+            text: "삭제 후에는 복구할 수 없습니다.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#14C38E',
+            cancelButtonColor: '#d9d9d9',
+            confirmButtonText: '삭제',
+            cancelButtonText: '취소'
+        }).then((result) => {
+            if(result.value){
+                axios.delete(url+`saledelete/${num}`)
+                    .then(res => {
+                        Swal.fire({
+                            title: "삭제되었습니다",
+                            icon: "success",
+                            confirmButtonText: "확인",
+                        })
+                        navigate(`/salelist`);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
+        })
 
+    }
     return (
         <div className='main' style={{ textAlign: 'left', overflow: "scroll", height: "632px", overflowX: "hidden" }}>
             <br />
@@ -194,7 +219,7 @@ const SaleModify = () => {
                         <div style={{ width: "48px", textAlign: "center" }}>
                             <FaCamera size="30" color='gray' />
                         </div>
-                        <div style={{ position: "absolute", textAlign: "center", width: "48px", paddingBottom: "5px", fontWeight: "bold" }}>
+                        <div style={{ position: "absolute", textAlign: "center", width: "48px", paddingBottom: "5px", fontWeight: "bold", color: "gray" }}>
                             {imageCount}/5
                         </div>
                     </div>
@@ -204,8 +229,8 @@ const SaleModify = () => {
                             files.map((file, index) =>
                                 <span key={index}>
                                     <div style={{ position: "relative", display: 'inline-block', marginRight: "10px" }}>
-                                        <img src={file.type === 'i' ? `http://43.203.108.152:8090/img/${file.data}` : URL.createObjectURL(file.data)} width="45px" height="45px" alt='' id={index} onClick={imageClick} />
-                                        <button data-idx={index} onClick={deleteClick} style={{ position: "absolute", top: "-15px", right: "-15px", background: "none", border: "none", cursor: "pointer" }}><GiCancel /></button>
+                                        <img src={file.type === 'i' ? url+`img/${file.data}` : URL.createObjectURL(file.data)} width="45px" height="45px" alt='' id={index} onClick={imageClick} />
+                                        <button data-idx={index} onClick={() => deleteClick(index)} style={{ position: "absolute", top: "-15px", right: "-15px", background: "none", border: "none", cursor: "pointer" }}><GiCancel /></button>
                                     </div>
                                 </span>
                             )
@@ -252,7 +277,7 @@ const SaleModify = () => {
                 <div style={{ display: "flex" }}>
                     <div>
                         <div style={{ marginBottom: "5px", fontSize: "18px" }}>가격</div>
-                        <div><Input type="text" placeholder="10,000원" style={{ borderRadius: "5px", height: "40px", width: "180px", float: "left" }} name="amount" value={formatPrice(sale.amount)} onChange={handleInputChange}></Input></div>
+                        <div><Input type="text" placeholder="10,000원" style={{ borderRadius: "5px", height: "40px", width: "180px", float: "left" }} name="amount" value={sale.amount} onChange={handleInputChange}></Input></div>
                     </div>
                     <div>
                         <div style={{ marginBottom: "5px", fontSize: "18px", marginLeft: "25px" }}>장소</div>
@@ -265,6 +290,7 @@ const SaleModify = () => {
                         style={{ width: "385px", height: "300px", resize: "none" }} name="content" value={sale.content} onChange={handleInputChange}
                         placeholder='상세설명을 입력하세요
 구매날짜, 하자 등 자세하게 작성할수록
+
 구매자에게 편리합니다'></Input>
 
                 </div>

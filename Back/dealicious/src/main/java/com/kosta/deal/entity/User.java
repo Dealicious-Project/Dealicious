@@ -1,5 +1,6 @@
 package com.kosta.deal.entity;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,6 +45,7 @@ public class User {
 	private String accountbank;
 	private String name;
 	private String profileimgurl;
+	private BigDecimal starpoint;
 	
 	@CreationTimestamp
 	private Timestamp createDate;

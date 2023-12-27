@@ -2,16 +2,17 @@ import {useCallback, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { Button, Col, FormGroup, Input, Table } from 'reactstrap';
 import axios from "axios";
+import { useWebSocket } from './WebSocketProvider';
 
 const AdminSettle = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
+  const { url } = useWebSocket();
   const [checkItems, setCheckItems] = useState([])
   const [payList,setPayList] = useState([]);
   
   useEffect(() => {
 
-    axios.get(`http://43.203.108.152:8090/adminsettle`)
+    axios.get(url+`adminsettle`)
       .then(res => {
         console.log(res);
         setPayList([]);
@@ -59,7 +60,7 @@ const AdminSettle = () => {
     console.log("여기옴?")
     var temp = checkItems.join();
     const settlelist = {data:temp};
-    axios.post(`http://43.203.108.152:8090/settle`,settlelist)
+    axios.post(url+`settle`,settlelist)
     .then(res => {
       console.log(res);
       setModalIsOpen(false);

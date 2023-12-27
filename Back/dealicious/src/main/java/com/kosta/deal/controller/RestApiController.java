@@ -3,7 +3,6 @@ package com.kosta.deal.controller;
 import java.util.List;
 import java.util.Map;
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -18,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kosta.deal.config.auth.PrincipalDetails;
+import com.kosta.deal.entity.EmailCode;
 import com.kosta.deal.entity.User;
+import com.kosta.deal.repository.EmailCodeRepository;
 import com.kosta.deal.repository.UserRepository;
 import com.kosta.deal.service.UserListService;
 import com.kosta.deal.service.UserService;
@@ -34,12 +35,20 @@ public class RestApiController {
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	private final UserService userService;
 	private final UserListService userListService;
+	private final EmailCodeRepository emailCodeRepository;
 
 	//로그인 후 user정보 불러와서 redux에 넣는용도
 	@GetMapping("user")
 	public ResponseEntity<User> user(Authentication authentication) {
 		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
 		userListService.add(principalDetails.getUser());
+		return new ResponseEntity<User>(principalDetails.getUser(), HttpStatus.OK);
+	}
+	
+	//마이페이지에서 페이지 로드할때마다 별점 새로 계산하려고
+	@GetMapping("user1")
+	public ResponseEntity<User> user1(Authentication authentication) {
+		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
 		return new ResponseEntity<User>(principalDetails.getUser(), HttpStatus.OK);
 	}
 
@@ -72,6 +81,8 @@ public class RestApiController {
 			user.setRoles("ROLE_USER");
 			user.setUsername(user.getName());
 			userRepository.save(user);
+			EmailCode emailCode = emailCodeRepository.findByEmail(user.getEmail()).get();
+			emailCodeRepository.delete(emailCode);
 
 		} else {
 			PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
@@ -84,7 +95,10 @@ public class RestApiController {
 					.nickname(user.getNickname()).password(bCryptPasswordEncoder.encode(user.getPassword()))
 					.tel(user.getTel()).type(user.getType()).typename(user.getTypename()).build();
 			userRepository.save(auser);
+			EmailCode emailCode = emailCodeRepository.findByEmail(user.getEmail()).get();
+			emailCodeRepository.delete(emailCode);
 		}
+		
 		return "회원가입완료";
 	}
 
@@ -127,23 +141,19 @@ public class RestApiController {
 	}
 
 	@PostMapping("/emails/verification-requests")
-	public ResponseEntity sendMessage(@RequestBody Map<String, Object> param) throws Exception {
-		String email = (String) param.get("email");
-		userService.sendCodeToEmail(email);
-		return new ResponseEntity<>(HttpStatus.OK);
+	public ResponseEntity<String> sendMessage(@RequestBody Map<String, Object> param) throws Exception {
+			String email = (String) param.get("email");
+			userService.sendCodeToEmail(email);
+			return new ResponseEntity<String>(HttpStatus.OK);
+
 	}
 
 	@PostMapping("/emails/verifications")
 	public ResponseEntity verificationEmail(@RequestBody Map<String, Object> param) throws Exception {
-		try {
 			String email = (String) param.get("email");
 			String authCode = (String) param.get("code");
 			userService.verifiedCode(email, authCode);
 			return new ResponseEntity<>(HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
 	}
 	
 	@GetMapping("/logout1")
@@ -154,7 +164,7 @@ public class RestApiController {
 			return new ResponseEntity<String>("로그아웃성공", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
 	}
 }

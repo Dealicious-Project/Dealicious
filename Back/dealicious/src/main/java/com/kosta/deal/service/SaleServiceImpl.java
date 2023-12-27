@@ -59,7 +59,7 @@ public class SaleServiceImpl implements SaleService {
 	@Override
 	public List<Sale> saleListByPage(Integer page) throws Exception {
 		PageRequest pageRequest = PageRequest.of(page - 1, 10, Sort.by(Sort.Direction.DESC, "num"));// PageRequest																											// 페이징																								// API
-		Page<Sale> pages = saleRepository.findAll(pageRequest);
+		Page<Sale> pages = saleRepository.findByCheckdelete("0",pageRequest);
 		List<Sale> saleList = new ArrayList<>();
 		for (Sale sale : pages.getContent()) {
 			saleList.add(sale);
@@ -71,7 +71,7 @@ public class SaleServiceImpl implements SaleService {
 	public List<Sale> categoryListByPage(String category, Integer page) throws Exception {
 		PageRequest pageRequest=PageRequest.of(page-1,10,
 				Sort.by(Sort.Direction.DESC,"num"));
-		Page<Sale> pages = saleRepository.findByCategoryContains(category, pageRequest);
+		Page<Sale> pages = saleRepository.findByCategoryAndCheckdelete(category, "0", pageRequest);
 		List<Sale> saleList = new ArrayList<>();
 		for(Sale sale : pages.getContent()) {
 			saleList.add(sale);
@@ -255,13 +255,10 @@ public class SaleServiceImpl implements SaleService {
 	@Override
 	public void saleDelete(Integer num) throws Exception {
 		Sale sale = saleRepository.findByNum(num);
-		saleRepository.delete(sale);
+		sale.setCheckdelete("1");
+		saleRepository.save(sale);
 	}
-
-
-
 	
-
 	@Override
 	public void payFinish(Integer num) throws Exception {
 		Sale sale = saleRepository.findByNum(num);
@@ -295,6 +292,7 @@ public class SaleServiceImpl implements SaleService {
     	chat.setType("completereceipt");
     	chat.setChannelId(chatRoom.getChannelId());
     	chat.setWriterId("admin");
+    	chat.setChat("거래 완료 메세지");
     	chatRepository.save(chat);
     	
     	userListService.sendCompleteNoti(chat,email,sale.getEmail());
@@ -305,11 +303,8 @@ public class SaleServiceImpl implements SaleService {
 		return saleRepository.findByNum(num);
 	}
 
-	
-	
-
-	
-
-	
-
+	@Override
+	public List<Sale> hotsalelist() throws Exception {
+		return saleDslRepository.hotsalelist();
+	}
 }

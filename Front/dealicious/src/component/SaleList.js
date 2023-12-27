@@ -3,24 +3,17 @@ import React, { useRef, useState, useEffect } from 'react';
 import { FiPlusCircle } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { useParams } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
 import { useSelector } from "react-redux";
-
+import { FaArrowRight } from 'react-icons/fa6';
+import { useWebSocket } from './WebSocketProvider';
 
 const SaleList = () => {
+  const { url } = useWebSocket();
   const [saleList, setSaleList] = useState([]);
-  const [categoryList, setCategoryList] = useState([]);
-  
-  const { category,keyword} = useParams();
+  const { category, keyword } = useParams();
   const [page, setPage] = useState(1); // 페이지 번호
-
-
-
   const user = useSelector(state => state.persistedReducer.user);
-
-
   const observerRef = useRef(null);
-
   const formatPrice = (amount) => {
     if (!amount) return '';
     const numericPrice = parseInt(amount.replace(/[^0-9]/g, ''));
@@ -49,52 +42,51 @@ const SaleList = () => {
 
   };
 
-
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {//IntersectionObserver를 생성하여 관찰 대상 요소(observerRef.current)의 교차점을 감시
       if (entries[0].isIntersecting && saleList.length > 0) {//관찰 대상 요소가 뷰포트와 교차되고 데이터가 있을 때(saleList.length > 0), Axios를 사용하여 서버에서 데이터를 가져오는 GET 요청
-        if(category==null && keyword==null) {
-        axios.get(`http://43.203.108.152:8090/salelist/${page + 1}`)
-          .then(res => {
-            const newSaleList = res.data;//새로운 데이터가 수신되면(newSaleList.length > 0), setSaleList 함수를 사용하여 새 데이터를 기존 saleList에 추가하고 페이지 번호를 업데이트
-            if (newSaleList.length > 0) {
-              setSaleList(prevSaleList => [...prevSaleList, ...newSaleList]);
-              setPage(page + 1);
-            } else {    //새로운 데이터가 없으면 Intersection Observer를 중지하여 추가 요청을 방지
-              observer.disconnect();
-            }
-          })
-          .catch(err => {
-            console.log(err);
-          });
-        } else if(keyword==null){
-          axios.get(`http://43.203.108.152:8090/salelist/${page + 1}/${category}`)
-          .then(res => {
-            const newSaleList = res.data;//새로운 데이터가 수신되면(newSaleList.length > 0), setSaleList 함수를 사용하여 새 데이터를 기존 saleList에 추가하고 페이지 번호를 업데이트
-            if (newSaleList.length > 0) {
-              setSaleList(prevSaleList => [...prevSaleList, ...newSaleList]);
-              setPage(page + 1);
-            } else {    //새로운 데이터가 없으면 Intersection Observer를 중지하여 추가 요청을 방지
-              observer.disconnect();
-            }
-          })
-          .catch(err => {
-            console.log(err);
-          });
+        if (category == null && keyword == null) {
+          axios.get(url + `salelist/${page + 1}`)
+            .then(res => {
+              const newSaleList = res.data;//새로운 데이터가 수신되면(newSaleList.length > 0), setSaleList 함수를 사용하여 새 데이터를 기존 saleList에 추가하고 페이지 번호를 업데이트
+              if (newSaleList.length > 0) {
+                setSaleList(prevSaleList => [...prevSaleList, ...newSaleList]);
+                setPage(page + 1);
+              } else {    //새로운 데이터가 없으면 Intersection Observer를 중지하여 추가 요청을 방지
+                observer.disconnect();
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        } else if (keyword == null) {
+          axios.get(url + `salelist/${page + 1}/${category}`)
+            .then(res => {
+              const newSaleList = res.data;//새로운 데이터가 수신되면(newSaleList.length > 0), setSaleList 함수를 사용하여 새 데이터를 기존 saleList에 추가하고 페이지 번호를 업데이트
+              if (newSaleList.length > 0) {
+                setSaleList(prevSaleList => [...prevSaleList, ...newSaleList]);
+                setPage(page + 1);
+              } else {    //새로운 데이터가 없으면 Intersection Observer를 중지하여 추가 요청을 방지
+                observer.disconnect();
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            });
         } else {
-          axios.get(`http://43.203.108.152:8090/salesearchlist/${page + 1}/${keyword}`)
-          .then(res => {
-            const newSaleList = res.data;//새로운 데이터가 수신되면(newSaleList.length > 0), setSaleList 함수를 사용하여 새 데이터를 기존 saleList에 추가하고 페이지 번호를 업데이트
-            if (newSaleList.length > 0) {
-              setSaleList(prevSaleList => [...prevSaleList, ...newSaleList]);
-              setPage(page + 1);
-            } else {    //새로운 데이터가 없으면 Intersection Observer를 중지하여 추가 요청을 방지
-              observer.disconnect();
-            }
-          })
-          .catch(err => {
-            console.log(err);
-          });
+          axios.get(url + `salesearchlist/${page + 1}/${keyword}`)
+            .then(res => {
+              const newSaleList = res.data;//새로운 데이터가 수신되면(newSaleList.length > 0), setSaleList 함수를 사용하여 새 데이터를 기존 saleList에 추가하고 페이지 번호를 업데이트
+              if (newSaleList.length > 0) {
+                setSaleList(prevSaleList => [...prevSaleList, ...newSaleList]);
+                setPage(page + 1);
+              } else {    //새로운 데이터가 없으면 Intersection Observer를 중지하여 추가 요청을 방지
+                observer.disconnect();
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            });
         }
       }
     }, { threshold: 1 });
@@ -111,8 +103,8 @@ const SaleList = () => {
   }, [page, saleList.length]);
 
   useEffect(() => {
-    if (category == null && keyword==null) {
-      axios.get(`http://43.203.108.152:8090/salelist/${page}`)
+    if (category == null && keyword == null) {
+      axios.get(url + `salelist/${page}`)
         .then(res => {
           console.log(res);
           setSaleList([]);
@@ -123,8 +115,8 @@ const SaleList = () => {
         .catch(err => {
           console.log(err);
         })
-    } else if(keyword==null) {
-      axios.get(`http://43.203.108.152:8090/salelist/${page}/${category}`)
+    } else if (keyword == null) {
+      axios.get(url + `salelist/${page}/${category}`)
         .then(res => {
           console.log(res);
           setSaleList([]);
@@ -137,7 +129,7 @@ const SaleList = () => {
           console.log(err);
         })
     } else {
-      axios.get(`http://43.203.108.152:8090/salesearchlist/${page}/${keyword}`)
+      axios.get(url + `salesearchlist/${page}/${keyword}`)
         .then(res => {
           console.log(res);
           setSaleList([]);
@@ -163,45 +155,50 @@ const SaleList = () => {
         : <Link to="/salewrite" style={{ marginLeft: "320px", marginTop: "550px", textAlign: "right", position: "absolute", backgroundColor: "white", width: "45px", height: "45px", borderRadius: "50px" }}>
           <FiPlusCircle size="40" color="#14C38E" />
         </Link>}
-      <div style={{ color: "#14C38E", marginTop: "5px" }}>
-        {user.typename}
-      </div>
-      {saleList.map((item, index) =>
-        <Link to={"/saledetail/only-detail/" + item.num} key={index} style={{ textDecoration: "none", color: "black" }}>
+      {saleList.length === 0 ?
+        <div style={{ textAlign: "center", marginTop: "50px", width: "305px", marginLeft: "40px" }}>
+          <img src="\ggulee.png" style={{ width: "100px" }} /><br />
+          <b>현재 텅 비어있어요!</b><br />
+          <a style={{ color: '#14C38E', fontWeight: "bold" }}>우리{user.type === "" || user.type === undefined ? "딜리셔스" : user.type === "univ" ? "학교" : "회사"}</a>에서 안전한 중고거래<br />
+          <Link to="/salewrite" style={{ color: "black" }}>내가 먼저 시작하기<FaArrowRight /></Link>
+        </div> :
+        <div>
+          <div style={{ color: "#14C38E", marginTop: "5px" }}>
+            {user.typename}
+          </div>
+          {saleList.map((item, index) =>
+            <Link to={"/saledetail/only-detail/" + item.num} key={index} style={{ textDecoration: "none", color: "black" }}>
+              <div style={{ paddingTop: "10px", paddingBottom: "10px", borderBottom: "1px solid lightgray", height: "120px" }}>
+                <div>
+                  <div style={{ display: "flex" }} >
+                    {item.fileurl == null ? <img src='./profile.png' width="130px" height="87px" />
+                      : <img src={url + `img/${item.fileurl.split(',')[0]}`} width="100px" height="100px" style={{ borderRadius: "10px" }} />}
 
-          <div style={{ paddingTop: "10px", paddingBottom: "10px", borderBottom: "1px solid lightgray", height: "100px" }}>
-            <div>
-              <div style={{ display: "flex" }} >
-                {item.fileurl == null ? <img src='./profile.png' width="130px" height="87px" />
-                  : <img src={`http://43.203.108.152:8090/img/${item.fileurl.split(',')[0]}`} width="130px" height="87px" />}
-
-                <div style={{ textAlign: "left", marginLeft: "15px", width: "290px" }}>
-                  <a style={{ fontSize: "18px" }}>
-                    {item.title.length > 20 ? `${item.title.slice(0, 20)}...` : item.title}
-                  </a>
-                  <div style={{ display: "flex" }}>
-                    <div style={{ fontSize: "15px", width: "230px" }}>{item.place}</div>
-                    <div style={{ textAlign: "right", width: "55px" }}>
-                      {item.ggull == 0 ? <img src='' style={{ width: "35px" }} /> : <img src='/ggul.png' style={{ width: "35px" }} />}
-                    </div>
-
-
-                  </div>
-
-                  <div style={{ display: "flex" }}>
-                    <div style={{ fontSize: "16px", fontWeight: "bold", textAlign: "left", width: "190px" }}>{formatPrice(item.amount)}</div>
-                    <div style={{ width: "95px", textAlign: "right" }}>
-                      {timediff(item.writedate)}
+                    <div style={{ textAlign: "left", marginLeft: "15px", width: "265px" }}>
+                      <div style={{ fontSize: "18px", width:"265px" }}>
+                        {item.title.length > 20 ? `${item.title.slice(0, 20)}...` : item.title}
+                      </div>
+                      <div style={{ display: "flex", width:"265px" }}>
+                        <div style={{ fontSize: "15px" }}>{item.place}</div>
+                      </div>
+                      <div style={{ textAlign: "right", width: "55px", width: "265px" }}>
+                        {item.ggull == 0 ? <img src='' style={{ width: "35px" }} /> : <img src='/ggul.png' style={{ width: "35px" }} />}
+                      </div>
+                      <div style={{ display: "flex" }}>
+                        <div style={{ fontSize: "16px", fontWeight: "bold", textAlign: "left", width: "170px", display: "flex" }}>{formatPrice(item.amount)}{item.status === "수령완료" || item.status === "거래완료" ? <div style={{ fontSize: "12px", fontWeight: "normal", marginLeft: "5px", backgroundColor:"#E9E9E9", width:"60px", textAlign:"center", lineHeight:"24px", borderRadius:"5px", fontWeight:"bold", color:"darkgray" }}>판매완료</div> : ""}</div>
+                        <div style={{ width: "95px", textAlign: "right" }}>
+                          {timediff(item.writedate)}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-        </Link>
+            </Link>
 
-      )}
+          )}
+        </div>}
       <div ref={observerRef} style={{ height: '10px' }} />
     </div>
 

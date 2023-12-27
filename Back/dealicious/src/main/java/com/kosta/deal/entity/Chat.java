@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 
@@ -31,6 +32,8 @@ public class Chat {
 	 private String receiverId;
 	 private String chat;
 	 private String data;
+	 
+	 @ColumnDefault("0")
 	 private String isRead;
 	 private String type;
 	 @CreationTimestamp

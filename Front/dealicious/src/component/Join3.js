@@ -3,8 +3,10 @@ import { useState } from "react";
 import { CgClose } from "react-icons/cg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button, FormGroup, Input, Label } from "reactstrap";
+import { useWebSocket } from './WebSocketProvider';
 
 const Join3 = () => {
+    const { url } = useWebSocket();
     const [name, setName] = useState('');
     const [nickname, setNickname] = useState('');
     const [password, setPassword] = useState('');
@@ -19,7 +21,7 @@ const Join3 = () => {
 
     const handleNicknameCheck = () => {
         console.log(nickname);
-        axios.get(`http://43.203.108.152:8090/nicknamecheck/` + nickname)
+        axios.get(url+"nicknamecheck/" + nickname)
             .then(res => {
                 console.log(res.data);
                 setIsNicknameAvailable(res.data);
@@ -78,8 +80,8 @@ const Join3 = () => {
     };
 
     return (
-        <div className='main' style={{ overflow: "scroll", height: "832px", overflowX: "hidden", paddingTop: "130px", paddingRight: "50px", paddingLeft: "50px" }}>
-            <div style={{ width: "330px", textAlign: "right", paddingBottom: "20px" }}>
+        <div className='main' style={{ overflow: "scroll", height: "742px", overflowX: "hidden", paddingTop: "65px", paddingRight: "50px", paddingLeft: "50px" }}>
+            <div style={{ width: "330px", textAlign: "right" }}>
                 <Link to={"/login"}><CgClose size={30} color="darkgray" /></Link>
             </div>
             <a style={{ fontSize: "30px", fontWeight: "bold", textAlign: "center", color: "#14C38E" }}>회원가입</a>

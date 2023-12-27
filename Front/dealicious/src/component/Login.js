@@ -3,8 +3,11 @@ import { FaArrowLeft } from "react-icons/fa6";
 import { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import { useWebSocket } from './WebSocketProvider';
+import  Swal  from 'sweetalert2';
 
 const Login = () => {
+    const { url } = useWebSocket();
     const [user, setUser] = useState({ email: '', password: '' });
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setpasswordError] = useState(false);
@@ -37,11 +40,11 @@ const Login = () => {
             return;
         }
 
-        axios.post("$url/login", user)
+        axios.post(url+"login", user)
             .then(res => {
                 console.log(res.headers.authorization);
                 dispatch({ type: "token", payload: res.headers.authorization });
-                axios.get("http://43.203.108.152:8090/user", {
+                axios.get(url+"user", {
                     headers: {
                         Authorization: res.headers.authorization,
                     }
@@ -49,7 +52,13 @@ const Login = () => {
                     .then(res => {
                         console.log(res)
                         dispatch({ type: "user", payload: res.data });
-                        window.location.replace("/");
+                        Swal.fire({
+                            title: "로그인 성공",
+                            icon: "success",
+                            confirmButtonText: "확인",
+                        }).then(() => {
+                            window.location.replace("/");
+                        });
                     })
                     .catch(err => {
                         console.log(err)
@@ -67,16 +76,16 @@ const Login = () => {
     }
 
     function goToNaver() {
-        window.location.href = "http://43.203.108.152:8090/oauth2/authorization/naver"
+        window.location.href = url+"oauth2/authorization/naver"
     }
 
     function goToKakao() {
-        window.location.href = "http://43.203.108.152:8090/oauth2/authorization/kakao"
+        window.location.href = url+"oauth2/authorization/kakao"
     }
 
     return (
-        <div className='main' style={{ overflow: "scroll", height: "932px", overflowX: "hidden", paddingTop: "110px", paddingLeft: "0px", paddingRight: "0px", paddingBottom: "0px" }}>
-            <div style={{ paddingRight: "50px", paddingLeft: "50px", marginBottom: "108px" }}>
+        <div className='main' style={{ overflow: "scroll", height: "742px", overflowX: "hidden", paddingLeft: "0px", paddingRight: "0px", paddingBottom: "0px", paddingTop: "61px" }}>
+            <div style={{ paddingRight: "50px", paddingLeft: "50px" }}>
                 <div style={{ width: "330px", textAlign: "left", paddingBottom: "20px" }}>
                     <a href="/"><FaArrowLeft size={30} color="darkgray" /></a>
                 </div>

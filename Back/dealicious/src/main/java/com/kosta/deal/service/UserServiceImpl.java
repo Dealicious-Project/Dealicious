@@ -3,9 +3,11 @@ package com.kosta.deal.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.time.Duration;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -14,10 +16,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kosta.deal.entity.EmailCode;
 import com.kosta.deal.entity.FileVo;
 import com.kosta.deal.entity.Review;
 import com.kosta.deal.entity.User;
 import com.kosta.deal.repository.DslRepository;
+import com.kosta.deal.repository.EmailCodeRepository;
 import com.kosta.deal.repository.FileVoRepository;
 import com.kosta.deal.repository.ReviewRepository;
 import com.kosta.deal.repository.UserRepository;
@@ -33,11 +37,14 @@ public class UserServiceImpl implements UserService {
 	private FileVoRepository fileVoRepository;
 	@Autowired
 	private MailService mailService;
-	
+	@Autowired
+	private RedisService redisService;
 	@Autowired
 	private ReviewRepository reviewRepository;
 	@Autowired
 	private DslRepository dslRepository;
+	@Autowired
+	private EmailCodeRepository emailCodeRepository;
 
 	@Override
 	public User login(String email, String password) throws Exception {
@@ -88,23 +95,36 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void sendCodeToEmail(String toEmail) throws Exception {
-//		this.checkDuplicatedEmail(toEmail);
-//        String title = "Dealicious 이메일 인증 번호";
-//        String authCode = this.createCode();
-//        mailService.sendEmail(toEmail, title, authCode);
-//        // 이메일 인증 요청 시 인증 번호 Redis에 저장 ( key = "AuthCode " + Email / value = AuthCode )
+		Optional<User> user = userRepository.findByEmail(toEmail);
+        if (user.isPresent()) {
+            throw new Exception();
+        }
+        String title = "Dealicious 이메일 인증 번호";
+        String authCode = this.createCode();
+        mailService.sendEmail(toEmail, title, authCode);
+        // 이메일 인증 요청 시 인증 번호 Redis에 저장 ( key = "AuthCode " + Email / value = AuthCode )
 //        redisService.setValues(AUTH_CODE_PREFIX + toEmail,
 //                authCode, Duration.ofMillis(this.authCodeExpirationMillis));
+        Optional<EmailCode> emailCode = emailCodeRepository.findByEmail(toEmail);
+        if (emailCode.isPresent()) { 
+        	EmailCode emailCode1 = emailCode.get();
+        	emailCode1.setCode(authCode);
+        	emailCodeRepository.save(emailCode1);
+        } else {
+        	EmailCode emailCode1 = new EmailCode();
+            emailCode1.setEmail(toEmail);
+            emailCode1.setCode(authCode);
+            emailCodeRepository.save(emailCode1);
+        }
+        
 	}
 
 	@Override
 	public void verifiedCode(String email, String authCode) throws Exception {
-//		this.checkDuplicatedEmail(email);
-//        String redisAuthCode = redisService.getValues(AUTH_CODE_PREFIX + email);
-//        boolean authResult = redisService.checkExistsValue(redisAuthCode) && redisAuthCode.equals(authCode);
-//        if (!authResult) {
-//        	throw new Exception("오류");
-//        }
+		EmailCode emailCode = emailCodeRepository.findByEmail(email).get();
+        if (!emailCode.getCode().equals(authCode)) { 
+        	throw new Exception("이메일 인증코드 오류");
+        }
 	}
 
 	@Override
@@ -123,14 +143,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void checkDuplicatedEmail(String email) throws Exception {
-		Optional<User> user = userRepository.findByEmail(email);
-        if (user.isPresent()) {
-            throw new Exception("UserServiceImpl.checkDuplicatedEmail exception occur email: {}\", email 오류");
-        }
-	}
-
-	@Override
 	public void registerReview(String userEmail, String partnerEmail, String startCnt,Integer salenum) throws Exception {
 		Review review = new Review();
 		review.setGiver(userEmail);
@@ -140,6 +152,19 @@ public class UserServiceImpl implements UserService {
 		Review review2 = dslRepository.getReviewForCheck(userEmail,partnerEmail,salenum);
 		if(review2!=null) throw new Exception("이미 리뷰를 작성하셨습니다.");
 		reviewRepository.save(review);
+		List<Review> reviewList = reviewRepository.findAllByReceiver(review.getReceiver());
 		
+		Integer total = 0;
+		for(Review r : reviewList) {
+			total += Integer.parseInt(r.getStarcount());
+		}
+		BigDecimal totalscore = BigDecimal.valueOf(total);
+		BigDecimal totalcnt = BigDecimal.valueOf(reviewList.size());
+        RoundingMode roundingMode = RoundingMode.HALF_UP;
+		BigDecimal starpoint = totalscore.divide(totalcnt,2,roundingMode);
+		User user = userRepository.findByEmail(partnerEmail).get();
+		user.setStarpoint(starpoint);
+		userRepository.save(user);
 	}
+
 }

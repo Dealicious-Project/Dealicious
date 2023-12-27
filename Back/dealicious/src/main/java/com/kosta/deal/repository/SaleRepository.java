@@ -21,5 +21,6 @@ public interface SaleRepository extends JpaRepository<Sale, Integer> {
 	Sale findByNum(Integer num);
 	List<Sale> findByEmail(String email);
 	List<Sale> findByNumIn(List<Integer> numList);
-	
+	Page<Sale>findByCheckdelete(String checkdelete, PageRequest pageRequest);
+	Page<Sale>findByCategoryAndCheckdelete(String category, String checkdelete, PageRequest pageRequest);
 }

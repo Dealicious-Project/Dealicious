@@ -4,8 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import { useWebSocket } from './WebSocketProvider';
 
 const Profilemodify = () => {
+    const { url } = useWebSocket();
     const [nicknameMessage, setNicknameMessage] = useState('');
     const [isNicknameAvailable, setIsNicknameAvailable] = useState(false);
     const navigate = useNavigate();
@@ -34,7 +36,7 @@ const Profilemodify = () => {
         console.log("1")
         if (isNicknameAvailable) {
             console.log("2")
-            axios.put("http://43.203.108.152:8090/profilemodify", formData)
+            axios.put(url+"profilemodify", formData)
                 .then(res => {
                     console.log(res);
                     dispatch({ type: "user", payload: res.data });
@@ -59,7 +61,7 @@ const Profilemodify = () => {
             return;
         }
 
-        axios.get("http://43.203.108.152:8090/nicknamecheck/" + user.nickname)
+        axios.get(url+"nicknamecheck/" + user.nickname)
             .then(res => {
                 console.log(res.data);
                 setIsNicknameAvailable(res.data);
@@ -75,7 +77,7 @@ const Profilemodify = () => {
     }
     useEffect(() => {
         if (temp.profileimgurl) {
-            setPreviewImage(`http://43.203.108.152:8090/img/${temp.profileimgurl}`);
+            setPreviewImage(url+`img/${temp.profileimgurl}`);
         } else {
             setPreviewImage(Image);
         }

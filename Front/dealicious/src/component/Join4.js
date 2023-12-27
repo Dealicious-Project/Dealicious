@@ -5,8 +5,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { Swal } from 'sweetalert2';
+import { useWebSocket } from './WebSocketProvider';
 
 const Join4 = () => {
+    const { url } = useWebSocket();
     const [email, setEmail] = useState('');
     const [code, setCode] = useState('');
     const [emailError, setEmailError] = useState('');
@@ -19,11 +21,11 @@ const Join4 = () => {
     const nickname = location.state?.nickname;
     const password = location.state?.password;
     const token = useSelector(state => state.persistedReducer.token);
-    const [successEmail, setSuccessEmail] = useState(true);
+    const [successEmail, setSuccessEmail] = useState(false);
 
     useEffect(() => {
         setEmailError('');
-        setSuccessEmail(true);
+        setSuccessEmail(false);
     }, [email]);
 
     useEffect(() => {
@@ -56,7 +58,7 @@ const Join4 = () => {
         };
         //headers로 토큰 넘긴 이유는 소셜로그인했을때 가입되면서 추가정보 등록 이어나가기 위해서.
         if (successEmail) {
-            axios.post("http://43.203.108.152:8090/join", userData, {
+            axios.post(url+"join", userData, {
                 headers: {
                     Authorization: token,
                 }
@@ -69,7 +71,7 @@ const Join4 = () => {
                     console.log(err);
                 });
         } else {
-            alert("이메일 인증을 다시 해주세요")
+            alert("이메일 인증을 해주세요")
         }
     }
 
@@ -103,16 +105,18 @@ const Join4 = () => {
     }
 
     const verificationEmail = () => {
-        axios.post(`http://43.203.108.152:8090/emails/verification-requests`, { email: email })
+        axios.post(url+"emails/verification-requests", { email: email })
             .then(res => {
                 console.log(res.data);
+                alert("인증번호를 발송했습니다.")
             })
             .catch(err => {
                 console.log(err);
+                alert("이미 가입된 이메일입니다. 다른 이메일로 인증받아주세요.")
             });
     }
     const verificationEmailCode = () => {
-        axios.post(`http://43.203.108.152:8090/emails/verifications`, { email: email, code: code })
+        axios.post(url+"emails/verifications", { email: email, code: code })
             .then(res => {
                 console.log(res.data);
                 console.log("되냐?")
@@ -121,13 +125,13 @@ const Join4 = () => {
             })
             .catch(err => {
                 console.log(err);
-                console.log("앙ㄴ되냐?")
+                alert("이메일 인증 오류.")
             });
     }
 
     return (
-        <div className='main' style={{ overflow: "scroll", height: "832px", overflowX: "hidden", paddingTop: "130px", paddingRight: "50px", paddingLeft: "50px" }}>
-            <div style={{ width: "330px", textAlign: "right", paddingBottom: "20px" }}>
+        <div className='main' style={{ overflow: "scroll", height: "742px", overflowX: "hidden", paddingTop: "65px", paddingRight: "50px", paddingLeft: "50px" }}>
+            <div style={{ width: "330px", textAlign: "right" }}>
                 <Link to={"/login"}><CgClose size={30} color="darkgray" /></Link>
             </div>
             <a style={{ fontSize: "30px", fontWeight: "bold", textAlign: "center", color: "#14C38E" }}>회원가입</a>

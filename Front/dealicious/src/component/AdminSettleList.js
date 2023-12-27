@@ -3,8 +3,10 @@ import { useState ,useEffect} from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Button, Col, FormGroup, Modal, Table } from 'reactstrap';
+import { useWebSocket } from './WebSocketProvider';
 
 const AdminSettleList = () => {
+  const { url } = useWebSocket();
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
@@ -14,7 +16,7 @@ const AdminSettleList = () => {
 
   const search = () => {
     const date = {sdate:startDate, edate:endDate};
-    axios.post(`http://43.203.108.152:8090/settlelist`,date)
+    axios.post(url+`settlelist`,date)
     .then(res => {
       console.log(res);
       setSettleList([]);

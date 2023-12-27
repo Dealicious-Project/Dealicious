@@ -1,6 +1,7 @@
 package com.kosta.deal.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -152,6 +153,45 @@ public class NotiController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<Integer>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/notieachcnt")
+	public ResponseEntity<Map<String,Object>> notieachcnt(Authentication authentication) {
+		try {
+			PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+			User user = principalDetails.getUser();
+			Map<String,Object> res = notiService.findNotiEachCnt(user.getEmail());
+			return new ResponseEntity<Map<String,Object>>(res,HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Map<String,Object>>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/notiactivityread")
+	public ResponseEntity<String> notiactivityread(Authentication authentication) {
+		try {
+			PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+			User user = principalDetails.getUser();
+			notiService.notiactivityread(user.getEmail());
+			return new ResponseEntity<String>("활동 읽음 처리",HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/notikeywordread")
+	public ResponseEntity<String> notikeywordread(Authentication authentication) {
+		try {
+			PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+			User user = principalDetails.getUser();
+			notiService.notikeywordread(user.getEmail());
+			return new ResponseEntity<String>("키워드 읽음 처리",HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
 	}
 }

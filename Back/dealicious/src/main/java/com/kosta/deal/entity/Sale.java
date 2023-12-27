@@ -40,7 +40,8 @@ public class Sale {
 	private String status;
 	private String ggull;
 	private String zzim;
-
+	@ColumnDefault("0")
+	private String checkdelete;
 	@ColumnDefault("0")
 	private Integer viewcnt;
 	@ColumnDefault("0")

@@ -62,6 +62,7 @@ public class PayServiceImpl implements PayService {
     	chat.setType("completepay");
     	chat.setChannelId(chatRoom.getChannelId());
     	chat.setWriterId("admin");
+    	chat.setChat("결제 완료 메세지");
     	chatRepository.save(chat);
     	userListService.sendPayNoti(chat,pay.getBuyerEmail(),sale.getEmail());
 	}

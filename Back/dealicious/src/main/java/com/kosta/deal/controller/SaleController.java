@@ -199,4 +199,15 @@ public class SaleController {
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	@GetMapping("/hotsalelist")
+	public ResponseEntity<List<Sale>> hotsalelist() {
+		try {
+			List<Sale> saleList = saleService.hotsalelist();		
+			return new ResponseEntity<List<Sale>>(saleList, HttpStatus.OK);
+		} catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<List<Sale>>(HttpStatus.BAD_REQUEST);
+		}
+	}
 }

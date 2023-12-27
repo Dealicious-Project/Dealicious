@@ -89,7 +89,7 @@ public class ChatController {
 				chatpartner = userService.findUserByEmail(chatRoom.getCreator());
 			}
 			Sale sale = saleService.saleDetail(chatRoom.getSaleNum());
-			List<Chat> chatlist = chatService.findChatListByChannelId(channelid);
+			List<Chat> chatlist = chatService.findChatListByChannelId(user, channelid);
 			Map<String,Object> res = new HashMap<>();
 			res.put("chatlist", chatlist);
 			res.put("sale", sale);
@@ -138,6 +138,10 @@ public class ChatController {
     	PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
     	User user = principalDetails.getUser();
     	try {
+    		Sale sale = saleService.saleDetail(salenum);
+    		if(sale.getStatus().equals("수령완료")) {
+    			throw new Exception("이미 수령 완료 처리되었습니다.");
+    		}
     		saleService.changesalestatusToreceipt(salenum,user.getEmail());
 			return new ResponseEntity<String>(HttpStatus.OK);
 		} catch(Exception e) {
@@ -158,4 +162,58 @@ public class ChatController {
 			return new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
 	}
+    
+  //실시간으로 추가되는 채팅방 불러오기
+    @GetMapping("/chatroomlist/{channelId}")
+	public ResponseEntity<Map<String,Object>> chatroom(Authentication authentication, @PathVariable String channelId) {    	
+    	PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+    	User user = principalDetails.getUser();
+    	try {
+    		Map<String,Object> res = chatService.getChatRoom(user,channelId);
+			return new ResponseEntity<Map<String,Object>>(res, HttpStatus.OK);
+		} catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Map<String,Object>>(HttpStatus.BAD_REQUEST);
+		}
+	}
+    
+    @PostMapping("/insertisread")
+	public ResponseEntity<String> insertisread(Authentication authentication,@RequestBody Chat chat) {
+    	PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+    	User user = principalDetails.getUser();
+    	try {
+    		chatService.insertisread(user,chat);
+    		return new ResponseEntity<String>(HttpStatus.OK);
+		} catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		}
+	}
+    
+    @GetMapping("/chatcnt")
+    public ResponseEntity<Long> chatcnt(Authentication authentication) {
+		try {
+			PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+			User user = principalDetails.getUser();
+			Long chatcnt = chatService.getChatCnt(user);
+			return new ResponseEntity<Long>(chatcnt,HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Long>(HttpStatus.BAD_REQUEST);
+		}
+	}
+    
+    @GetMapping("/chatRead/{channelId}")
+    public ResponseEntity<String> chatRead(Authentication authentication, @PathVariable String channelId) {    	
+    	PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+    	User user = principalDetails.getUser();
+    	try {
+    		chatService.chatRead(user,channelId);
+			return new ResponseEntity<String>("채팅방 입장 전 읽음 처리", HttpStatus.OK);
+		} catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		}
+	}
+    
 }

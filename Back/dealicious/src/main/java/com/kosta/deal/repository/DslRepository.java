@@ -65,7 +65,8 @@ public class DslRepository {
 	public List<String> findUnivNameList(String typename) {
 		QUnivData univData = QUnivData.univData;
 		return jpaQueryFactory.select(univData.schoolName).from(univData)
-				.where(univData.schoolName.like("%" + typename + "%")).fetch();
+				.where(univData.schoolName.like("%" + typename + "%"))
+				.orderBy(univData.schoolName.asc()).fetch();
 	}
 
 	public Admin findAdminById(String adminid) {
@@ -76,7 +77,8 @@ public class DslRepository {
 	public List<String> findCorpNameList(String typename) {
 		QCorpData corpData = QCorpData.corpData;
 		return jpaQueryFactory.select(corpData.corp_name).from(corpData)
-				.where(corpData.corp_name.like("%" + typename + "%")).fetch();
+				.where(corpData.corp_name.like("%" + typename + "%"))
+				.orderBy(corpData.corp_name.asc()).fetch();
 	}
 
 	public List<Hot> findHotList() {
@@ -230,7 +232,7 @@ public class DslRepository {
 		QSale sale = QSale.sale;
 		return jpaQueryFactory.select(sale)
 				.from(sale)
-				.where(sale.email.eq(email))
+				.where(sale.email.eq(email).and(sale.checkdelete.eq("0")))
 				.orderBy(sale.writedate.desc())
 				.fetch();
 	}
@@ -258,5 +260,35 @@ public class DslRepository {
 		QNotification notification = QNotification.notification;
 		return jpaQueryFactory.selectFrom(notification)
 				.where(notification.email.eq(email).and(notification.isRead.eq("0")).and(notification.type.eq("keyword"))).fetch();
+	}
+	
+	public Long getNonReadCnt(String channelId, String email) {
+	    QChat chat = QChat.chat1;
+	    return jpaQueryFactory.selectFrom(chat)
+	            .where(chat.channelId.eq(channelId)
+	                    .and(chat.isRead.contains(email).not()))
+	            .fetchCount();
+	}
+	
+	public List<Chat> getNonReadChat(User user, String channelId) {
+		QChat chat = QChat.chat1;
+		return jpaQueryFactory.selectFrom(chat)
+				.where(chat.channelId.eq(channelId)
+	                    .and(chat.isRead.contains(user.getEmail()).not()))
+				.fetch();
+	}
+	
+	public List<Notification> findNonReadNotiActiList(String email) {
+		QNotification notification = QNotification.notification;
+		return jpaQueryFactory.selectFrom(notification)
+				.where(notification.email.eq(email).and(notification.type.eq("activity")).and(notification.isRead.eq("0")))
+				.fetch();
+	}
+
+	public List<Notification> findNonReadNotiKeywordList(String email) {
+		QNotification notification = QNotification.notification;
+		return jpaQueryFactory.selectFrom(notification)
+				.where(notification.email.eq(email).and(notification.type.eq("keyword")).and(notification.isRead.eq("0")))
+				.fetch();
 	}
 }

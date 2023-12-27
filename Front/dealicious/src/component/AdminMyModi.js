@@ -5,11 +5,12 @@ import { Button, Input, Table } from 'reactstrap';
 import axios from "axios";
 import { useSelector} from "react-redux";
 import {useNavigate} from 'react-router-dom';
+import { useWebSocket } from './WebSocketProvider';
 
 const AdminMyModi = () => {
   const [admin, setAdmin] = useState({ adminid: '', accountid: '', bank: '', balance: '' })
   const admin1 = useSelector(state => state.persistedReducer.admin);
-
+  const { url } = useWebSocket();
   const navigate = useNavigate();
 
   useEffect(()=> {
@@ -22,7 +23,7 @@ const AdminMyModi = () => {
     setData({ ...data, [e.target.name]: e.target.value });
   }
   const changeadminpassword = () => {
-    axios.post(`http://43.203.108.152:8090/changeadminpassword`, data)
+    axios.post(url+"changeadminpassword", data)
             .then(res => {
                 alert(res.data);
                 navigate(`/adminmy`);

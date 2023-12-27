@@ -14,7 +14,6 @@ import NotiActivity from './component/NotiActivity';
 import NotiKeyword from './component/NotiKeyword';
 import Keyword from './component/Keyword';
 import Search from './component/Search';
-import Chat from './component/Chat';
 import Login from './component/Login';
 import Join from './component/Join';
 import Join2 from './component/Join2';
@@ -92,7 +91,6 @@ function App() {
                                 <Route exect path="/notikeyword" element={<NotiKeyword />} /> {/**/}
                                 <Route exect path="/keyword" element={<Keyword />} /> {/**/}
                                 <Route exect path="/search" element={<Search />} /> {/**/}
-                                <Route exect path="/chat" element={<Chat />} />
 
                                 <Route exect path="/login" element={<Login />} /> {/**/}
                                 <Route exect path="/join" element={<Join />} /> {/**/}

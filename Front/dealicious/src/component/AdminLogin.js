@@ -4,19 +4,21 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, FormGroup, Input, Label } from "reactstrap";
 import Swal from "sweetalert2/src/sweetalert2";
+import { useWebSocket } from './WebSocketProvider';
 
 const AdminLogin = () => {
     const [adminid, setAdminId] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
+    const { receivedata, resetData,url } = useWebSocket();
 
     const submit = (e) => {
         e.preventDefault();
-        axios.post(`http://43.203.108.152:8090/login`,{email:adminid,password:password})
+        axios.post(url+`login`,{email:adminid,password:password})
         .then(res=> {
             console.log(res.headers.authorization);
             dispatch({ type: "token", payload: res.headers.authorization });
-            axios.get(`http://43.203.108.152:8090/adminlogin`, {
+            axios.get(url+"adminlogin", {
                     headers: {
                         Authorization: res.headers.authorization,
                     }

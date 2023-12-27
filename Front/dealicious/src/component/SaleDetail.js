@@ -11,9 +11,11 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Swal from 'sweetalert2';
+import { useWebSocket } from './WebSocketProvider';
 
 
 function SaleDetail() {
+  const { url } = useWebSocket();
   const Image = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
   const user = useSelector(state => state.persistedReducer.user);
   const [writer, setwriter] = useState({ nickname: '', typename: '', fileurl: '', ggull: '', email: '', id: '' });
@@ -29,7 +31,7 @@ function SaleDetail() {
       ...prevSale,
       status: e.target.value
     }));
-    axios.get(`http://43.203.108.152:8090/changesalestatus/${num}/${e.target.value}`)
+    axios.get(url+`changesalestatus/${num}/${e.target.value}`)
       .then(res => {
         console.log(res);
       })
@@ -62,7 +64,6 @@ function SaleDetail() {
     if (!amount) return '';
     const numericPrice = parseInt(amount.replace(/[^0-9]/g, ''));
 
-    // 숫자를 천단위로 포맷팅합니다.
     const formattedPrice = numericPrice.toLocaleString('ko-KR');
     return `${formattedPrice}원`;
   };
@@ -70,9 +71,9 @@ function SaleDetail() {
 
 
   useEffect(() => {
-    if (user.email === "") {
+    if (user.email === "" || user.email === undefined) {
       axios
-        .get(`http://43.203.108.152:8090/saledetail/${sect}/${num}`)
+        .get(url+`saledetail/${sect}/${num}`)
         .then(res => {
           console.log(res.data);
 
@@ -92,7 +93,7 @@ function SaleDetail() {
         });
     } else {
       axios
-        .get(`http://43.203.108.152:8090/saledetail/${sect}/${user.email}/${num}`)
+        .get(url+`saledetail/${sect}/${user.email}/${num}`)
         .then(res => {
           console.log(res.data);
 
@@ -130,14 +131,22 @@ function SaleDetail() {
         return category;
     }
   };
-
-  const selectGood = (e) => {
-    axios.get(`http://43.203.108.152:8090/salelike/${user.email}/${num}`)
-      .then(res => {
-        console.log(res.data)
-        setSale({ ...sale, zzimcnt: res.data.zzimCnt });
-        setHeart(res.data.isSelect);
-      })
+  const selectGood = () => {
+    if (user.email === '' || user.email===undefined) {
+      Swal.fire({
+        icon: 'info',
+        title: '로그인이 필요합니다.',
+        text: '로그인 후에 찜하기 기능을 사용할 수 있습니다.',
+        confirmButtonText: '확인',
+      });
+    } else {
+      axios.get(url+`salelike/${user.email}/${num}`)
+        .then(res => {
+          console.log(res.data)
+          setSale({ ...sale, zzimcnt: res.data.zzimCnt });
+          setHeart(res.data.isSelect);
+        })
+    }
   };
 
   const gochat = () => {
@@ -145,7 +154,7 @@ function SaleDetail() {
       const uniqueString = uuidv4();
       const chatRoom = { channelId: uniqueString, creator: user.email, partner: writer.email, saleNum: num };
       console.log(chatRoom);
-      axios.post(`http://43.203.108.152:8090/findchatroom`, chatRoom, {
+      axios.post(url+`findchatroom`, chatRoom, {
         headers: {
           Authorization: token,
         }
@@ -161,7 +170,6 @@ function SaleDetail() {
 
     } else {
       alert("로그인 해주세요");
-      navigate(`/mypagenl`);
     }
   };
   const goToEditPage = () => {
@@ -170,13 +178,12 @@ function SaleDetail() {
 
   const pay = () => {
     if (user.email === writer.email)
-      alert("작성자와 같은사람은 결제할수 없습니다")
+      alert("내가 작성한 글에는 누를 수 없습니다")
     else if (user.email !== writer.email && user.email !== '') {
       navigate(`/gpay/${num}`)
     }
-    else if (user.email == '') {
+    else if (user.email == '' || user.email===undefined) {
       alert("로그인해주세요")
-      navigate(`/mypagenl`);
     }
   }
 
@@ -190,8 +197,9 @@ function SaleDetail() {
     slidesToScroll: 1,
   };
 
-
-
+  // const backButton = () => {
+  //   navigate(-1);
+  // }
 
   return (
     <div
@@ -208,15 +216,14 @@ function SaleDetail() {
 
 
         <Link to="/salelist">
-          <IoArrowBackOutline size="30" color="14C38E" />
+          <div><IoArrowBackOutline size="30" color="14C38E" /></div>
         </Link>
         <div
           style={{
             color: "#14C38E",
             fontSize: "20px",
             textAlign: "center",
-            width: "360px",
-            marginLeft: "-20px"
+            width: "360px"
           }}
         >
           <b>{sale.title}</b>
@@ -226,10 +233,10 @@ function SaleDetail() {
       <div>
         <div style={{ paddingBottom: "20px" }}>
           <Slider {...settings}>
-            {fileurlList.map((url, index) => (
+            {fileurlList.map((imgnum, index) => (
               <div key={index}>
                 <img
-                  src={`http://43.203.108.152:8090/img/http://43.203.108.152:8090`}
+                  src={url+`img/${imgnum}`}
                   alt={`slide-${index}`}
                   style={{ width: "385px", height: "210px", borderRadius: "10px" }}
                 />
@@ -241,29 +248,29 @@ function SaleDetail() {
         <div style={{ marginTop: "15px" }}>
           <div style={{ display: "flex" }}>
             <div rowSpan={2}>
-              <img src={writer.fileurl == null ? Image : `http://43.203.108.152:8090/img/${writer.fileurl}`} style={{ width: "60px", height: "60px", marginRight: "10px", borderRadius: "50px" }} />
+              <img src={writer.fileurl == null ? Image : url+`img/${writer.fileurl}`} style={{ width: "60px", height: "60px", marginRight: "10px", borderRadius: "50px" }} />
             </div>
             <div
               style={{
-                marginTop: "7.5px",
-                fontSize: "16px",
+                fontSize: "18px",
                 width: "180px",
                 marginLeft: "10px",
+                lineHeight: "60px"
               }}
             >
               <b>{writer.nickname}</b>
               <br />
-              {writer.typename.length > 9
+              {/* {writer.typename.length > 9
                 ? `${writer.typename.slice(0, 9)}...`
-                : writer.typename}
+                : writer.typename} */}
             </div>
             <div
               style={{
                 border: "1px solid lightgray",
-                marginTop: "12.5px",
+                marginTop: "8px",
                 borderRadius: "10px",
                 width: "133px",
-                height: "45px",
+                height: "44px",
                 textAlign: "center",
               }}
             >
@@ -276,10 +283,10 @@ function SaleDetail() {
                           &nbsp;&nbsp;{item.name}
                         </option>;
                       })}
-                    </select> : <option style={{ lineHeight: "45px" }}>{sale.status}</option>}
+                    </select> : <option style={{ lineHeight: "43px" }}>{sale.status}</option>}
                 </div>
                 :
-                <div style={{ lineHeight: "43px" }}>{sale.status==="결제완료"?"거래중":"판매완료"}</div>
+                <div style={{ lineHeight: "43px" }}>{sale.status === "결제완료" ? "거래중" : "판매완료"}</div>
               }
 
             </div>
@@ -287,10 +294,10 @@ function SaleDetail() {
         </div>
         <br />
         <div style={{ textAlign: "left" }}>
-          <b>{convertCategoryToKorean(sale.category)}</b>
+          {convertCategoryToKorean(sale.category)}
         </div>
         <tr >
-          <td style={{ textAlign: "left", width: "200px" }}>{sale.place}</td>
+          <td style={{ textAlign: "left", width: "200px" }}><b>{sale.place}</b></td>
           <td
             style={{ width: "250px", fontWeight: "bold", textAlign: "right" }}
           >
@@ -313,7 +320,7 @@ function SaleDetail() {
         <div style={{ display: "flex" }}>
 
           {writer.email === user.email || user.email == '' ?
-            <div style={{ position: "relative", marginTop: "8px" }} >
+            <div style={{ position: "relative", marginTop: "8px" }} onClick={pay}>
               <img src={heart ? "/zzimheart.png" : "/noheart.png"} style={{ verticalAlign: "middle", width: "40px", position: "absolute" }} />
               <div style={{ position: "relative", width: "40px", textAlign: "center", lineHeight: "30px" }}>{sale.zzimcnt}</div>
             </div>

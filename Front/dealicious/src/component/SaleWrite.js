@@ -8,8 +8,10 @@ import { FaCamera } from "react-icons/fa";
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { GiCancel } from 'react-icons/gi';
+import { useWebSocket } from './WebSocketProvider';
 
 const SaleWrite = () => {
+    const { url } = useWebSocket();
     const [currentImage, setCurrentImage] = useState("./ggul2.png");
     const navigate = useNavigate();
     const [imageCount, setImageCount] = useState(0); // 상태 변수로 이미지 카운트를 관리.
@@ -46,17 +48,15 @@ const SaleWrite = () => {
     useEffect(() => {
         setUser(temp);
     }, [])
-
     const formatPrice = (amount) => {
         if (!amount) return '';
         const numericPrice = parseInt(amount.replace(/[^0-9]/g, ''));
 
         // 숫자를 천단위로 포맷팅합니다.
         const formattedPrice = numericPrice.toLocaleString('ko-KR');
-        return `${formattedPrice}`;
+        return `${formattedPrice}원`;
 
     };
-
     const removeImage = (indexToRemove) => {
         const updatedImages = selectedImages.filter((_, index) => index !== indexToRemove);
         setSelectedImages(updatedImages);
@@ -74,12 +74,18 @@ const SaleWrite = () => {
     };
 
     const changeImage = () => {
-        if (currentImage === "./ggul2.png") {
-            setCurrentImage("./ggul.png");
-            setSale({ ...sale, ggull: 1 });
-        } else if (currentImage === './ggul.png') {
-            setCurrentImage("./ggul2.png"); // 처음 이미지로 다시 변경.
-            setSale({ ...sale, ggull: 0 });
+        if (user.accountid === "" || user.accountid==="null") {
+            alert("계좌번호 등록 후 꿀페이 이용 가능합니다.")
+            console.log(user.accountid)
+        } else {
+            console.log(user.accountbank)
+            if (currentImage === "./ggul2.png") {
+                setCurrentImage("./ggul.png");
+                setSale({ ...sale, ggull: 1 });
+            } else if (currentImage === './ggul.png') {
+                setCurrentImage("./ggul2.png"); // 처음 이미지로 다시 변경.
+                setSale({ ...sale, ggull: 0 });
+            }
         }
     };
 
@@ -117,7 +123,7 @@ const SaleWrite = () => {
 
         let isValid = true;
 
-        if (sale.title.trim() === '') {
+        if (imageCount === 0) {
             setFileurlError(true);
             setErrorMessage_f('사진을 선택하세요.');
             isValid = false;
@@ -200,7 +206,7 @@ const SaleWrite = () => {
 
         console.log(formData)
 
-        axios.post('http://43.203.108.152:8090/salewrite', formData)
+        axios.post(url+'salewrite', formData)
             .then(res => {
                 console.log(res);
 
@@ -283,7 +289,7 @@ const SaleWrite = () => {
             <div style={{ display: "flex" }}>
                 <div>
                     <div style={{ marginBottom: "5px", fontSize: "18px" }}>가격</div>
-                    <div><Input type="text" placeholder="10,000원" style={{ borderRadius: "5px", height: "40px", width: "180px", float: "left" }} name="amount" value={sale.amount} onInput={changecontent} onChange={handleInputChange}></Input></div>
+                    <div><Input type="text" placeholder="10,000원" style={{ borderRadius: "5px", height: "40px", width: "180px", float: "left" }} name="amount" value={formatPrice(sale.amount)} onInput={changecontent} onChange={handleInputChange}></Input></div>
                     {amountError && <div style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>{errorMessage_a}</div>}
                 </div>
                 <div>

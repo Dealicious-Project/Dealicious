@@ -4,8 +4,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button, FormGroup, Input, Label } from 'reactstrap';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { useWebSocket } from './WebSocketProvider';
 
 const Changepassword = () => {
+    const { url } = useWebSocket();
     const [formData, setFormData] = useState({
         currentPassword: '',
         newPassword: '',
@@ -33,7 +35,7 @@ const Changepassword = () => {
                 return;
             }
             const response = await axios.put(
-                'http://43.203.108.152:8090/changepassword',
+                url+'changepassword',
                 formData,
                 {
                     headers: {

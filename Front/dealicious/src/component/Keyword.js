@@ -4,14 +4,16 @@ import { AiOutlineClose } from "react-icons/ai";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { useWebSocket } from './WebSocketProvider';
 
 const Keyword = () => {
+  const { url } = useWebSocket();
   const [keyword, setKeyword] = useState();
   const [keywordList, setKeywordList] = useState([]);
   const token = useSelector(state => state.persistedReducer.token);
 
   useEffect(() => {
-    axios.get(`http://43.203.108.152:8090/keywordlist`, {
+    axios.get(url+`keywordlist`, {
       headers: {
         Authorization: token,
       }
@@ -33,7 +35,7 @@ const Keyword = () => {
   };
 
   const registerKeyword = () => {
-    axios.get(`http://43.203.108.152:8090/registerkeyword/` + keyword, {
+    axios.get(url+`registerkeyword/` + keyword, {
       headers: {
         Authorization: token,
       }
@@ -52,7 +54,7 @@ const Keyword = () => {
 
   const deletekeyword = (item) => {
     const updatedList = keywordList.filter(keyword => keyword.content !== item.content);
-    axios.post(`http://43.203.108.152:8090/deletekeyword`, item, {
+    axios.post(url+`deletekeyword`, item, {
       headers: {
         Authorization: token,
       }

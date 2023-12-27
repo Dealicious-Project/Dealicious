@@ -1,8 +1,10 @@
 import { Table } from "reactstrap";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useWebSocket } from './WebSocketProvider';
 
 const AdminMain = () => {
+  const { url } = useWebSocket();
   const selectList = [
     { value: "all", name: "전체" },
     { value: "결제완료", name: "결제완료" },
@@ -16,7 +18,7 @@ const AdminMain = () => {
   const handleSelect  = (e) => {
     console.log(e.target.value);
     setSelected(e.target.value);
-    axios.get(`http://43.203.108.152:8090/adminmain/`+e.target.value)
+    axios.get(url+`adminmain/`+e.target.value)
       .then(res => {
         console.log(res);
         setPayList([]);
@@ -31,7 +33,7 @@ const AdminMain = () => {
 
   useEffect(() => {
 
-    axios.get(`http://43.203.108.152:8090/adminmain/`+"all")
+    axios.get(url+`adminmain/`+"all")
       .then(res => {
         console.log(res);
         setPayList([]);

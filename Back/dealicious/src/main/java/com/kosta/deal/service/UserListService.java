@@ -19,10 +19,14 @@ public class UserListService {
 	
 	public void add(User user) {
 		loginUserList.add(user);
+		System.out.println("로그인 후");
+		System.out.println(loginUserList);
 	}
 	
 	public void remove(User user) {
 		loginUserList.remove(user);
+		System.out.println("로그아웃 후");
+		System.out.println(loginUserList);
 	}
 	
 	public void sendPayNoti(Chat chat, String buyer, String writer) {

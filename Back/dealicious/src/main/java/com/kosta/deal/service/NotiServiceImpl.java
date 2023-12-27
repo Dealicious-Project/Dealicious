@@ -1,6 +1,8 @@
 package com.kosta.deal.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,20 +58,12 @@ public class NotiServiceImpl implements NotiService {
 	@Override
 	public List<Notification> findNotiActiList(String email) throws Exception {
 		List<Notification> notilist = dslRepository.findNotiActiList(email);
-		for(Notification n : notilist) {
-			n.setIsRead("1");
-			notiRepository.save(n);
-		}
 		return notilist;
 	}
 
 	@Override
 	public List<Notification> findNotiKeywordList(String email) throws Exception {
 		List<Notification> notilist = dslRepository.findNotiKeywordList(email);
-		for(Notification n : notilist) {
-			n.setIsRead("1");
-			notiRepository.save(n);
-		}
 		return notilist;
 	}
 
@@ -101,6 +95,37 @@ public class NotiServiceImpl implements NotiService {
 		List<Notification> notilist = dslRepository.findNoneReadNotiKeyList(email);
 		Integer cnt = notilist.size();
 		return cnt;
+	}
+
+	@Override
+	public Map<String, Object> findNotiEachCnt(String email) throws Exception {
+		List<Notification> notilist = dslRepository.findNoneReadNotiActiList(email);
+		Integer actiCnt = notilist.size();
+		List<Notification> notilist1 = dslRepository.findNoneReadNotiKeyList(email);
+		Integer keyCnt = notilist1.size();
+		Map<String,Object> res = new HashMap<>();
+		res.put("actiCnt", actiCnt);
+		res.put("keyCnt", keyCnt);
+		
+		return res;
+	}
+
+	@Override
+	public void notiactivityread(String email) throws Exception {
+		List<Notification> notilist = dslRepository.findNonReadNotiActiList(email);
+		for(Notification n : notilist) {
+			n.setIsRead("1");
+			notiRepository.save(n);
+		}
+	}
+
+	@Override
+	public void notikeywordread(String email) throws Exception {
+		List<Notification> notilist = dslRepository.findNonReadNotiKeywordList(email);
+		for(Notification n : notilist) {
+			n.setIsRead("1");
+			notiRepository.save(n);
+		}
 	}
 
 }

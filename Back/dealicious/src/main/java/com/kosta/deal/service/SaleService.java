@@ -40,4 +40,6 @@ public interface SaleService {
 
 	List<Sale> categoryListByPage(String category, Integer page)throws Exception;
 	List<Sale> salesearchlistByPage(String keyword, Integer page)throws Exception;
+	
+	List<Sale> hotsalelist() throws Exception;
 }

@@ -52,7 +52,12 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	@Override
-	public List<Chat> findChatListByChannelId(String channelId) throws Exception {
+	public List<Chat> findChatListByChannelId(User user, String channelId) throws Exception {
+//		List<Chat> chatlist = dslRepository.getNonReadChat(user,channelId);
+//		for(Chat c : chatlist) {
+//			c.setIsRead(c.getIsRead()+","+user.getEmail());
+//			chatRepository.save(c);
+//		}
 		return dslRepository.findChatListByChannelId(channelId);
 	}
 
@@ -70,15 +75,17 @@ public class ChatServiceImpl implements ChatService {
 				map.put("profileimgurl", user1.getProfileimgurl());
 				map.put("nickname", user1.getNickname());
 				map.put("category", sale.getCategory());
-				map.put("chatdate", chat.getChatdate());
-				if(!chat.getWriterId().equals(user.getEmail())) {
-					map.put("isRead", chat.getIsRead());
+				if(chat!=null) { //채팅방은 만들어졌는데 채팅안쳤을때 chat불러오는거 에러발생함
+					map.put("chatdate", chat.getChatdate());
+					Long nonReadCnt = dslRepository.getNonReadCnt(s,user.getEmail());
+					map.put("nonReadCnt", nonReadCnt);
+					map.put("chat", chat.getChat());
+					map.put("fileurl", sale.getFileurl());
+					map.put("channelId", s);
+					res.add(map);
 				}
-				map.put("chat", chat.getChat());
-				map.put("fileurl", sale.getFileurl());
-				map.put("channelId", s);
-				res.add(map);
-			} else {
+				
+			} else {	
 				User user1 = dslRepository.getUserFromSeller(s);
 				Sale sale = dslRepository.getSaleForChatlist(s);
 				Chat chat = dslRepository.getChatForChatlist(s);
@@ -86,14 +93,16 @@ public class ChatServiceImpl implements ChatService {
 				map.put("profileimgurl", user1.getProfileimgurl());
 				map.put("nickname", user1.getNickname());
 				map.put("category", sale.getCategory());
-				map.put("chatdate", chat.getChatdate());
-				if(!chat.getWriterId().equals(user.getEmail())) {
-					map.put("isRead", chat.getIsRead());
+				if(chat!=null) { //채팅방은 만들어졌는데 채팅안쳤을때 chat불러오는거 에러발생함
+					map.put("chatdate", chat.getChatdate());
+					Long nonReadCnt = dslRepository.getNonReadCnt(s,chatRoom.getPartner());
+					map.put("nonReadCnt", nonReadCnt);
+					map.put("chat", chat.getChat());
+					map.put("fileurl", sale.getFileurl());
+					map.put("channelId", s);
+					res.add(map);
 				}
-				map.put("chat", chat.getChat());
-				map.put("fileurl", sale.getFileurl());
-				map.put("channelId", s);
-				res.add(map);
+				
 			}
 //			if (chatRoom.getCreator().equals(user.getEmail())) {
 //				Sale sale = dslRepository.getSaleForChatlist(s);
@@ -136,5 +145,64 @@ public class ChatServiceImpl implements ChatService {
 		Collections.sort(res, Comparator.comparing(m -> (Date) m.get("chatdate"), Comparator.nullsLast(Comparator.reverseOrder())));
 		return res;
 
+	}
+
+	@Override
+	public Map<String, Object> getChatRoom(User user, String channelId) throws Exception {
+		User user1 = dslRepository.getUserFromSeller(channelId);
+		Sale sale = dslRepository.getSaleForChatlist(channelId);
+		Chat chat = dslRepository.getChatForChatlist(channelId);
+		Map<String, Object> map = new HashMap<>();
+		map.put("profileimgurl", user1.getProfileimgurl());
+		map.put("nickname", user1.getNickname());
+		map.put("category", sale.getCategory());
+		map.put("chatdate", chat.getChatdate());
+		map.put("nonReadCnt", 1);
+		map.put("chat", chat.getChat());
+		map.put("fileurl", sale.getFileurl());
+		map.put("channelId", channelId);
+		return map;
+	}
+
+	@Override
+	public void insertisread(User user, Chat chat) throws Exception {
+		Chat tchat = chatRepository.findById(chat.getNum()).get();
+		if(!tchat.getIsRead().contains(user.getEmail())) {
+			tchat.setIsRead(tchat.getIsRead()+","+user.getEmail());
+			chatRepository.save(tchat);
+		}
+	}
+
+	@Override
+	public Long getChatCnt(User user) throws Exception {
+		Long dd = 0L;
+		List<String> channelId = dslRepository.getChannelIdList(user.getEmail());
+		for (String s : channelId) {
+			ChatRoom chatRoom = chatRoomRepository.findByChannelId(s).get();
+			if (chatRoom.getCreator().equals(user.getEmail())) {
+				Chat chat = dslRepository.getChatForChatlist(s);
+				if(chat !=null) {
+					Long res = dslRepository.getNonReadCnt(s,user.getEmail());
+					dd += res;
+				}
+			} else {	
+				Chat chat = dslRepository.getChatForChatlist(s);
+				if(chat!=null) { //채팅방은 만들어졌는데 채팅안쳤을때 chat불러오는거 에러발생함
+					Long res = dslRepository.getNonReadCnt(s,chatRoom.getPartner());
+					dd += res;
+				}
+			}
+		}
+
+		return dd;
+	}
+
+	@Override
+	public void chatRead(User user, String channelId) throws Exception {
+		List<Chat> chatlist = dslRepository.getNonReadChat(user,channelId);
+		for(Chat c : chatlist) {
+			c.setIsRead(c.getIsRead()+","+user.getEmail());
+			chatRepository.save(c);
+		}
 	}
 }

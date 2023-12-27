@@ -1,15 +1,18 @@
+
 import axios from 'axios';
 import { useEffect, useState } from "react";
 import { GoArrowLeft } from "react-icons/go";
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from 'reactstrap';
+import { useWebSocket } from './WebSocketProvider';
 
 const Search = () => {
+  const { url } = useWebSocket();
   const [keyword, setKeyword] = useState();
   const [hotlist, setHotlist] = useState([]);
   const navigate = useNavigate();
   const search = () => {
-    axios.get(`http://43.203.108.152:8090/search/${keyword}`)
+    axios.get(url+`search/${keyword}`)
       .then(res => {
         console.log("검색어 추가완료");
         navigate(`/salelist/search/${keyword}`);
@@ -19,7 +22,7 @@ const Search = () => {
       })
   }
   useEffect(() => {
-    axios.get(`http://43.203.108.152:8090/hotlist`)
+    axios.get(url+`hotlist`)
       .then(res => {
         console.log(res.data);
         setHotlist([]);

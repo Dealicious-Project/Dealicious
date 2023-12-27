@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, FormGroup, Input, Label } from "reactstrap";
+import { useWebSocket } from './WebSocketProvider';
 
 const AdminJoin = () => {
     const [adminid, setAdminId] = useState('');
@@ -13,6 +14,8 @@ const AdminJoin = () => {
     const [idError, setIdError] = useState('');
     const [isAdminidAvailable, setIsAdminidAvailable] = useState(false);
     const token = useSelector(state => state.persistedReducer.token);
+    const { url } = useWebSocket();
+
     const handleAdmincodeChange = (e) => {
         const value = e.target.value;
         setAdmincode(value);
@@ -25,7 +28,7 @@ const AdminJoin = () => {
         }
     };
     const handleIdCheck = () => {
-        axios.get(`http://43.203.108.152:8090/adminidcheck/` + adminid)
+        axios.get(url+"adminidcheck/" + adminid)
             .then(res => {
                 console.log(res.data);
                 setIsAdminidAvailable(res.data);
@@ -67,7 +70,7 @@ const AdminJoin = () => {
                 admincode: admincode,
                 password: password
             };
-            axios.post(`http://43.203.108.152:8090/adminjoin`, userData, {
+            axios.post(url+"adminjoin", userData, {
                 headers: {
                     Authorization: token,
                 }
