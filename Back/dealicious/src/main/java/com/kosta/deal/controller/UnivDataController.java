@@ -63,7 +63,7 @@ public class UnivDataController implements CommandLineRunner {
 //				corpDataRepository.save(corpData);
 //			}
 //		}
-		
-		adminService.registerAccountId("12345-12345","한국은행");
+//		
+//		adminService.registerAccountId("12345-12345","한국은행");
 	}
 }
