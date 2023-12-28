@@ -54,7 +54,7 @@ const Join2 = () => {
   };
 
   return (
-    <div className='main' style={{ overflow: "scroll", height: "742px", overflowX: "hidden", paddingTop: "65px", paddingRight: "50px", paddingLeft: "50px" }}>
+    <div className='main' style={{ overflow: "scroll", height: "742px", overflowX: "hidden", paddingTop: "45px", paddingRight: "50px", paddingLeft: "50px" }}>
       <div style={{ width: "330px", textAlign: "right" }}>
         <Link to={"/login"}><CgClose size={30} color="darkgray" /></Link>
       </div>
@@ -62,7 +62,7 @@ const Join2 = () => {
       <div style={{ paddingBottom: "50px" }}></div>
       <FormGroup>
         <br /><br /><br />
-        <Label for="select" style={{ fontSize: "25px", fontWeight: "bold" }}>{type === "univ" ? "학생" : "직장인"}</Label>
+        <Label for="select" style={{ fontSize: "25px", fontWeight: "550" }}>{type === "univ" ? "학생" : "직장인"}</Label>
         <br />
       </FormGroup>
       <FormGroup style={{ paddingBottom: "12px" }}>

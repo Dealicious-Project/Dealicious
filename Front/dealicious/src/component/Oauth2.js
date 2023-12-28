@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { useWebSocket } from './WebSocketProvider';
-import Swal from 'sweetalert2';
 
 const Oauth2 = () => {
     const { url } = useWebSocket();

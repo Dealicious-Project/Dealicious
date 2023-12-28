@@ -50,23 +50,22 @@ const Mypage_review = () => {
     return (
 
         <div className='main' style={{ overflow: "scroll", height: "632px", overflowX: "hidden", paddingTop: "20px" }}>
-            <FormGroup style={{ textAlign: "left", paddingBottom: "10px", display: "flex" }}>
-                <div style={{ lineHeight: "38px", cursor: "pointer" }} onClick={backButton}><IoArrowBackOutline size="20" color="#14C38E" /></div>
-                <div style={{ width: "360px", textAlign: "center", fontSize: "20px", color: "#14C38E", lineHeight: "38px" }}>마이페이지</div>
+            <FormGroup style={{ textAlign: "left", display: "flex" }}>
+                <div style={{ width: "390px", textAlign: "center", fontSize: "20px", color: "#14C38E", lineHeight: "38px" }}>마이페이지</div>
             </FormGroup>
             <div style={{ display: "flex", paddingBottom: "30px" }}>
                 <div style={{ textAlign: "left" }}>
                     <img src={user.profileimgurl ? url + `img/${user.profileimgurl}` : Image} width="100px" height="100px" alt='' style={{ borderRadius: "50px", width: "65px", height: "65px" }} />
                 </div>
-                <div style={{ fontSize: "20px", textAlign: "left", paddingLeft: "15px", width: "220px", lineHeight: "32.5px" }}>
-                    <div style={{ fontWeight: "bold" }}>&nbsp;{user.nickname}</div>
-                    <div>
+                <div style={{ fontSize: "20px", textAlign: "left", paddingLeft: "15px", width: "220px" }}>
+                    <div style={{ fontWeight: "550", height: "45px", paddingTop: "9px" }}>&nbsp;{user.nickname}</div>
+                    <div >
                         {user.starpoint === "" || user.starpoint === undefined || user.starpoint === null || user.starpoint === 0 ?
-                            <div style={{ fontSize: "14px", color: "gray" }}>
+                            <div style={{ fontSize: "14px", color: "gray", marginTop: "-6px" }}>
                                 &nbsp;아직 받은 별점이 없어요!
                             </div>
                             :
-                            <div style={{ lineHeight: "25px" }}>{Array.from({ length: user.starpoint }, (_, index) => (
+                            <div style={{ lineHeight: "25px", marginTop: "-10px" }}>{Array.from({ length: user.starpoint }, (_, index) => (
                                 <FaStar key={index} size="25" color="#F2D43E" />
                             ))}</div>
                         }
@@ -85,19 +84,19 @@ const Mypage_review = () => {
                 </div>
             </div>
             <div style={{ display: "flex", textAlign: "left", marginBottom: "3px" }}>
-                <div style={{ width: "80px", marginLeft: "5px", marginRight: "5px" }}><Link to="/mypage" style={{ fontSize: "18px", color: "black", textDecoration: "none" }}>내가 쓴 글</Link></div>
-                <div style={{ width: "60px", marginRight: "10px" }}><Link to="/myzzim" style={{ fontSize: "18px", color: "black", textDecoration: "none" }}>찜한 글</Link></div>
-                <div style={{ width: "80px" }}><Link to="/myreview" style={{ fontSize: "18px", color: "black", textDecoration: "none", fontWeight: "bold" }}>받은 후기</Link>   </div>
+                <div style={{ width: "80px", marginLeft: "5px" }}><Link to="/mypage" style={{ fontSize: "16px", color: "lightgray", textDecoration: "none" }}>내가 쓴 글</Link></div>
+                <div style={{ width: "60px" }}><Link to="/myzzim" style={{ fontSize: "16px", color: "lightgray", textDecoration: "none" }}>찜한 글</Link></div>
+                <div style={{ width: "80px" }}><Link to="/myreview" style={{ fontSize: "16px", color: "black", textDecoration: "none" }}>받은 후기</Link>   </div>
             </div>
             <div style={{ height: "2px", backgroundColor: "#D9D9D9", width: "390px", position: "relative" }}>
-                <div style={{ position: "absolute", height: "3px", width: "90px", backgroundColor: "#14C38E", marginLeft: "153px" }} />
+                <div style={{ position: "absolute", height: "3px", width: "80px", backgroundColor: "#14C38E", marginLeft: "140px" }} />
             </div>
             <div style={{ height: "10px" }} />
             {reviewList.length === 0 ? (
                 <div style={{ textAlign: "center", marginTop: "50px", width: "305px", marginLeft: "40px" }}>
                     <img src="\ggulee.png" style={{ width: "100px" }} /><br />
                     <b>현재 받은 후기가 없어요!</b><br />
-                    <a style={{ color: '#14C38E', fontWeight: "bold" }}>딜리셔스</a>로 안전한 중고거래<br />
+                    <a style={{ color: '#14C38E', fontWeight: "550" }}>딜리셔스</a>로 안전한 중고거래<br />
                     <Link to="/salelist" style={{ color: "black" }}>시작하기<FaArrowRight /></Link>
                 </div>
             ) : (
@@ -111,7 +110,7 @@ const Mypage_review = () => {
                                 />
                             </div>
                             <div style={{ marginLeft: "10px", textAlign: "left", width: "130px", marginTop: "9px" }}>
-                                &nbsp;<a style={{ fontSize: "17px", fontWeight: "bold" }}>{review.nickname}</a>
+                                &nbsp;<a style={{ fontSize: "17px", fontWeight: "550" }}>{review.nickname}</a>
                                 <br />
                                 <div>
                                     {Array.from({ length: review.starcount }, (_, index) => (

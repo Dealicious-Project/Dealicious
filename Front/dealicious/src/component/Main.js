@@ -68,7 +68,7 @@ const Main = () => {
         <img src="..\dealmain.png" style={{ width: "390px" }} alt="Dealicious Main" />
       </Link>
       <br /><br />
-      <div style={{ textAlign: "left", fontSize: "18px", marginLeft: "2.5px", fontWeight: "bold" }}>
+      <div style={{ textAlign: "left", fontSize: "18px", marginLeft: "2.5px", fontWeight: "550" }}>
         <div>지금 <span style={{ color: "#72DBBB" }}>{user.typename === "" || user.typename === undefined ? "딜리셔스" : user.typename}</span>에서</div>
         <div>가장 인기있는 상품<FaFire size='20' color='F4900C' /></div>
       </div>
@@ -107,7 +107,7 @@ const Main = () => {
         ))}
       </div>
       <div style={{ textAlign: "left", display: "flex", paddingTop: "20px", paddingBottom:"10px" }}>
-        <div style={{ height: "30px", fontWeight: "bold", fontSize: "18px", lineHeight: "30px" }}>카테고리&nbsp;&nbsp;</div>
+        <div style={{ height: "30px", fontWeight: "550", fontSize: "18px", lineHeight: "30px" }}>카테고리&nbsp;&nbsp;</div>
         <Link to="/salelist" style={{ fontSize: "12px", color: "gray", height: "30px" }}>
           전체보기 <MdArrowForward size="13" style={{ height: "30px", marginBottom: "2.5px" }} />
         </Link>

@@ -312,7 +312,7 @@ function SaleDetail() {
         <tr >
           <td style={{ textAlign: "left", width: "200px" }}><b>{sale.place}</b></td>
           <td
-            style={{ width: "250px", fontWeight: "bold", textAlign: "right" }}
+            style={{ width: "250px", fontWeight: "550", textAlign: "right" }}
           >
             {formatPrice(sale.amount)}
           </td>

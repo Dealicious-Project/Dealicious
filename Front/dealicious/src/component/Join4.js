@@ -4,7 +4,6 @@ import { CgClose } from "react-icons/cg";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { Swal } from 'sweetalert2';
 import { useWebSocket } from './WebSocketProvider';
 
 const Join4 = () => {
@@ -130,7 +129,7 @@ const Join4 = () => {
     }
 
     return (
-        <div className='main' style={{ overflow: "scroll", height: "742px", overflowX: "hidden", paddingTop: "65px", paddingRight: "50px", paddingLeft: "50px" }}>
+        <div className='main' style={{ overflow: "scroll", height: "742px", overflowX: "hidden", paddingTop: "45px", paddingRight: "50px", paddingLeft: "50px" }}>
             <div style={{ width: "330px", textAlign: "right" }}>
                 <Link to={"/login"}><CgClose size={30} color="darkgray" /></Link>
             </div>
@@ -157,10 +156,10 @@ const Join4 = () => {
                     value={code}
                 />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <Button style={{ backgroundColor: "#14C38E", color: "white", borderStyle: "none", fontSize: "16px", width: "100px" }} onClick={verificationEmailCode}>
-                    인증하기
+                    확인하기
                 </Button>
             </FormGroup>
-            <FormGroup style={{ textAlign: "left", paddingBottom: "78px" }}>
+            <FormGroup style={{ textAlign: "left", paddingBottom: "113px" }}>
                 <Label for="tel" style={{ fontSize: "20px" }}>전화번호<a style={{ fontSize: "12px", marginLeft: "10px" }}>'-'는 필수입니다</a></Label>
                 <Input
                     type="text"

@@ -61,9 +61,9 @@ const Gpay_finish = () => {
     return (
         <div className='main' style={{ overflow: "scroll", height: "632px", overflowX: "hidden" }}>
             <div style={{ textAlign: "left" }}>
-                <Label style={{ fontSize: "18px", fontWeight: "bold", color: "black" }}>꿀페이 결제완료</Label>
+                <Label style={{ fontSize: "18px", fontWeight: "550", color: "black" }}>꿀페이 결제완료</Label>
             </div>
-            <div style={{ textAlign: "left", paddingBottom: "20px", borderBottom: "1px solid lightgray", display: "flex", width: "390px" }}>
+            <div style={{ textAlign: "left", paddingBottom: "10px", borderBottom: "1px solid lightgray", display: "flex", width: "390px" }}>
                 <img src={url + `img/${sale.fileurl.split(',')[0]}`} style={{ width: "60px", height: "60px", borderRadius: "10px" }}></img>
                 <div style={{ marginLeft: "10px", height: "60px", marginTop: "7px" }}>
                     <div style={{ fontSize: "16px" }}> {sale.title}</div>
@@ -81,12 +81,12 @@ const Gpay_finish = () => {
                     <img src="../ggul.png" style={{ width: "40px", marginLeft: "20px" }} />
                 </div>
             </div>
-            <div style={{ textAlign: "right", marginRight: "10px", marginBottom:"200px" }}>
+            <div style={{ textAlign: "right", marginRight: "10px", marginBottom:"220px" }}>
                 &nbsp;&nbsp;
                 <div>
                     수수료: {formatPrice2(sale.amount)}
                 </div>
-                <div style={{ fontWeight: "bold" }}>
+                <div style={{ fontWeight: "550" }}>
                     결제 금액: {formatPrice(sale.amount)}
                 </div>
             </div>

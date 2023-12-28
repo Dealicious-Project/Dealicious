@@ -80,7 +80,7 @@ const Changepassword = () => {
                 <div style={{ color: 'red', fontSize: '14px', marginTop: '5px', height: '10px', textAlign: 'left' }}>{errors.confirmNewPassword}</div>
             </FormGroup>
 
-            <Button style={{ width: '325px', height: '55px', fontSize: '18px', backgroundColor: '#14C38E', borderStyle: 'none' }} onClick={handleChangePassword}>변경하기</Button>
+            <Button style={{ width: '325px', height: '40px', fontSize: '18px', backgroundColor: '#14C38E', borderStyle: 'none' }} onClick={handleChangePassword}>변경하기</Button>
         </div>
     );
 }

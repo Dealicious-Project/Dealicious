@@ -229,7 +229,7 @@ const SaleWrite = () => {
                 <div>
                     <div onClick={() => document.getElementById("file").click()}>
                         <FaCamera size="30" color='gray' />
-                        <div style={{ position: "absolute", textAlign: "center", width: "48px", paddingBottom: "5px", fontWeight: "bold", color: "gray" }}>
+                        <div style={{ position: "absolute", textAlign: "center", width: "48px", paddingBottom: "5px", fontWeight: "550", color: "gray" }}>
                             {imageCount}/5
                         </div>
                     </div>
@@ -312,9 +312,8 @@ const SaleWrite = () => {
                 onInput={changecontent}
                 onClick={submit}
                 style={{
-                    fontWeight: "bold",
+                    fontWeight: "550",
                     fontSize: "18px",
-                    borderRadius: "10px",
                     width: "390px",
                     height: "50px",
                     backgroundColor: '#14C38E',

@@ -84,7 +84,7 @@ const Keyword = () => {
         </div>
       </div>
       <br />
-      <div style={{ fontWeight: "bold", textAlign: "left", marginBottom: "5px" }}>나의 키워드</div>
+      <div style={{ fontWeight: "550", textAlign: "left", marginBottom: "5px" }}>나의 키워드</div>
       {keywordList.map((item, index) =>
         <div key={index} style={{ display: "flex" }}>
           <div style={{ paddingLeft: "20px", textAlign: "left", width: "130px" }}>{item.content}</div>

@@ -39,7 +39,7 @@ const AdminLogin = () => {
 
     }
     return (
-        <div className='main' style={{ overflow: "scroll", height: "832px", overflowX: "hidden", paddingTop: "130px", paddingRight: "50px", paddingLeft: "50px" }}>
+        <div className='main' style={{ overflow: "scroll", height: "742px", overflowX: "hidden", paddingTop: "130px", paddingRight: "50px", paddingLeft: "50px" }}>
             <div style={{ display: "flex", textAlign:"center", marginLeft:"20px" }} className="logo">
                 <div style={{fontSize:"50px"}}>
                     DEALicious

@@ -325,15 +325,15 @@ const StompChatting = () => {
                 sale.email == user.email ?
                   <div style={{ borderLeft: "3px solid #D9D9D9", paddingLeft: "10px", textAlign: "left", paddingBottom: "8px", paddingTop:"8px", marginBottom:"15px" }}>
                     <div className='logo'>DEALicious</div>
-                    <div><span style={{ fontWeight: "bold" }}>"{sale.title}"</span> 의 결제가 완료되었어요.</div>
+                    <div><span style={{ fontWeight: "550" }}>"{sale.title}"</span> 의 결제가 완료되었어요.</div>
                     <div style={{ color: "gray", fontSize: "15px" }}>&nbsp;&nbsp;구매자에게 물건을 전달해주세요:)</div>
                   </div>
                   : <div style={{ borderLeft: "3px solid #D9D9D9", paddingLeft: "10px", textAlign: "left", paddingBottom: "8px", paddingTop:"8px", marginBottom:"15px" }}>
                     <div className='logo'>DEALicious</div>
-                    <div><span style={{ fontWeight: "bold" }}>"{sale.title}"</span> 의 결제가 완료되었어요.</div>
+                    <div><span style={{ fontWeight: "550" }}>"{sale.title}"</span> 의 결제가 완료되었어요.</div>
                     <div style={{ color: "gray", fontSize: "15px" }}>수령 후 수령완료 버튼을 눌러주세요:)</div>
                     <div style={{ color: "gray", fontSize: "12px" }}>&nbsp;&nbsp;수령완료 버튼을 누르면 판매자에게 정산액이 입금됩니다.</div>
-                    <button style={{ width: "310px", backgroundColor: "#C7FBEB", border: "white", padding: "5px", borderRadius: "10px", color: "#14C38E", fontWeight: "bold" }} onClick={() => setModal2IsOpen(true)}>수령완료</button>
+                    <button style={{ width: "310px", backgroundColor: "#C7FBEB", border: "white", padding: "5px", borderRadius: "10px", color: "#14C38E", fontWeight: "550" }} onClick={() => setModal2IsOpen(true)}>수령완료</button>
                     <Modal className='main' style={{
                       content: {
                         width: "350px", height: "190px", position: "absolute",
@@ -355,7 +355,7 @@ const StompChatting = () => {
                 item.type == "completereceipt" ?
                 <div style={{ borderLeft: "3px solid #D9D9D9", paddingLeft: "10px", textAlign: "left", paddingBottom: "8px", paddingTop:"8px", marginBottom:"15px" }}>
                   <div className='logo'>DEALicious</div>
-                  <div><span style={{ fontWeight: "bold" }}>"{sale.title}"</span> 의 거래가 완료되었어요.</div>
+                  <div><span style={{ fontWeight: "550" }}>"{sale.title}"</span> 의 거래가 완료되었어요.</div>
                   <div style={{ color: "gray", fontSize: "15px" }}>&nbsp;&nbsp;거래는 만족스러우셨나요? 후기를 남겨주세요 :)</div>
                   <button style={{ width: "310px", backgroundColor: "#C7FBEB", border: "white", padding: "5px", borderRadius: "10px", color: "#14C38E" }} onClick={() => setModal1IsOpen(true)}>후기 작성하기</button>
                   <Modal className='main' style={{
@@ -387,7 +387,7 @@ const StompChatting = () => {
                         })}
 
                       </div>
-                      <Button style={{ width: "60px", height: "35px", borderRadius: "8px", backgroundColor: "#14C38E", border: "white", fontWeight: "bold", color: "white", marginTop: "20px" }} onClick={handleRegister}>등록</Button>
+                      <Button style={{ width: "60px", height: "35px", borderRadius: "8px", backgroundColor: "#14C38E", border: "white", fontWeight: "550", color: "white", marginTop: "20px" }} onClick={handleRegister}>등록</Button>
                     </div>
                   </Modal>
                 </div>

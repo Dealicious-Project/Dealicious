@@ -92,7 +92,7 @@ const AdminJoin = () => {
     }
 
     return (
-        <div className='main' style={{ overflow: "scroll", height: "832px", overflowX: "hidden", paddingTop: "130px", paddingRight: "50px", paddingLeft: "50px" }}>
+        <div className='main' style={{ overflow: "scroll", height: "742px", overflowX: "hidden", paddingTop: "60px", paddingRight: "50px", paddingLeft: "50px" }}>
             <div style={{ display: "flex", width: "325px", textAlign: "center" }} className="main">
                 <div style={{ fontSize: "30px", fontWeight: "bold", textAlign: "center", color: "#14C38E", marginLeft: "88px" }}>
                     회원가입
@@ -101,22 +101,22 @@ const AdminJoin = () => {
                     admin
                 </div>
             </div>
-            <FormGroup style={{ textAlign: "left", paddingBottom: "20px" }}>
-                <Label for="id" style={{ fontSize: "20px" }}>아이디</Label>
+            <div style={{ textAlign: "left", paddingBottom: "20px" }}>
+                <Label for="id" style={{ fontSize: "18px" }}>아이디</Label>
                 <div style={{ display: "flex" }}>
-                    <Input type="text" name="id" id="id" style={{ height: "55px", width: "225px" }}
+                    <Input type="text" name="id" id="id" style={{ height: "55px", width: "235px" }}
                         onChange={adminidInput}
                         value={adminid}
                         placeholder="사용할 아이디를 입력해주세요" />
                     <Button style={{
-                        width: "90px", fontSize: "17px",
+                        width: "80px", fontSize: "15px",
                         backgroundColor: "#14C38E", borderStyle: "none", height: "55px", marginLeft: "10px"
                     }} onClick={handleIdCheck}>중복확인</Button>
                 </div>
                 <div style={{ color: 'red', fontSize: '14px', marginTop: '5px', height: "10px", textAlign: "left" }}>{idError}</div>
-            </FormGroup>
-            <FormGroup style={{ textAlign: "left", paddingBottom: "10px" }}>
-                <Label for="admincode" style={{ fontSize: "20px" }}>관리자코드</Label>
+            </div>
+            <div style={{ textAlign: "left", paddingBottom: "15px" }}>
+                <Label for="admincode" style={{ fontSize: "18px" }}>관리자코드</Label>
                 <Input
                     type="text"
                     name="admincode"
@@ -127,9 +127,9 @@ const AdminJoin = () => {
                     onChange={handleAdmincodeChange}
                 />
                 <div style={{ color: 'red', fontSize: '14px', marginTop: '5px', height: "10px", textAlign: "left" }}>{admincodeError}</div>
-            </FormGroup>
-            <FormGroup style={{ textAlign: "left" }}>
-                <Label for="password" style={{ fontSize: "20px" }}>비밀번호</Label>
+            </div>
+            <div style={{ textAlign: "left", marginBottom:"60px" }}>
+                <Label for="password" style={{ fontSize: "18px" }}>비밀번호</Label>
                 <Input
                     type="password"
                     name="password"
@@ -139,8 +139,8 @@ const AdminJoin = () => {
                     onChange={handlePasswordChange}
                 />
                 <div style={{ color: 'red', fontSize: '14px', marginTop: '5px', height: "10px", textAlign: "left" }}>{passwordError}</div>
-            </FormGroup>
-            <Button style={{ width: "325px", height: "55px", fontSize: "20px", backgroundColor: "#14C38E", borderStyle: "none" }} onClick={join}>가입하기</Button>
+            </div>
+            <Button style={{ width: "325px", height: "55px", fontSize: "18px", backgroundColor: "#14C38E", borderStyle: "none" }} onClick={join}>가입하기</Button>
         </div>
     )
 }

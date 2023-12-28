@@ -62,23 +62,22 @@ const Mypage = () => {
 
     return (
         <div className='main' style={{ overflow: "scroll", height: "632px", overflowX: "hidden", paddingTop: "20px" }}>
-            <FormGroup style={{ textAlign: "left", paddingBottom: "10px", display: "flex" }}>
-                <div style={{ lineHeight: "38px", cursor: "pointer" }} onClick={backButton}><IoArrowBackOutline size="20" color="#14C38E" /></div>
-                <div style={{ width: "360px", textAlign: "center", fontSize: "20px", color: "#14C38E", lineHeight: "38px" }}>마이페이지</div>
+            <FormGroup style={{ textAlign: "left", display: "flex" }}>
+                <div style={{ width: "390px", textAlign: "center", fontSize: "20px", color: "#14C38E", lineHeight: "38px" }}>마이페이지</div>
             </FormGroup>
             <div style={{ display: "flex", paddingBottom: "30px" }}>
                 <div style={{ textAlign: "left" }}>
                     <img src={user.profileimgurl ? url + `img/${user.profileimgurl}` : Image} width="100px" height="100px" alt='' style={{ borderRadius: "50px", width: "65px", height: "65px" }} />
                 </div>
-                <div style={{ fontSize: "20px", textAlign: "left", paddingLeft: "15px", width: "220px", lineHeight: "32.5px" }}>
-                    <div style={{ fontWeight: "bold" }}>&nbsp;{user.nickname}</div>
-                    <div>
+                <div style={{ fontSize: "20px", textAlign: "left", paddingLeft: "15px", width: "220px" }}>
+                    <div style={{ fontWeight: "550", height: "45px", paddingTop: "9px" }}>&nbsp;{user.nickname}</div>
+                    <div >
                         {user.starpoint === "" || user.starpoint === undefined || user.starpoint === null || user.starpoint === 0 ?
-                            <div style={{ fontSize: "14px", color: "gray" }}>
+                            <div style={{ fontSize: "14px", color: "gray", marginTop: "-6px" }}>
                                 &nbsp;아직 받은 별점이 없어요!
                             </div>
                             :
-                            <div style={{ lineHeight: "25px" }}>{Array.from({ length: user.starpoint }, (_, index) => (
+                            <div style={{ lineHeight: "25px", marginTop: "-10px" }}>{Array.from({ length: user.starpoint }, (_, index) => (
                                 <FaStar key={index} size="25" color="#F2D43E" />
                             ))}</div>
                         }
@@ -97,19 +96,19 @@ const Mypage = () => {
                 </div>
             </div>
             <div style={{ display: "flex", textAlign: "left", marginBottom: "3px" }}>
-                <div style={{ width: "80px", marginLeft: "5px", marginRight: "15px" }}><Link to="/mypage" style={{ fontSize: "18px", fontWeight: "bold", color: "black", textDecoration: "none" }}>내가 쓴 글</Link></div>
-                <div style={{ width: "60px", marginRight: "5px" }}><Link to="/myzzim" style={{ fontSize: "18px", color: "black", textDecoration: "none" }}>찜한 글</Link></div>
-                <div style={{ width: "80px" }}><Link to="/myreview" style={{ fontSize: "18px", color: "black", textDecoration: "none" }}>받은 후기</Link>   </div>
+                <div style={{ width: "80px", marginLeft: "5px" }}><Link to="/mypage" style={{ fontSize: "16px", color: "black", textDecoration: "none" }}>내가 쓴 글</Link></div>
+                <div style={{ width: "60px" }}><Link to="/myzzim" style={{ fontSize: "16px", color: "lightgray", textDecoration: "none" }}>찜한 글</Link></div>
+                <div style={{ width: "80px" }}><Link to="/myreview" style={{ fontSize: "16px", color: "lightgray", textDecoration: "none" }}>받은 후기</Link>   </div>
             </div>
             <div style={{ height: "2px", backgroundColor: "#D9D9D9", width: "385px", position: "relative" }}>
-                <div style={{ position: "absolute", height: "3px", width: "90px", backgroundColor: "#14C38E" }} />
+                <div style={{ position: "absolute", height: "3px", width: "80px", backgroundColor: "#14C38E" }} />
             </div>
             <div style={{ height: "10px" }} />
             {saleList.length === 0 ? (
                 <div style={{ textAlign: "center", marginTop: "50px", width: "305px", marginLeft: "40px" }}>
                     <img src="\ggulee.png" style={{ width: "100px" }} /><br />
                     <b>현재 작성한 글이 없어요!</b><br />
-                    <a style={{ color: '#14C38E', fontWeight: "bold" }}>딜리셔스</a>로 안전한 중고거래<br />
+                    <a style={{ color: '#14C38E', fontWeight: "550" }}>딜리셔스</a>로 안전한 중고거래<br />
                     <Link to="/salewrite" style={{ color: "black" }}>첫 시작하기<FaArrowRight /></Link>
                 </div>
             ) : (
@@ -152,7 +151,7 @@ const Mypage = () => {
                                 <Link to={"/saledetail/only-detail/" + item.num} key={index} style={{ textDecoration: "none", color: "black" }}>
                                     <div style={{ display: "inline-block", paddingRight: index % 3 === 2 ? "0px" : "10px" }}>
                                         {item.status === "거래완료" || item.status === "수령완료" || item.status === "판매완료" ? (
-                                            <div style={{ width: "120px", height: "120px", borderRadius: "10px" }}>
+                                            <div style={{ width: "120px", height: "120px", borderRadius: "10px", position: "relative" }}>
                                                 <img src={url + `img/${item.fileurl.split(',')[0]}`} style={{ width: "120px", height: "120px", borderRadius: "10px", position: "absolute" }} />
                                                 <div style={{ width: "120px", height: "120px", position: "relative", borderRadius: "10px" }}>
                                                     <div style={{ backgroundColor: "gray", width: "100%", height: "100%", position: "absolute", borderRadius: "10px", opacity: "0.5" }}></div>
@@ -165,11 +164,11 @@ const Mypage = () => {
                                             </div>
                                         )}
                                         {item.amount.length > 15 ? (
-                                            <div style={{ textAlign: "left", fontWeight: "bold" }}>
+                                            <div style={{ textAlign: "left", fontWeight: "550" }}>
                                                 {formatPrice(`${item.amount.slice(0, 15)}...`)}
                                             </div>
                                         ) : (
-                                            <div style={{ textAlign: "left", fontWeight: "bold" }}>
+                                            <div style={{ textAlign: "left", fontWeight: "550" }}>
                                                 {formatPrice(item.amount)}
                                             </div>
                                         )}

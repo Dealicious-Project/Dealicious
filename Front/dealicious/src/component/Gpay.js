@@ -42,7 +42,7 @@ const Gpay = () => {
         document.head.appendChild(iamport);
 
         axios
-            .get(url+`gpay/${num}`)
+            .get(url + `gpay/${num}`)
             .then(res => {
                 console.log(res.data);
                 setSale(res.data);
@@ -78,8 +78,8 @@ const Gpay = () => {
             if (rsp.success) {
                 console.log(rsp.imp_uid);
                 console.log("결제성공");
-                const pay = {salenum:num,amount:sale.amount*1.05,imp_uid:rsp.imp_uid,buyerEmail:user.email};
-                axios.post(url+`pay`, pay)
+                const pay = { salenum: num, amount: sale.amount * 1.05, imp_uid: rsp.imp_uid, buyerEmail: user.email };
+                axios.post(url + `pay`, pay)
                     .then(res => {
                         console.log("어드민 계좌 입금 성공");
                         navigate(`/gpay_finish/${num}`)
@@ -101,48 +101,62 @@ const Gpay = () => {
             setCheck(true);
         }
     }
-    
+
+    const formatPrice = (amount) => {
+        if (!amount) return '';
+        const numericPrice = parseInt(amount.replace(/[^0-9]/g, '')) * 1.05;
+        const formattedPrice = numericPrice.toLocaleString('ko-KR');
+        return `${formattedPrice}원`;
+    };
+
+    const formatPrice2 = (amount) => {
+        if (!amount) return '';
+        const numericPrice = parseInt(amount.replace(/[^0-9]/g, '')) * 0.05;
+        const formattedPrice = numericPrice.toLocaleString('ko-KR');
+        return `${formattedPrice}원`;
+    };
+
+    const formatPrice3 = (amount) => {
+        if (!amount) return '';
+        const numericPrice = parseInt(amount.replace(/[^0-9]/g, ''));
+        const formattedPrice = numericPrice.toLocaleString('ko-KR');
+        return `${formattedPrice}원`;
+    };
+
 
 
     return (
-        <div className='main' style={{ overflow: "scroll", height: "632px", overflowX: "hidden", padding: "20px 50px 0 50px" }}>
-            <div style={{ textAlign: "left", paddingBottom: "10px" }}>
-                <IoArrowBackOutline style={{ marginRight: "80px" }} size="30" color="lightgray" />
+        <div className='main' style={{ overflow: "scroll", height: "632px", overflowX: "hidden" }}>
+            <div style={{ textAlign: "left", paddingBottom: "10px", display:"flex" }}>
+                <IoArrowBackOutline style={{ marginRight:"5px", lineHeight:"27px", height:"27px" }} size="20" color="lightgray" />
+                <Label style={{ fontSize: "18px", fontWeight: "550", color: "black", lineHeight:"27px" }}>꿀페이 결제하기</Label>
             </div>
-            <div style={{ textAlign: "left", marginLeft: "10px" }}>
-                <Label style={{ fontSize: "20px", fontWeight: "bold", color: "black" }}>꿀페이 결제하기</Label>
-            </div>
-            <div style={{ textAlign: "left", paddingBottom: "20px", borderBottom: "1px solid lightgray", display: "flex" }}>
-                &nbsp;&nbsp;
-
-                <img src={url+`img/${sale.fileurl.split(',')[0]}`} style={{ width: "100px", height: "100px" }}></img>
-                <div style={{ marginLeft: "10px" }}>
-                    <div style={{ marginLeft: "10px", fontSize: "25px", marginBottom: "5px" }}> {sale.title}</div>
-                    <div style={{ marginLeft: "10px" }}> {sale.amount} </div>
+            <div style={{ textAlign: "left", paddingBottom: "10px", borderBottom: "1px solid lightgray", display: "flex", width: "390px" }}>
+                <img src={url + `img/${sale.fileurl.split(',')[0]}`} style={{ width: "60px", height: "60px", borderRadius: "10px" }}></img>
+                <div style={{ marginLeft: "10px", height: "60px", marginTop: "7px" }}>
+                    <div style={{ fontSize: "16px" }}> {sale.title}</div>
+                    <div style={{ fontSize: "15px" }}> {formatPrice3(sale.amount)}</div>
                 </div>
-
             </div>
-
             <div style={{ textAlign: "left", borderBottom: "1px solid lightgray", paddingBottom: "20px" }}>
                 &nbsp;&nbsp;
                 <div style={{ marginBottom: "10px", paddingLeft: "5px" }}>
                     <span style={{ color: "gray", }}>거래방법</span>
-                    <span style={{ fontWeight: "bold", paddingLeft: "20px", fontSize: "18px" }}>직거래</span>
+                    <span style={{ paddingLeft: "20px" }}>직거래</span>
                 </div>
                 <div style={{ paddingLeft: "5px" }}>
                     <span style={{ color: "gray" }}>결제수단</span>
                     <img src="../ggul.png" style={{ width: "40px", marginLeft: "20px" }} />
                 </div>
             </div>
-            <div style={{ textAlign: "left", borderBottom: "1px solid lightgray", paddingBottom: "20px" }}>
-                &nbsp;&nbsp;
+            <div style={{ textAlign: "left", borderBottom: "1px solid lightgray", paddingBottom: "10px", paddingTop:"10px" }}>
                 <div style={{ paddingLeft: "5px" }}>
-                    <FaCheck size="20" style={{ cursor: "pointer" }} onClick={checkUse} color={check ? "black" : "gray"} />&nbsp;&nbsp;
+                    <FaCheck size="20" style={{ cursor: "pointer" }} onClick={checkUse} color={check ? "black" : "lightgray"} />&nbsp;&nbsp;
                     <Button style={{ backgroundColor: "lightgray", borderStyle: "none" }}>
                         꿀페이 수수료 서비스 이용약관&nbsp;&nbsp;&nbsp;
-                        <Link style={{ color: "gray", fontWeight: "bold" }} onClick={() => setModalIsOpen(true)}>자세히
+                        <Link style={{ color: "gray", fontSize:"15px" }} onClick={() => setModalIsOpen(true)}>자세히
                             <Modal className="main" style={{
-                                width: "420px", top: "30%"
+                                width: "350px", top: "22%"
                             }} isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
                                 <div style={{ textAlign: "center", height: "100%" }}>
                                     <div>
@@ -152,13 +166,13 @@ const Gpay = () => {
                                     </div>
                                     <br />
                                     <div style={{ textAlign: "left" }}>
-                                        <div style={{ fontWeight: "bold", marginLeft: "20px", marginTop: "25px" }}>
+                                        <div style={{ fontWeight: "550", marginLeft: "20px", marginTop: "25px" }}>
                                             1. 꿀페이 결제 수수료는 얼마인가요?
                                         </div>
                                         <div style={{ marginLeft: "37px", marginBottom: "10px" }}>
                                             꿀페이 수수료는 건당 5%입니다.
                                         </div>
-                                        <div style={{ fontWeight: "bold", marginLeft: "20px" }}>
+                                        <div style={{ fontWeight: "550", marginLeft: "20px" }}>
                                             2. 거래 완료 후 정산은 언제 되나요?
                                         </div>
                                         <div style={{ marginLeft: "37px" }}>
@@ -166,7 +180,7 @@ const Gpay = () => {
                                         </div>
                                         <br /><br />
                                         <div style={{ display: "flex" }}>
-                                            <div style={{ marginLeft: "20px", fontWeight: "bold" }}>
+                                            <div style={{ marginLeft: "20px", fontWeight: "550" }}>
                                                 꿀페이 문의하기
                                             </div>
                                             <div style={{ marginLeft: "10px", textAlign: "right" }}>
@@ -182,17 +196,16 @@ const Gpay = () => {
                     </Button>
                 </div>
             </div>
-            <div style={{ textAlign: "right", marginRight: "10px" }}>
+            <div style={{ textAlign: "right", marginRight: "10px", paddingBottom:"153px" }}>
                 &nbsp;&nbsp;
                 <div>
-                    수수료: {sale.amount * 0.05}원
+                    수수료: {formatPrice2(sale.amount)}
                 </div>
-                <div style={{ fontWeight: "bold" }}>
-                    결제 예정 금액: {sale.amount * 1.05}원
+                <div style={{ fontWeight: "550" }}>
+                    결제 금액: {formatPrice(sale.amount)}
                 </div>
             </div>
-            <br />
-            <Button style={{ width: "325px", height: "55px", fontSize: "20px", backgroundColor: "#14C38E", borderStyle: "none" }} onClick={requestPay}>결제하기</Button>
+            <Button style={{ width: "390px", height: "40px", fontSize: "16px", backgroundColor: "#14C38E", borderStyle: "none" }} onClick={requestPay}>결제하기</Button>
         </div>
     )
 }

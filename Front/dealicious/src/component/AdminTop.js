@@ -14,7 +14,7 @@ const AdminTop = () => {
                             <div className="logo">
                                 DEALicious
                             </div>
-                            <div style={{ color: "black", fontWeight: "bold", marginLeft: "-40px", fontSize:"22px" }}>
+                            <div style={{ color: "black", fontWeight: "bold", marginLeft: "-20px", fontSize:"12px" }}>
                                 admin
                             </div>
                         </div>

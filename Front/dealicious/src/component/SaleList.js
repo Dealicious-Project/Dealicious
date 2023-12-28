@@ -47,109 +47,109 @@ const SaleList = () => {
     const observer = new IntersectionObserver((entries) => {//IntersectionObserver를 생성하여 관찰 대상 요소(observerRef.current)의 교차점을 감시
       if (entries[0].isIntersecting && saleList.length > 0) {//관찰 대상 요소가 뷰포트와 교차되고 데이터가 있을 때(saleList.length > 0), Axios를 사용하여 서버에서 데이터를 가져오는 GET 요청
         if (category == null && keyword == null) {
-          if(user.email === "" || user.email === undefined) {
+          if (user.email === "" || user.email === undefined) {
             axios.get(url + `salelist/${page + 1}`)
-            .then(res => {
-              const newSaleList = res.data;//새로운 데이터가 수신되면(newSaleList.length > 0), setSaleList 함수를 사용하여 새 데이터를 기존 saleList에 추가하고 페이지 번호를 업데이트
-              if (newSaleList.length > 0) {
-                setSaleList(prevSaleList => [...prevSaleList, ...newSaleList]);
-                setPage(page + 1);
-              } else {    //새로운 데이터가 없으면 Intersection Observer를 중지하여 추가 요청을 방지
-                observer.disconnect();
-              }
-            })
-            .catch(err => {
-              console.log(err);
-            });
+              .then(res => {
+                const newSaleList = res.data;//새로운 데이터가 수신되면(newSaleList.length > 0), setSaleList 함수를 사용하여 새 데이터를 기존 saleList에 추가하고 페이지 번호를 업데이트
+                if (newSaleList.length > 0) {
+                  setSaleList(prevSaleList => [...prevSaleList, ...newSaleList]);
+                  setPage(page + 1);
+                } else {    //새로운 데이터가 없으면 Intersection Observer를 중지하여 추가 요청을 방지
+                  observer.disconnect();
+                }
+              })
+              .catch(err => {
+                console.log(err);
+              });
           } else {
-            axios.get(url + `salelistbyuser/${page + 1}`,{
+            axios.get(url + `salelistbyuser/${page + 1}`, {
               headers: {
                 Authorization: token,
               }
             })
-            .then(res => {
-              const newSaleList = res.data;
-              if (newSaleList.length > 0) {
-                setSaleList(prevSaleList => [...prevSaleList, ...newSaleList]);
-                setPage(page + 1);
-              } else {    
-                observer.disconnect();
-              }
-            })
-            .catch(err => {
-              console.log(err);
-            });
+              .then(res => {
+                const newSaleList = res.data;
+                if (newSaleList.length > 0) {
+                  setSaleList(prevSaleList => [...prevSaleList, ...newSaleList]);
+                  setPage(page + 1);
+                } else {
+                  observer.disconnect();
+                }
+              })
+              .catch(err => {
+                console.log(err);
+              });
           }
-          
+
         } else if (keyword == null) {
-          if(user.email === "" || user.email === undefined) {
-          axios.get(url + `salelist/${page + 1}/${category}`)
-            .then(res => {
-              const newSaleList = res.data;
-              if (newSaleList.length > 0) {
-                setSaleList(prevSaleList => [...prevSaleList, ...newSaleList]);
-                setPage(page + 1);
-              } else {    
-                observer.disconnect();
-              }
-            })
-            .catch(err => {
-              console.log(err);
-            });
+          if (user.email === "" || user.email === undefined) {
+            axios.get(url + `salelist/${page + 1}/${category}`)
+              .then(res => {
+                const newSaleList = res.data;
+                if (newSaleList.length > 0) {
+                  setSaleList(prevSaleList => [...prevSaleList, ...newSaleList]);
+                  setPage(page + 1);
+                } else {
+                  observer.disconnect();
+                }
+              })
+              .catch(err => {
+                console.log(err);
+              });
           } else {
-            axios.get(url + `salelistbyuser/${page + 1}/${category}`,{
+            axios.get(url + `salelistbyuser/${page + 1}/${category}`, {
               headers: {
                 Authorization: token,
               }
             })
-            .then(res => {
-              const newSaleList = res.data;
-              if (newSaleList.length > 0) {
-                setSaleList(prevSaleList => [...prevSaleList, ...newSaleList]);
-                setPage(page + 1);
-              } else {    
-                observer.disconnect();
-              }
-            })
-            .catch(err => {
-              console.log(err);
-            });
+              .then(res => {
+                const newSaleList = res.data;
+                if (newSaleList.length > 0) {
+                  setSaleList(prevSaleList => [...prevSaleList, ...newSaleList]);
+                  setPage(page + 1);
+                } else {
+                  observer.disconnect();
+                }
+              })
+              .catch(err => {
+                console.log(err);
+              });
           }
         } else {
-          if(user.email === "" || user.email === undefined) {
+          if (user.email === "" || user.email === undefined) {
             axios.get(url + `salesearchlist/${page + 1}/${keyword}`)
-            .then(res => {
-              const newSaleList = res.data;
-              if (newSaleList.length > 0) {
-                setSaleList(prevSaleList => [...prevSaleList, ...newSaleList]);
-                setPage(page + 1);
-              } else {    
-                observer.disconnect();
-              }
-            })
-            .catch(err => {
-              console.log(err);
-            });
+              .then(res => {
+                const newSaleList = res.data;
+                if (newSaleList.length > 0) {
+                  setSaleList(prevSaleList => [...prevSaleList, ...newSaleList]);
+                  setPage(page + 1);
+                } else {
+                  observer.disconnect();
+                }
+              })
+              .catch(err => {
+                console.log(err);
+              });
           } else {
-            axios.get(url + `salesearchlistbyuser/${page + 1}/${keyword}`,{
+            axios.get(url + `salesearchlistbyuser/${page + 1}/${keyword}`, {
               headers: {
                 Authorization: token,
               }
             })
-            .then(res => {
-              const newSaleList = res.data;
-              if (newSaleList.length > 0) {
-                setSaleList(prevSaleList => [...prevSaleList, ...newSaleList]);
-                setPage(page + 1);
-              } else {    
-                observer.disconnect();
-              }
-            })
-            .catch(err => {
-              console.log(err);
-            });
+              .then(res => {
+                const newSaleList = res.data;
+                if (newSaleList.length > 0) {
+                  setSaleList(prevSaleList => [...prevSaleList, ...newSaleList]);
+                  setPage(page + 1);
+                } else {
+                  observer.disconnect();
+                }
+              })
+              .catch(err => {
+                console.log(err);
+              });
           }
-          
+
         }
       }
     }, { threshold: 1 });
@@ -168,101 +168,101 @@ const SaleList = () => {
   useEffect(() => {
     if (category == null && keyword == null) {
       console.log(user)
-      if(user.email === "" || user.email === undefined) {
+      if (user.email === "" || user.email === undefined) {
         axios.get(url + `salelist/${page}`)
-        .then(res => {
-          console.log(res);
-          setSaleList([]);
-          setSaleList((_sale_list) => [
-            ..._sale_list, ...res.data
-          ]);
-        })
-        .catch(err => {
-          console.log(err);
-        })
+          .then(res => {
+            console.log(res);
+            setSaleList([]);
+            setSaleList((_sale_list) => [
+              ..._sale_list, ...res.data
+            ]);
+          })
+          .catch(err => {
+            console.log(err);
+          })
       } else {
-        axios.get(url + `salelistbyuser/${page}`,{
+        axios.get(url + `salelistbyuser/${page}`, {
           headers: {
             Authorization: token,
           }
         })
-        .then(res => {
-          console.log(res);
-          setSaleList([]);
-          setSaleList((_sale_list) => [
-            ..._sale_list, ...res.data
-          ]);
-        })
-        .catch(err => {
-          console.log(err);
-        })
+          .then(res => {
+            console.log(res);
+            setSaleList([]);
+            setSaleList((_sale_list) => [
+              ..._sale_list, ...res.data
+            ]);
+          })
+          .catch(err => {
+            console.log(err);
+          })
       }
-      
+
     } else if (keyword == null) {
-      if(user.email === "" || user.email === undefined) {
-      axios.get(url + `salelist/${page}/${category}`)
-        .then(res => {
-          console.log(res);
-          setSaleList([]);
-          console.log(res.data);
-          setSaleList((_sale_list) => [
-            ..._sale_list, ...res.data
-          ]);
-        })
-        .catch(err => {
-          console.log(err);
-        })
+      if (user.email === "" || user.email === undefined) {
+        axios.get(url + `salelist/${page}/${category}`)
+          .then(res => {
+            console.log(res);
+            setSaleList([]);
+            console.log(res.data);
+            setSaleList((_sale_list) => [
+              ..._sale_list, ...res.data
+            ]);
+          })
+          .catch(err => {
+            console.log(err);
+          })
       } else {
-        axios.get(url + `salelistbyuser/${page}/${category}`,{
+        axios.get(url + `salelistbyuser/${page}/${category}`, {
           headers: {
             Authorization: token,
           }
         })
-        .then(res => {
-          console.log(res);
-          setSaleList([]);
-          console.log(res.data);
-          setSaleList((_sale_list) => [
-            ..._sale_list, ...res.data
-          ]);
-        })
-        .catch(err => {
-          console.log(err);
-        })
+          .then(res => {
+            console.log(res);
+            setSaleList([]);
+            console.log(res.data);
+            setSaleList((_sale_list) => [
+              ..._sale_list, ...res.data
+            ]);
+          })
+          .catch(err => {
+            console.log(err);
+          })
       }
     } else {
-      if(user === "" || user === undefined) {
+      if (user === "" || user === undefined) {
         axios.get(url + `salesearchlist/${page}/${keyword}`)
-        .then(res => {
-          console.log(res);
-          setSaleList([]);
-          console.log(res.data);
-          setSaleList((_sale_list) => [
-            ..._sale_list, ...res.data
-          ]);
-        })
-        .catch(err => {
-          console.log(err);
-        })
+          .then(res => {
+            console.log(res);
+            setSaleList([]);
+            console.log(res.data);
+            setSaleList((_sale_list) => [
+              ..._sale_list, ...res.data
+            ]);
+          })
+          .catch(err => {
+            console.log(err);
+          })
       } else {
-        axios.get(url + `salesearchlistbyuser/${page}/${keyword}`,{
+        axios.get(url + `salesearchlistbyuser/${page}/${keyword}`, {
           headers: {
             Authorization: token,
           }
         })
-        .then(res => {
-          console.log(res);
-          setSaleList([]);
-          console.log(res.data);
-          setSaleList((_sale_list) => [
-            ..._sale_list, ...res.data
-          ]);
-        })
-        .catch(err => {
-          console.log(err);
-        })
+          .then(res => {
+            console.log(res);
+            setSaleList([]);
+            console.log(res.data);
+            setSaleList((_sale_list) => [
+              ..._sale_list, ...res.data
+            ]);
+          })
+          .catch(err => {
+            console.log(err);
+          })
       }
-     
+
     }
 
   }, []);
@@ -271,7 +271,7 @@ const SaleList = () => {
   console.log(user.email);
 
   return (
-    <div className='main' style={{ textAlign: 'left', overflow: "scroll", height: "632px", overflowX: "hidden", paddingLeft: "20px", paddingRight: "20px", paddingTop: "0px", paddingBottom:"0px" }}>
+    <div className='main' style={{ textAlign: 'left', overflow: "scroll", height: "632px", overflowX: "hidden", paddingLeft: "20px", paddingRight: "20px", paddingTop: "0px", paddingBottom: "0px" }}>
       {user.email === "" || user.email === undefined ?
         <Link to="/mypagenl" style={{ marginLeft: "330px", marginTop: "550px", textAlign: "right", position: "absolute", backgroundColor: "white", width: "40px", height: "40px", borderRadius: "50px" }}><FiPlusCircle size="40" color="#14C38E" /></Link>
         : <Link to="/salewrite" style={{ marginLeft: "330px", marginTop: "550px", textAlign: "right", position: "absolute", backgroundColor: "white", width: "40px", height: "40px", borderRadius: "50px" }}>
@@ -281,7 +281,7 @@ const SaleList = () => {
         <div style={{ textAlign: "center", marginTop: "50px", width: "305px", marginLeft: "40px" }}>
           <img src="\ggulee.png" style={{ width: "100px" }} /><br />
           <b>현재 텅 비어있어요!</b><br />
-          <a style={{ color: '#14C38E', fontWeight: "bold" }}>{user.type === "" || user.type === undefined ? "딜리셔스" : user.type === "univ" ? "우리 학교" : "우리 회사"}</a>에서 안전한 중고거래<br />
+          <a style={{ color: '#14C38E', fontWeight: "550" }}>{user.type === "" || user.type === undefined ? "딜리셔스" : user.type === "univ" ? "우리 학교" : "우리 회사"}</a>에서 안전한 중고거래<br />
           <Link to="/salewrite" style={{ color: "black" }}>내가 먼저 시작하기<FaArrowRight /></Link>
         </div> :
         <div>
@@ -290,25 +290,25 @@ const SaleList = () => {
           </div>
           {saleList.map((item, index) =>
             <Link to={"/saledetail/only-detail/" + item.num} key={index} style={{ textDecoration: "none", color: "black" }}>
-              <div style={{ paddingTop: "10px", paddingBottom: "10px", borderBottom: "1px solid lightgray", height: "120px" }}>
+              <div style={{ paddingTop: "10px", paddingBottom: "10px", borderBottom: "1px solid lightgray", height: "100px" }}>
                 <div>
                   <div style={{ display: "flex" }} >
                     {item.fileurl == null ? <img src='./profile.png' width="130px" height="87px" />
-                      : <img src={url + `img/${item.fileurl.split(',')[0]}`} width="100px" height="100px" style={{ borderRadius: "10px" }} />}
+                      : <img src={url + `img/${item.fileurl.split(',')[0]}`} width="80px" height="80px" style={{ borderRadius: "10px" }} />}
 
                     <div style={{ textAlign: "left", marginLeft: "15px", width: "265px" }}>
-                      <div style={{ fontSize: "18px", width:"265px" }}>
+                      <div style={{ fontSize: "17px", width: "265px" }}>
                         {item.title.length > 20 ? `${item.title.slice(0, 20)}...` : item.title}
                       </div>
-                      <div style={{ display: "flex", width:"265px" }}>
+                      <div style={{ display: "flex", width: "265px", marginBottom:"6px" }}>
                         <div style={{ fontSize: "15px" }}>{item.place}</div>
-                      </div>
-                      <div style={{ textAlign: "right", width: "55px", width: "265px" }}>
-                        {item.ggull == 0 ? <img src='' style={{ width: "35px" }} /> : <img src='/ggul.png' style={{ width: "35px" }} />}
+                        <div style={{ textAlign: "right", width: "55px", width: "265px" }}>
+                          {item.ggull == 0 ? <img src='' style={{ width: "35px" }} /> : <img src='/ggul.png' style={{ width: "30px" }} />}
+                        </div>
                       </div>
                       <div style={{ display: "flex" }}>
-                        <div style={{ fontSize: "16px", fontWeight: "bold", textAlign: "left", width: "170px", display: "flex" }}>{formatPrice(item.amount)}{item.status === "수령완료" || item.status === "거래완료" ? <div style={{ fontSize: "12px", fontWeight: "normal", marginLeft: "5px", backgroundColor:"#E9E9E9", width:"60px", textAlign:"center", lineHeight:"24px", borderRadius:"5px", fontWeight:"bold", color:"darkgray" }}>판매완료</div> : ""}</div>
-                        <div style={{ width: "95px", textAlign: "right" }}>
+                        <div style={{ fontSize: "15px", fontWeight: "550", textAlign: "left", width: "170px", display: "flex" }}>{formatPrice(item.amount)}{item.status === "수령완료" || item.status === "거래완료" ? <div style={{ fontSize: "12px", fontWeight: "normal", marginLeft: "5px", backgroundColor: "#E9E9E9", width: "60px", textAlign: "center", lineHeight: "24px", borderRadius: "5px", fontWeight: "550", color: "darkgray" }}>판매완료</div> : ""}</div>
+                        <div style={{ width: "95px", textAlign: "right", fontSize: "15px" }}>
                           {timediff(item.writedate)}
                         </div>
                       </div>

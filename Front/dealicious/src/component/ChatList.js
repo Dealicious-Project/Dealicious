@@ -145,7 +145,7 @@ function ChatList() {
                 <div style={{ textAlign: "center", marginTop: "50px", width: "305px", marginLeft: "40px" }}>
                     <img src="\ggulggulee.png" style={{ width: "100px" }} /><br />
                     <b>현재 채팅 목록이 비어있어요!</b><br />
-                    <a style={{ color: '#14C38E', fontWeight: "bold" }}>딜리셔스</a>로 구경하고<br />
+                    <a style={{ color: '#14C38E', fontWeight: "550" }}>딜리셔스</a>로 구경하고<br />
                     <Link to="/salelist" style={{ color: "black" }}>안전한 중고거래 하러가기<FaArrowRight /></Link>
                 </div>
             ) : (
@@ -154,7 +154,7 @@ function ChatList() {
                         <div key={index} style={{ cursor: "pointer", paddingTop: "10px", paddingBottom: "10px", borderBottom: "1px solid lightgray", display: "flex" }} onClick={() => goChatRoom(item.channelId)}>
                             <div>{item.profileimgurl == null ? <img src={Image} alt='' style={{ width: "50px", height: "50px", borderRadius: "50px" }} /> : <img src={url + `img/${item.profileimgurl}`} alt='' style={{ width: "50px", height: "50px", borderRadius: "50px" }} />}</div>
                             <div style={{ width: "280px" }}>
-                                <div style={{ fontSize: "16px", paddingLeft: "10px", fontWeight: "bold", height: "25px", paddingTop: "5px", paddingBottom: "2px" }}>{item.nickname}</div>
+                                <div style={{ fontSize: "16px", paddingLeft: "10px", fontWeight: "550", height: "25px", paddingTop: "5px", paddingBottom: "2px" }}>{item.nickname}</div>
                                 <div style={{ display: "flex", height: "20px" }}>
                                     <div style={{ fontSize: "12.5px", color: "gray", paddingLeft: "10px", width: "205px" }}>{truncateText(item.chat, 25)}</div>
                                     <div style={{ width: "70px", color: "gray", fontSize: "12px", textAlign: "right", marginRight:"5px" }}>{timediff(item.chatdate)}&nbsp;</div>
@@ -162,7 +162,7 @@ function ChatList() {
                             </div>
                             <div><img src={url + `img/${item.fileurl.split(',')[0]}`} alt='' style={{ width: "50px", height: "50px", borderRadius: "10px" }} /></div>
                             <div>
-                                <div style={{ textAlign: "center" }}>{item.nonReadCnt > 0 ? <div style={{ width: "25px", textAlign: "center", borderRadius: "50%", color: "white", fontWeight: "bold", backgroundColor: "red" }}>{item.nonReadCnt}</div> : ""}</div>
+                                <div style={{ textAlign: "center" }}>{item.nonReadCnt > 0 ? <div style={{ width: "25px", textAlign: "center", borderRadius: "50%", color: "white", fontWeight: "550", backgroundColor: "red" }}>{item.nonReadCnt}</div> : ""}</div>
                             </div>
                         </div>
                     )}

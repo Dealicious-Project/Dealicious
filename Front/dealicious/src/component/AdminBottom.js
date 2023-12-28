@@ -14,22 +14,22 @@ const AdminBottom = () => {
     <Nav className="b_wrapper nav">
         <div>
           <Link to="/adminmain">
-            <AiFillHome size='38' color='72DBBB' />
+            <AiFillHome size='23' color='72DBBB' />
           </Link>
         </div>
         <div>
           <Link to={"/adminsettle"}>
-            <MdOutlineCalculate size='46' color='72DBBB' />
+            <MdOutlineCalculate size='25' color='72DBBB' />
           </Link>
         </div>
         <div>
           <Link to={"/adminsettlelist"}>
-            <CgNotes size='38' color='72DBBB' />
+            <CgNotes size='23' color='72DBBB' />
           </Link>
         </div>
         <div>
           <Link to={"/adminmy"}>
-            <IoPerson size='38' color='72DBBB' />
+            <IoPerson size='23' color='72DBBB' />
           </Link>
         </div>
     </Nav>

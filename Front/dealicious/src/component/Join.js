@@ -22,11 +22,11 @@ const Join = () => {
         }
     };
     return (
-        <div className='main' style={{ overflow: "scroll", height: "742px", overflowX: "hidden", paddingTop: "65px", paddingRight: "50px", paddingLeft: "50px" }}>
-            <div style={{ width: "330px", textAlign: "right" }}>
+        <div className='main' style={{ overflow: "scroll", height: "742px", overflowX: "hidden", paddingTop: "45px", paddingRight: "50px", paddingLeft: "50px" }}>
+            <div style={{ width: "330px", textAlign: "right", paddingBottom: "20px" }}>
                 <Link to={"/login"}><CgClose size={30} color="darkgray" /></Link>
             </div>
-            <a style={{ fontSize: "30px", fontWeight: "bold", color: "#14C38E" }}>회원가입</a>
+            <a style={{ fontSize: "30px", fontWeight: "550", color: "#14C38E" }}>회원가입</a>
             <div style={{ paddingBottom: "50px" }}></div>
             <FormGroup>
                 <Label for="select" style={{ fontSize: "20px" }}>학교 또는 회사를 선택해주세요</Label>
@@ -34,8 +34,8 @@ const Join = () => {
                 <Label for="select" style={{ fontSize: "22px" }}>학교 OR 회사</Label>
                 <br /><br />
             </FormGroup>
-            <FormGroup style={{ paddingBottom: "122px" }}>
-                <Label style={{ marginRight: "50px", fontSize: "20px", fontWeight: "bold" }}>
+            <FormGroup style={{ paddingBottom: "132px" }}>
+                <Label style={{ marginRight: "50px", fontSize: "20px", fontWeight: "550" }}>
                     <Input
                         type="radio"
                         name="select"
@@ -46,7 +46,7 @@ const Join = () => {
                     />
                     학생
                 </Label>
-                <Label style={{ marginRight: "-30px", fontSize: "20px", fontWeight: "bold" }}>
+                <Label style={{ marginRight: "-30px", fontSize: "20px", fontWeight: "550" }}>
                     <Input
                         type="radio"
                         name="select"
