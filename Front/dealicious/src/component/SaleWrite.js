@@ -54,7 +54,7 @@ const SaleWrite = () => {
 
         // 숫자를 천단위로 포맷팅합니다.
         const formattedPrice = numericPrice.toLocaleString('ko-KR');
-        return `${formattedPrice}원`;
+        return `${formattedPrice}`;
 
     };
     const removeImage = (indexToRemove) => {
@@ -289,7 +289,7 @@ const SaleWrite = () => {
             <div style={{ display: "flex" }}>
                 <div>
                     <div style={{ marginBottom: "5px", fontSize: "18px" }}>가격</div>
-                    <div><Input type="text" placeholder="10,000원" style={{ borderRadius: "5px", height: "40px", width: "180px", float: "left" }} name="amount" value={formatPrice(sale.amount)} onInput={changecontent} onChange={handleInputChange}></Input></div>
+                    <div><Input type="text" placeholder="10,000" style={{ borderRadius: "5px", height: "40px", width: "180px", float: "left" }} name="amount" value={formatPrice(sale.amount)} onInput={changecontent} onChange={handleInputChange}></Input></div>
                     {amountError && <div style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>{errorMessage_a}</div>}
                 </div>
                 <div>
