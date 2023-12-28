@@ -73,7 +73,8 @@ const Gpay = () => {
             amount: Number(sale.amount) * 1.05,
             buyer_email: user.email,
             buyer_name: user.name,
-            buyer_tel: user.tell   //필수 파라미터 입니다.
+            buyer_tel: user.tell,   //필수 파라미터 입니다.
+            m_redirect_url : url+`mobilepay/${num}/${user.email}/${sale.amount*1.05}`
         }, function (rsp) { // callback
             if (rsp.success) {
                 console.log(rsp.imp_uid);

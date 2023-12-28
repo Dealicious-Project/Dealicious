@@ -70,7 +70,7 @@ const SaleWrite = () => {
     };
 
     const changeImage = () => {
-        if (user.accountid === "" || user.accountid==="null") {
+        if (user.accountid === "" || user.accountid === "null") {
             alert("계좌번호 등록 후 꿀페이 이용 가능합니다.")
             console.log(user.accountid)
         } else {
@@ -202,11 +202,11 @@ const SaleWrite = () => {
 
         console.log(formData)
 
-        axios.post(url+'salewrite', formData,{
+        axios.post(url + 'salewrite', formData, {
             headers: {
-              Authorization: token,
+                Authorization: token,
             }
-          })
+        })
             .then(res => {
                 console.log(res);
 
@@ -219,33 +219,37 @@ const SaleWrite = () => {
 
     return (
         <div className='main' style={{ textAlign: 'left', overflow: "scroll", height: "632px", overflowX: "hidden" }}>
+            <div style={{ display: "flex" }}>
+                <Link to="/salelist">
+                    <IoArrowBackOutline size="20" color="14C38E" />
+                </Link>
+                <div style={{ color: "#14C38E", fontSize: "20px" }}>판매글작성</div>
+            </div>
             <br />
-            <Link to="/salelist">
-                <IoArrowBackOutline size="30" color="14C38E" />
-            </Link>
-            <span style={{ color: "#14C38E", fontSize: "25px", marginLeft: "105px" }}><b>판매글작성</b></span>
-            <br /><br />
-            <div style={{ backgroundColor: "#E9E9E9", width: "48px", height: "63px", textAlign: "center", paddingTop: "5px", position: "relative", cursor: "pointer" }}>
-                <div>
-                    <div onClick={() => document.getElementById("file").click()}>
-                        <FaCamera size="30" color='gray' />
-                        <div style={{ position: "absolute", textAlign: "center", width: "48px", paddingBottom: "5px", fontWeight: "550", color: "gray" }}>
-                            {imageCount}/5
-                        </div>
-                    </div>
-                    <Input name="file" type="file" id="file" accept="image/*" onInput={changecontent} onChange={fileChange} hidden ref={fileInputRef} />
-                    <div style={{ display: 'flex', marginLeft: '50px', marginTop: '-30px' }}>
-                        {selectedImages.map((image, index) => (
-                            <div key={index} style={{ marginLeft: '10px', position: 'relative' }}>
-                                <img
-                                    src={URL.createObjectURL(image)}
-                                    alt={`Selected ${index + 1}`}
-                                    style={{ width: '45px', height: '45px' }}
-                                />
-                                <button data-idx={index} onClick={() => removeImage(index)} style={{ position: "absolute", top: "-15px", right: "-15px", background: "none", border: "none", cursor: "pointer" }}><GiCancel /></button>
+            <div style={{display:"flex"}}>
+                <div style={{ border: "2px solid #E9E9E9", borderRadius: "5px", width: "50px", height: "50px", textAlign: "center", position: "relative", cursor: "pointer" }}>
+                    <div style={{ textAlign: "center" }}>
+                        <div onClick={() => document.getElementById("file").click()}>
+                            <FaCamera size="23" color='gray' />
+                            <div style={{ position: "absolute", textAlign: "center", width: "48px", fontWeight: "550", color: "gray", fontSize: "14px" }}>
+                                {imageCount}/5
                             </div>
-                        ))}
+                        </div>
+                        <Input name="file" type="file" id="file" accept="image/*" onInput={changecontent} onChange={fileChange} hidden ref={fileInputRef} />
+
                     </div>
+                </div>
+                <div style={{ display: 'flex' }}>
+                    {selectedImages.map((image, index) => (
+                        <div key={index} style={{ marginLeft: '5px', position: 'relative' }}>
+                            <img
+                                src={URL.createObjectURL(image)}
+                                alt={`Selected ${index + 1}`}
+                                style={{ width: '50px', height: '50px', borderRadius: "10px" }}
+                            />
+                            <button data-idx={index} onClick={() => removeImage(index)} style={{ position: "absolute", top: "-15px", right: "-15px", background: "none", border: "none", cursor: "pointer" }}><GiCancel /></button>
+                        </div>
+                    ))}
                 </div>
             </div>
             {fileurlError && <div style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>{errorMessage_f}</div>}
@@ -303,8 +307,8 @@ const SaleWrite = () => {
                 <Input type='textarea'
                     style={{ width: "390px", height: "300px", resize: "none" }} name="content" value={sale.content} onInput={changecontent} onChange={handleInputChange}
                     placeholder='상세설명을 입력하세요
-                    구매날짜, 하자 등 자세하게 작성할수록
-                    구매자에게 편리합니다'></Input>
+구매날짜, 하자 등 자세하게 작성할수록
+구매자에게 편리합니다'></Input>
                 {contentError && <div style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>{errorMessage_c}</div>}
             </div>
             <br /> <p style={{ textAlign: "center" }}><Button
