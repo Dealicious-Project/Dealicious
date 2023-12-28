@@ -10,7 +10,6 @@ import { v4 as uuidv4 } from 'uuid';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Swal from 'sweetalert2';
 import { useWebSocket } from './WebSocketProvider';
 
 
@@ -132,21 +131,12 @@ function SaleDetail() {
     }
   };
   const selectGood = () => {
-    if (user.email === '' || user.email === undefined) {
-      Swal.fire({
-        icon: 'info',
-        title: '로그인이 필요합니다.',
-        text: '로그인 후에 찜하기 기능을 사용할 수 있습니다.',
-        confirmButtonText: '확인',
-      });
-    } else {
-      axios.get(url + `salelike/${user.email}/${num}`)
-        .then(res => {
-          console.log(res.data)
-          setSale({ ...sale, zzimcnt: res.data.zzimCnt });
-          setHeart(res.data.isSelect);
-        })
-    }
+    axios.get(url + `salelike/${user.email}/${num}`)
+      .then(res => {
+        console.log(res.data)
+        setSale({ ...sale, zzimcnt: res.data.zzimCnt });
+        setHeart(res.data.isSelect);
+      })
   };
 
   const gochat = () => {
@@ -247,7 +237,7 @@ function SaleDetail() {
             ))}
           </Slider>
         </div>
-        <div style={{ display: "flex", marginBottom:"10px" }}>
+        <div style={{ display: "flex", marginBottom: "10px" }}>
           <div rowSpan={2}>
             <img src={writer.fileurl == null ? Image : url + `img/${writer.fileurl}`} style={{ width: "60px", height: "60px", marginRight: "10px", borderRadius: "50px" }} />
           </div>
@@ -296,7 +286,7 @@ function SaleDetail() {
           {convertCategoryToKorean(sale.category)}
         </div>
         <tr >
-          <td style={{ textAlign: "left", width: "300px", fontWeight:"550" }}>{sale.place}</td>
+          <td style={{ textAlign: "left", width: "300px", fontWeight: "550" }}>{sale.place}</td>
           <td
             style={{ width: "150px", fontWeight: "550", textAlign: "right" }}
           >

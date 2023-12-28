@@ -4,7 +4,6 @@ import { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useWebSocket } from './WebSocketProvider';
-import  Swal  from 'sweetalert2';
 
 const Login = () => {
     const { url } = useWebSocket();
@@ -40,11 +39,11 @@ const Login = () => {
             return;
         }
 
-        axios.post(url+"login", user)
+        axios.post(url + "login", user)
             .then(res => {
                 console.log(res.headers.authorization);
                 dispatch({ type: "token", payload: res.headers.authorization });
-                axios.get(url+"user", {
+                axios.get(url + "user", {
                     headers: {
                         Authorization: res.headers.authorization,
                     }
@@ -52,13 +51,10 @@ const Login = () => {
                     .then(res => {
                         console.log(res)
                         dispatch({ type: "user", payload: res.data });
-                        Swal.fire({
-                            title: "로그인 성공",
-                            icon: "success",
-                            confirmButtonText: "확인",
-                        }).then(() => {
-                            window.location.replace("/");
-                        });
+                        alert("로그인성공")
+                            .then(() => {
+                                window.location.replace("/");
+                            });
                     })
                     .catch(err => {
                         console.log(err)
@@ -76,11 +72,11 @@ const Login = () => {
     }
 
     function goToNaver() {
-        window.location.href = url+"oauth2/authorization/naver"
+        window.location.href = url + "oauth2/authorization/naver"
     }
 
     function goToKakao() {
-        window.location.href = url+"oauth2/authorization/kakao"
+        window.location.href = url + "oauth2/authorization/kakao"
     }
 
     return (
