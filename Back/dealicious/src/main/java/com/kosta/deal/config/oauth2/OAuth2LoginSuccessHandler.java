@@ -34,11 +34,11 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
 		boolean aaValue = PrincipalOauth2UserService.getAa();
 		if(aaValue == false) {
 			PrincipalOauth2UserService.setAa(true);
-			String targetUrl = UriComponentsBuilder.fromUriString("http://localhost:3000/oauth2/redirect/"+JwtProperties.TOKEN_PREFIX+jwtToken)
+			String targetUrl = UriComponentsBuilder.fromUriString("http://43.203.108.152:3000/oauth2/redirect/"+JwtProperties.TOKEN_PREFIX+jwtToken)
 					.build().toUriString();
 				response.sendRedirect(targetUrl);	
 		} else {
-			String targetUrl = UriComponentsBuilder.fromUriString("http://localhost:3000/oauth/redirect/"+JwtProperties.TOKEN_PREFIX+jwtToken)
+			String targetUrl = UriComponentsBuilder.fromUriString("http://43.203.108.152:3000/oauth/redirect/"+JwtProperties.TOKEN_PREFIX+jwtToken)
 					.build().toUriString();
 				response.sendRedirect(targetUrl);	
 		}
