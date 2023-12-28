@@ -111,7 +111,7 @@ const DEALTop = () => {
             </Link>
             <div onClick={goNotification} style={{ cursor: "pointer", marginLeft: "10px" }}>
               {noticnt >= 1 &&
-                <div className="font" style={{ borderRadius: "50px", position: "absolute", marginLeft: "12px", marginTop:"4px", width: "12px", height: "12px", backgroundColor: "#FA5858", justifyContent: "center", alignItems: "center", display: "flex", color: "white", fontSize: "9px" }}>{noticnt}</div>
+                <div className="font" style={{ borderRadius: "50px", position: "absolute", marginLeft: "12px", marginTop:"4px", width: "12px", height: "12px", backgroundColor: "#FA5858", justifyContent: "center", alignItems: "center", display: "flex", color: "white", fontSize: "9px" }}>{noticnt>9?"9+":noticnt}</div>
               }
               <PiBell size='23' color='14C38E' />
             </div>

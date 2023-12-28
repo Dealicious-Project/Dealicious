@@ -273,8 +273,8 @@ const SaleList = () => {
   return (
     <div className='main' style={{ textAlign: 'left', overflow: "scroll", height: "632px", overflowX: "hidden", paddingLeft: "20px", paddingRight: "20px", paddingTop: "0px", paddingBottom: "0px" }}>
       {user.email === "" || user.email === undefined ?
-        <Link to="/mypagenl" style={{ marginLeft: "330px", marginTop: "550px", textAlign: "right", position: "absolute", backgroundColor: "white", width: "40px", height: "40px", borderRadius: "50px" }}><FiPlusCircle size="40" color="#14C38E" /></Link>
-        : <Link to="/salewrite" style={{ marginLeft: "330px", marginTop: "550px", textAlign: "right", position: "absolute", backgroundColor: "white", width: "40px", height: "40px", borderRadius: "50px" }}>
+        <Link to="/mypagenl" style={{ marginLeft: "330px", marginTop: "550px", textAlign: "right", position: "absolute", backgroundColor: "white", width: "32px", height: "32px", borderRadius: "50px" }}><FiPlusCircle size=" 33" color="#14C38E" /></Link>
+        : <Link to="/salewrite" style={{ marginLeft: "330px", marginTop: "550px", textAlign: "right", position: "absolute", backgroundColor: "white", width: "32px", height: "32px", borderRadius: "50px" }}>
           <FiPlusCircle size="33" color="#14C38E" />
         </Link>}
       {saleList.length === 0 ?
@@ -301,8 +301,8 @@ const SaleList = () => {
                         {item.title.length > 20 ? `${item.title.slice(0, 20)}...` : item.title}
                       </div>
                       <div style={{ display: "flex", width: "265px", marginBottom:"6px" }}>
-                        <div style={{ fontSize: "15px" }}>{item.place}</div>
-                        <div style={{ textAlign: "right", width: "55px", width: "265px" }}>
+                        <div style={{ fontSize: "15px", width: "265px" }}>{item.place}</div>
+                        <div style={{ textAlign: "right", width: "55px" }}>
                           {item.ggull == 0 ? <img src='' style={{ width: "35px" }} /> : <img src='/ggul.png' style={{ width: "30px" }} />}
                         </div>
                       </div>

@@ -65,7 +65,7 @@ const DEALBottom = () => {
       <div>
         <Link to={user.email === "" || user.email === undefined ? "/mypagenl" : "/chatlist"}>
           {chatcnt > 0 &&
-            <div className="font" style={{ borderRadius: "50px", position: "absolute", marginLeft: "12px", marginTop:"4px", width: "12px", height: "12px", backgroundColor: "#FA5858", justifyContent: "center", alignItems: "center", display: "flex", color: "white", fontSize: "9px" }}>{chatcnt}</div>
+            <div className="font" style={{ borderRadius: "50px", position: "absolute", marginLeft: "58px", marginTop:"14px", width: "12px", height: "12px", backgroundColor: "#FA5858", justifyContent: "center", alignItems: "center", display: "flex", color: "white", fontSize: "9px" }}>{chatcnt>9?"9+":chatcnt}</div>
           }
           <IoChatboxEllipsesOutline size="23" color="72DBBB" />
         </Link>

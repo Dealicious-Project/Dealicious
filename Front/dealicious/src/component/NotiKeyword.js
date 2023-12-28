@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import {Button} from 'reactstrap'
+import { Button } from 'reactstrap'
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { useWebSocket } from './WebSocketProvider';
@@ -73,10 +73,11 @@ const NotiKeyword = () => {
   }
 
   return (
-    <div className='main' style={{ paddingBottom:"0px"}}>
+    <div className='main' style={{ paddingBottom: "0px" }}>
       <div>
         <div style={{ display: "flex" }}>
-          <div onClick={goActi} style={{ width: "195px", fontSize: "16px", cursor: "pointer", color:"lightgray" }}>활동 알림</div>
+          {noticnt >= 1 && <div style={{ borderRadius: "50px", position: "absolute", marginLeft: "130px", marginTop: "6.5px", width: "12px", height: "12px", backgroundColor: "#FA5858", justifyContent: "center", alignItems: "center", display: "flex", color: "white", fontSize: "9px" }}>{noticnt>9?"9+":noticnt}</div>}
+          <div onClick={goActi} style={{ width: "195px", fontSize: "16px", cursor: "pointer", color: "lightgray" }}>활동 알림</div>
           <Link to="/notikeyword" style={{ textDecoration: "none", color: "black" }}>
             <div style={{ width: "195px", fontSize: "16px" }}>키워드 알림</div>
           </Link>
@@ -88,12 +89,12 @@ const NotiKeyword = () => {
 
       <div style={{ overflow: "scroll", height: "584.5px", overflowX: "hidden", paddingTop: "0px" }}>
         <div>
-          <div style={{ height: "30px", textAlign: "left", marginTop:"10px" }}>
+          <div style={{ height: "30px", textAlign: "left", marginTop: "10px" }}>
             <Link to="/keyword">
-              <Button style={{ width: "100px", height: "30px", borderRadius: "5px", backgroundColor: "#D9D9D9", borderStyle:"none", color:"black", fontSize:"11px" }}>키워드 등록하기</Button>
+              <Button style={{ width: "100px", height: "30px", borderRadius: "5px", backgroundColor: "#D9D9D9", borderStyle: "none", color: "black", fontSize: "11px" }}>키워드 등록하기</Button>
             </Link>
           </div>
-          {notikeywordList.length===0?"키워드알림 없음": notikeywordList.map((item) =>
+          {notikeywordList.length === 0 ? "키워드알림 없음" : notikeywordList.map((item) =>
             <Link to={"/saledetail/only-detail/" + item.notification.salenum} style={{ color: "black", textDecoration: "none" }}>
               <div style={{ borderBottom: "1px solid gray", width: "390px" }}>
                 <div style={{ display: "flex", paddingBottom: "10px", paddingTop: "10px" }}>
