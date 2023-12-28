@@ -70,7 +70,7 @@ const SaleWrite = () => {
     };
 
     const changeImage = () => {
-        if (user.accountid === "" || user.accountid === "null") {
+        if (user.accountid === "" || user.accountid === null|| user.accountid=== undefined) {
             alert("계좌번호 등록 후 꿀페이 이용 가능합니다.")
             console.log(user.accountid)
         } else {

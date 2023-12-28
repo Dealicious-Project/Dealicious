@@ -16,7 +16,7 @@ const Profilemodify = () => {
     const [selected, setSelected] = useState();
     const dispatch = useDispatch();
     const [previewImage, setPreviewImage] = useState(Image);
-    const [user, setUser] = useState({ name: '', email: '', nickname: '', typename: '', tel: '', accountid: '' })
+    const [user, setUser] = useState({ name: '', email: '', nickname: '', typename: '', tel: '', accountid: '',accountbank:'' })
     const temp = useSelector(state => state.persistedReducer.user);
     useEffect(() => {
         setUser(temp);
@@ -25,6 +25,7 @@ const Profilemodify = () => {
     const selectbank = (e) => {
         console.log(e.target.value);
         setSelected(e.target.value);
+        setUser(prevUser => ({ ...prevUser, accountbank: e.target.value }));
     }
     const handleModifyClick = () => {
         const formData = new FormData();
@@ -158,13 +159,13 @@ const Profilemodify = () => {
                         <select style={{ border: "1px solid lightgray", borderRadius: "5px", width: "100px", height: "45px", textAlign: "left" }}
                             name="accountbank" id="accountbank" value={selected} onChange={selectbank}>
                             <option value="">선택하세요</option>
-                            <option value="국민">국민은행</option>
-                            <option value="신한">신한은행</option>
-                            <option value="농협">농협은행</option>
-                            <option value="우리">우리은행</option>
-                            <option value="하나">하나은행</option>
-                            <option value="기업">기업은행</option>
-                            <option value="카카오">카카오뱅크</option>
+                            <option value="국민은행">국민은행</option>
+                            <option value="신한은행">신한은행</option>
+                            <option value="농협은행">농협은행</option>
+                            <option value="우리은행">우리은행</option>
+                            <option value="하나은행">하나은행</option>
+                            <option value="기업은행">기업은행</option>
+                            <option value="카카오뱅크">카카오뱅크</option>
                         </select>
                         <Input type="text" for="accountid" name="accountid" id="accountid" style={{ fontSize: "16px", width: "214px", height: "44px", marginLeft: "5px" }}
                             onChange={(e) => setUser({ ...user, accountid: e.target.value })} value={user.accountid === "null" || user.accountid === null ? "" : user.accountid} />

@@ -64,7 +64,7 @@ const AdminMain = () => {
           })}
         </select>
       </div>
-      <Table className="table" style={{ margin: "0 auto", width: "395px" }}>
+      <Table className="table" style={{ margin: "0 auto", width: "395px", fontSize:"14px" }}>
         <thead>
           <tr style={{ fontWeight: "550" }}>
             <td>번호</td><td>상태</td><td>제목</td><td>가격</td>

@@ -27,7 +27,7 @@ const SaleList = () => {
     const currentDate = new Date(); // 현재 날짜와 시간
     const writeDate = new Date(writedate); // 주어진 날짜
 
-    const diffInMilliseconds = currentDate - writeDate; // 밀리초 단위의 시간 차이
+    const diffInMilliseconds = currentDate - writeDate+1000; // 밀리초 단위의 시간 차이
     const diffInMinutes = diffInMilliseconds / (1000 * 60); // 분 단위의 차이
 
     if (diffInMinutes < 60) {
@@ -267,8 +267,25 @@ const SaleList = () => {
 
   }, []);
 
+  const convertCategoryToKorean = (category) => {
+    switch (category) {
+        case "mobile":
+            return "모바일/태블릿";
+        case "pc":
+            return "노트북/PC";
+        case "ticket":
+            return "티켓/쿠폰";
+        case "clothes":
+            return "의류";
+        case "free":
+            return "나눔";
+        case "others":
+            return "기타";
+        default:
+            return category;
+    }
+};
 
-  console.log(user.email);
 
   return (
     <div className='main' style={{ textAlign: 'left', overflow: "scroll", height: "632px", overflowX: "hidden", paddingLeft: "20px", paddingRight: "20px", paddingTop: "0px", paddingBottom: "0px" }}>
@@ -285,8 +302,10 @@ const SaleList = () => {
           <Link to="/salewrite" style={{ color: "black" }}>내가 먼저 시작하기<FaArrowRight /></Link>
         </div> :
         <div>
-          <div style={{ color: "#14C38E", marginTop: "5px" }}>
-            {user.typename}
+          <div style={{display:"flex",justifyContent: "space-between"}}>
+            <div style={{ color: "#14C38E", marginTop: "5px" }}>{user.typename}</div>
+            {category === null ? "" : keyword === undefined ? <div style={{ color: "#14C38E", marginTop: "5px" }}>{convertCategoryToKorean(category)}</div>:
+            <div style={{ color: "#14C38E", marginTop: "5px" }}>{keyword}</div>}
           </div>
           {saleList.map((item, index) =>
             <Link to={"/saledetail/only-detail/" + item.num} key={index} style={{ textDecoration: "none", color: "black" }}>

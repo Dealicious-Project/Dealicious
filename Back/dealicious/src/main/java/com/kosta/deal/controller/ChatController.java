@@ -87,6 +87,7 @@ public class ChatController {
 				chat.setData(Integer.toString(fileVo.getNum()));
 
     		}
+    		chat.setIsRead(chat.getIsRead()+","+chat.getWriterId());
     		chatRepository.save(chat);
 			sendingOperations.convertAndSend("/sub/chat/" + chat.getReceiverId(), chat);
 			sendingOperations.convertAndSend("/sub/chat/" + chat.getWriterId(), chat);

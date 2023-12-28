@@ -86,7 +86,14 @@ const AdminSettle = () => {
         console.log(err);
       });
   };
+  const formatPrice = (amount) => {
+    if (!amount) return '';
+    const numericPrice = parseInt(amount.replace(/[^0-9]/g, ''));
 
+    // 숫자를 천단위로 포맷팅합니다.
+    const formattedPrice = numericPrice.toLocaleString('ko-KR');
+    return `${formattedPrice}원`;
+  };
   return (
     <div className='admin' style={{ overflow: "scroll", height: "632px", overflowX: "hidden" }}>
       <div>
@@ -110,7 +117,7 @@ const AdminSettle = () => {
             </Modal>
           </div>
         </div>
-        <Table className="table" style={{ margin: "0 auto", width: "395px" }}>
+        <Table className="table" style={{ margin: "0 auto", width: "395px", fontSize:"14px" }}>
           <thead>
             <tr style={{ fontWeight: "bold" }}>
               <td>번호</td><td>제목</td><td>가격</td><td><Input type='checkbox' name='select-all'
@@ -123,7 +130,7 @@ const AdminSettle = () => {
               <tr key={index}>
                 <td>{item.paynum}</td>
                 <td>{item.title}</td>
-                <td>{item.amount}</td>
+                <td>{formatPrice(item.amount)}</td>
                 <td> <Input type='checkbox' id={item.paynum}
                   onChange={(e) => checkItemHandler(e.target.checked, item.paynum)}
                   checked={checkItems.includes(item.paynum) ? true : false} /></td>

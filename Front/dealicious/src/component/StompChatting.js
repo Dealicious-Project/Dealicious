@@ -325,7 +325,7 @@ const StompChatting = () => {
                 </div>
                 :
                 <div style={{ textAlign: "left", marginBottom: "15px", maxHeight: "100%", display: "flex" }}>
-                  <div style={{ marginRight: "5px" }}>{chatpartner.profileimgurl == null ? <img src={Image} style={{ width: "44px", borderRadius: "50px" }}></img> : <img src={url + `img/${chatpartner.profileimgurl}`} style={{ width: "44px", borderRadius: "50px" }}></img>}</div>
+                  <div style={{ marginRight: "5px" }}>{chatpartner.profileimgurl == null ? <img src={Image} style={{ width: "44px", borderRadius: "50px" }}></img> : <img src={url + `img/${chatpartner.profileimgurl}`} style={{ width: "44px", borderRadius: "50px", height:"44px" }}></img>}</div>
                   <div style={{ width: "auto", borderRadius: "10px", backgroundColor: "#D9D9D9", padding: "10px", maxWidth: "265px", textAlign: "left" }}>{item.chat}</div>
                 </div>
               :
@@ -374,7 +374,7 @@ const StompChatting = () => {
                     }} isOpen={modal1IsOpen} onRequestClose={() => setModal1IsOpen(false)}>
                       <div style={{ textAlign: "center" }}>
                         <div className="logo">DEALicious</div>
-                        <div><img src={url + `img/${fileurlList[0]}`} style={{ width: "100px", borderRadius: "10px" }} /></div>
+                        <div><img src={url + `img/${fileurlList[0]}`} style={{ width: "100px", borderRadius: "10px", height:"100px" }} /></div>
                         <div style={{ textAlign: "center", marginTop: "5px" }}>{sale.title.length > 11 ? `${sale.title.slice(0, 11)}...` : sale.title}</div>
                         <div style={{ textAlign: "center", fontWeight: "550" }}>{sale.amount}원</div>
                         <div>

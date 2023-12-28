@@ -6,7 +6,6 @@ import * as SockJS from 'sockjs-client'; //npm install --save sockjs-client
 import { useSelector } from 'react-redux';
 import { useWebSocket } from './WebSocketProvider';
 import { FaArrowRight } from 'react-icons/fa6';
-import { configureStore } from '@reduxjs/toolkit';
 
 function ChatList() {
     const Image = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
@@ -114,24 +113,7 @@ function ChatList() {
         }
 
     };
-    const convertCategoryToKorean = (category) => {
-        switch (category) {
-            case "mobile":
-                return "모바일/태블릿";
-            case "pc":
-                return "노트북/PC";
-            case "ticket":
-                return "티켓/쿠폰";
-            case "clothes":
-                return "의류";
-            case "free":
-                return "나눔";
-            case "others":
-                return "기타";
-            default:
-                return category;
-        }
-    };
+    
     const truncateText = (text, maxLength) => {
         if (text.length > maxLength) {
             return `${text.slice(0, maxLength)}...`;
@@ -140,7 +122,7 @@ function ChatList() {
     };
     return (
         <div className='main' style={{ textAlign: 'left', overflow: "scroll", height: "632px", overflowX: "hidden", paddingLeft: "20px", paddingRight: "20px" }}>
-            <div style={{ borderBottom: "1px solid", fontSize: "20px", paddingBottom: "10px" }}><b>채팅</b></div>
+            <div style={{ borderBottom: "1px solid", fontSize: "18px", paddingBottom: "10px", fontSize:"18px" }}>채팅</div>
             {chatRoomList.length === 0 ? (
                 <div style={{ textAlign: "center", marginTop: "50px", width: "305px", marginLeft: "40px" }}>
                     <img src="\ggulggulee.png" style={{ width: "100px" }} /><br />
