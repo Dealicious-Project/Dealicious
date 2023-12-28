@@ -156,12 +156,13 @@ public class SaleController {
 		}
 	}
 	@PostMapping("/salewrite")
-	public ResponseEntity<Integer> saleWrite(@ModelAttribute Sale sale,List<MultipartFile> file) {
+	public ResponseEntity<Integer> saleWrite(Authentication authentication, @ModelAttribute Sale sale,List<MultipartFile> file) {
 		
 		try {
-			
+			PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+	    	User user = principalDetails.getUser();
 			sale.setStatus("판매중");
-			Integer num=saleService.saleWrite(sale, file);
+			Integer num=saleService.saleWrite(sale, file, user);
 			return new ResponseEntity<Integer>(num,HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();

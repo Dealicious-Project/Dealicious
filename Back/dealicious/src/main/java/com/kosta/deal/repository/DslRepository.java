@@ -251,9 +251,13 @@ public class DslRepository {
 				.fetch();
 	}
 	
-	public List<Keyword> getAllKeywordList() {
+	public List<Keyword> getAllKeywordList(String typename) {
 		QKeyword keyword = QKeyword.keyword;
-		return jpaQueryFactory.selectFrom(keyword)
+		QUser user = QUser.user;
+		return jpaQueryFactory.select(keyword)
+				.from(keyword)
+				.from(user)
+				.where(keyword.email.eq(user.email).and(user.typename.eq(typename)))
 				.fetch();
 	}
 	

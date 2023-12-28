@@ -14,7 +14,7 @@ public interface SaleService {
 	List<Sale> saleListByPage(Integer curPage) throws Exception;
 
 	
-	Integer saleWrite(Sale sale, List<MultipartFile> file) throws Exception;
+	Integer saleWrite(Sale sale, List<MultipartFile> file, User user) throws Exception;
 	void plusViewCount(Integer num)throws Exception;
 	
 	

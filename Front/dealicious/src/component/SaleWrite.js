@@ -12,6 +12,8 @@ import { useWebSocket } from './WebSocketProvider';
 
 const SaleWrite = () => {
     const { url } = useWebSocket();
+    const token = useSelector(state => state.persistedReducer.token);
+    const user = useSelector(state => state.persistedReducer.user);
     const [currentImage, setCurrentImage] = useState("./ggul2.png");
     const navigate = useNavigate();
     const [imageCount, setImageCount] = useState(0); // 상태 변수로 이미지 카운트를 관리.
@@ -42,12 +44,6 @@ const SaleWrite = () => {
         fileurl: ''
     });
 
-    const [user, setUser] = useState({ id: '', email: '', nickname: '' });
-    const temp = useSelector(state => state.persistedReducer.user);
-
-    useEffect(() => {
-        setUser(temp);
-    }, [])
     const formatPrice = (amount) => {
         if (!amount) return '';
         const numericPrice = parseInt(amount.replace(/[^0-9]/g, ''));
@@ -206,7 +202,11 @@ const SaleWrite = () => {
 
         console.log(formData)
 
-        axios.post(url+'salewrite', formData)
+        axios.post(url+'salewrite', formData,{
+            headers: {
+              Authorization: token,
+            }
+          })
             .then(res => {
                 console.log(res);
 

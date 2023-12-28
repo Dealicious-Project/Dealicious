@@ -122,8 +122,7 @@ public class SaleServiceImpl implements SaleService {
 	}
 
 	@Override
-	public Integer saleWrite(Sale sale, List<MultipartFile> files) throws Exception {
-	
+	public Integer saleWrite(Sale sale, List<MultipartFile> files, User user) throws Exception {
 		if (files != null && !files.isEmpty()) {
 			String fileNums = "";
 			for (MultipartFile file : files) {
@@ -145,9 +144,10 @@ public class SaleServiceImpl implements SaleService {
 		}
 		Sale sale1 = sale;
 		saleRepository.save(sale1);
-		
 		//sale.title에 keyword 내용이 포함될 경우 알림 생성
-		List<Keyword> keywordlist = dslRepository.getAllKeywordList();
+		List<Keyword> keywordlist = dslRepository.getAllKeywordList(user.getTypename());
+		System.out.println("----------------------------------------------");
+		System.out.println(keywordlist);
 		for(Keyword k : keywordlist) {
 			if(sale1.getTitle().contains(k.getContent())) {
 				Notification noti1 = new Notification();
