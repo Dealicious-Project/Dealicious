@@ -78,7 +78,7 @@ public class ChatController {
     	        byte[] decodedImage = Base64.getDecoder().decode(imageData);
     			
     			FileVo fileVo = FileVo.builder().directory(upload)
-						.data(decodedImage).build();
+						.build();
 				fileVoRepository.save(fileVo);
 
 				// upload 폴더에 upload

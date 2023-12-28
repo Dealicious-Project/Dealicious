@@ -97,16 +97,16 @@ public class PayController {
 			int amount1 = paymentService.paymentInfo(pay.getImp_uid(), token);
 			if (amount1 != pay.getPayAmount()) {
 				paymentService.payMentCancle(token, pay.getImp_uid(), amount1, "결제 금액 오류");
-				response.sendRedirect("http://localhost:3000/gpay/" + Integer.toString(num));
+				response.sendRedirect("http://43.203.108.152:3000/gpay/" + Integer.toString(num));
 			}
 			payService.insertPay(pay);
 			saleService.payFinish(pay.getSalenum());
-			response.sendRedirect("http://localhost:3000/gpay_finish/" + Integer.toString(num));
+			response.sendRedirect("http://43.203.108.152:3000/gpay_finish/" + Integer.toString(num));
 		} catch (IOException e) {
 			String token = paymentService.getToken();
 			int amount2 = paymentService.paymentInfo(imp_uid, token);
 			paymentService.payMentCancle(token, imp_uid, amount2, "어드민 계좌 입금 오류");
-			response.sendRedirect("http://localhost:3000/gpay/" + Integer.toString(num));
+			response.sendRedirect("http://43.203.108.152:3000/gpay/" + Integer.toString(num));
 		}
 	}
 
