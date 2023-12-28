@@ -26,9 +26,7 @@ const AdminLogin = () => {
                         console.log(res.data)
                         dispatch({ type: "admin", payload: res.data });
                         alert("로그인성공")
-                            .then(() => {
-                                window.location.replace("/adminmain");
-                            });
+                        window.location.replace("/adminmain");
                     })
                     .catch(err => {
                         console.log(err)

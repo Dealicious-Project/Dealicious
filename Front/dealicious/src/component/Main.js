@@ -64,7 +64,7 @@ const Main = () => {
   };
   return (
     <div className='main' style={{ overflow: "scroll", height: "632px", overflowX: "hidden" }}>
-      <Link to="/about">
+      <Link>
         <img src="..\dealmain.png" style={{ width: "390px" }} alt="Dealicious Main" />
       </Link>
       <br /><br />
