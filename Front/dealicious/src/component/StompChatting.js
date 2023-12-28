@@ -303,11 +303,11 @@ const StompChatting = () => {
           <div style={{ display: "flex" }}>
 
             <div><img src={url + `img/${fileurlList[0]}`} style={{ width: "60px", height: "60px", borderRadius: "10px" }}></img></div>
-            <div style={{ width: "230px", textAlign: "left", lineHeight: "30px", marginLeft:"5px" }}>
-              <Link to={"/saledetail/only-detail/" + sale.num} style={{ color: "black", textDecoration: "none" }}><div style={{ textAlign: "left" }}>{sale.title}</div></Link>
+            <div style={{ width: "230px", textAlign: "left", lineHeight: "30px", marginLeft: "10px" }}>
+              <Link to={"/saledetail/only-detail/" + sale.num} style={{ color: "black", textDecoration: "none" }}><div style={{ textAlign: "left" }}>{sale.title.length > 15 ? `${sale.title.slice(0, 15)}...` : sale.title}</div></Link>
               <div style={{ textAlign: "left", fontSize: "18px" }}>{formatPrice(sale.amount)}</div>
             </div>
-            <div style={{ lineHeight: "40px", width: "80px", textAlign: "right", marginRight: "10px" }}>
+            <div style={{ lineHeight: "30px", width: "80px", textAlign: "right", marginRight: "10px" }}>
               <div>{sale.status}</div>
               <div>{sale.ggull == 1 ? sale.email == user.email ? <img src='/ggul.png' style={{ width: "34px", height: "19px" }}></img> : <Link to={"/gpay/" + sale.num}><img src='/ggul.png' style={{ width: "34px", height: "19px" }}></img></Link> : ""}</div>
             </div>
@@ -321,12 +321,12 @@ const StompChatting = () => {
             item.type == "chat" ?
               item.writerId == user.email ?
                 <div style={{ textAlign: "right", marginBottom: "15px" }}>
-                  <div style={{ display: "inline-block", width: "auto", maxWidth: "265px", borderRadius: "10px", backgroundColor: "#14C38E", padding: "10px", color: "white" }}>{item.chat}</div>
+                  <div style={{ display: "inline-block", width: "auto", maxWidth: "265px", borderRadius: "10px", backgroundColor: "#14C38E", padding: "10px", color: "white", textAlign: "left" }}>{item.chat}</div>
                 </div>
                 :
                 <div style={{ textAlign: "left", marginBottom: "15px", maxHeight: "100%", display: "flex" }}>
                   <div style={{ marginRight: "5px" }}>{chatpartner.profileimgurl == null ? <img src={Image} style={{ width: "44px", borderRadius: "50px" }}></img> : <img src={url + `img/${chatpartner.profileimgurl}`} style={{ width: "44px", borderRadius: "50px" }}></img>}</div>
-                  <div style={{ width: "auto", borderRadius: "10px", backgroundColor: "#D9D9D9", padding: "10px", maxWidth: "265px" }}>{item.chat}</div>
+                  <div style={{ width: "auto", borderRadius: "10px", backgroundColor: "#D9D9D9", padding: "10px", maxWidth: "265px", textAlign: "left" }}>{item.chat}</div>
                 </div>
               :
               item.type == "completepay" ?
@@ -340,8 +340,8 @@ const StompChatting = () => {
                     <div className='logo'>DEALicious</div>
                     <div><span style={{ fontWeight: "550" }}>"{sale.title}"</span> 의 결제가 완료되었어요.</div>
                     <div style={{ color: "gray", fontSize: "15px" }}>수령 후 수령완료 버튼을 눌러주세요:)</div>
-                    <div style={{ color: "gray", fontSize: "12px" }}>&nbsp;&nbsp;수령완료 버튼을 누르면 판매자에게 정산액이 입금됩니다.</div>
-                    <button style={{ width: "310px", backgroundColor: "#C7FBEB", border: "white", padding: "5px", borderRadius: "10px", color: "#14C38E", fontWeight: "550" }} onClick={() => setModal2IsOpen(true)}>수령완료</button>
+                    <div style={{ color: "gray", fontSize: "12px", marginBottom: "3px" }}>수령완료 버튼을 누르면 판매자에게 정산액이 입금됩니다.</div>
+                    <Button style={{ width: "310px", backgroundColor: "#C7FBEB", border: "white", color: "#14C38E" }} onClick={() => setModal2IsOpen(true)}>수령완료</Button>
                     <Modal className='main' style={{
                       content: {
                         width: "350px", height: "190px", position: "absolute",
@@ -364,19 +364,19 @@ const StompChatting = () => {
                   <div style={{ borderLeft: "3px solid #D9D9D9", paddingLeft: "10px", textAlign: "left", paddingBottom: "8px", paddingTop: "8px", marginBottom: "15px" }}>
                     <div className='logo'>DEALicious</div>
                     <div><span style={{ fontWeight: "550" }}>"{sale.title}"</span> 의 거래가 완료되었어요.</div>
-                    <div style={{ color: "gray", fontSize: "15px" }}>&nbsp;&nbsp;거래는 만족스러우셨나요? 후기를 남겨주세요 :)</div>
-                    <button style={{ width: "310px", backgroundColor: "#C7FBEB", border: "white", padding: "5px", borderRadius: "10px", color: "#14C38E" }} onClick={() => setModal1IsOpen(true)}>후기 작성하기</button>
+                    <div style={{ color: "gray", fontSize: "15px", marginBottom: "3px" }}>&nbsp;&nbsp;거래는 만족스러우셨나요? 후기를 남겨주세요 :)</div>
+                    <Button style={{ width: "310px", backgroundColor: "#C7FBEB", border: "white", color: "#14C38E" }} onClick={() => setModal1IsOpen(true)}>후기 작성하기</Button>
                     <Modal className='main' style={{
                       content: {
-                        width: "300px", height: "330px", position: "absolute", borderRadius: "20px",
+                        width: "300px", height: "300px", position: "absolute", borderRadius: "20px",
                         top: "40%", left: "50%", transform: "translate(-50%, -50%)", backgroundColor: "white", border: "1px solid lightgray"
                       }
                     }} isOpen={modal1IsOpen} onRequestClose={() => setModal1IsOpen(false)}>
                       <div style={{ textAlign: "center" }}>
                         <div className="logo">DEALicious</div>
-                        <div><img src={url + `img/${fileurlList[0]}`} style={{ width: "100px" }} /></div>
-                        <div style={{ textAlign: "center", marginTop: "5px" }}>{sale.title}</div>
-                        <div style={{ textAlign: "center" }}><b>{sale.amount}원</b></div>
+                        <div><img src={url + `img/${fileurlList[0]}`} style={{ width: "100px", borderRadius: "10px" }} /></div>
+                        <div style={{ textAlign: "center", marginTop: "5px" }}>{sale.title.length > 11 ? `${sale.title.slice(0, 11)}...` : sale.title}</div>
+                        <div style={{ textAlign: "center", fontWeight: "550" }}>{sale.amount}원</div>
                         <div>
                           {[...Array(5)].map((star, i) => {
                             const starValue = i + 1;
@@ -395,7 +395,7 @@ const StompChatting = () => {
                           })}
 
                         </div>
-                        <Button style={{ width: "60px", height: "35px", borderRadius: "8px", backgroundColor: "#14C38E", border: "white", fontWeight: "550", color: "white", marginTop: "20px" }} onClick={handleRegister}>등록</Button>
+                        <Button style={{ width: "60px", height: "35px", borderRadius: "8px", backgroundColor: "#14C38E", border: "white", color: "white", marginTop: "10px" }} onClick={handleRegister}>등록</Button>
                       </div>
                     </Modal>
                   </div>

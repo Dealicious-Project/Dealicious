@@ -159,7 +159,7 @@ function ChatList() {
                                     <div style={{ textAlign: "center" }}>{item.nonReadCnt > 0 ? <div style={{ borderRadius: "50px", position: "absolute", marginLeft: "5px", marginTop: "12px", width: "12px", height: "12px", backgroundColor: "#FA5858", justifyContent: "center", alignItems: "center", display: "flex", color: "white", fontSize: "9px" }}>{item.nonReadCnt}</div> : ""}</div>
                                 </div>
                                 <div style={{ display: "flex", height: "20px" }}>
-                                    <div style={{ fontSize: "12.5px", color: "gray", paddingLeft: "10px", width: "205px" }}>{truncateText(item.chat, 25)}</div>
+                                    <div style={{ fontSize: "12.5px", color: "gray", paddingLeft: "10px", width: "205px" }}>{truncateText(item.chat, 15)}</div>
                                     <div style={{ width: "70px", color: "gray", fontSize: "12px", textAlign: "right", marginRight: "5px" }}>{timediff(item.chatdate)}&nbsp;</div>
                                 </div>
                             </div>

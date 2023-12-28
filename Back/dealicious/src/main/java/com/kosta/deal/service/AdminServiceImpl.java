@@ -1,8 +1,9 @@
 package com.kosta.deal.service;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
+
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -105,15 +106,15 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public List<Map<String, Object>> settleList(String startDate, String endDate) throws Exception {
+	public List<Map<String, Object>> settleList(Date startDate, Date endDate) throws Exception {
 		List<Map<String, Object>> res = new ArrayList<>();;
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		long milliSeconds = format.parse(startDate).getTime();
-		Date sDate = new Date(milliSeconds);
-		long milliSeconds2 = format.parse(endDate).getTime();
-		Date eDate = new Date(milliSeconds2);
+//		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//		long milliSeconds = format.parse(startDate).getTime();
+//		Date sDate = new Date(milliSeconds);
+//		long milliSeconds2 = format.parse(endDate).getTime();
+//		Date eDate = new Date(milliSeconds2);
 
-		List<Tuple> tupleList = dslRepository.findSettleList(sDate,eDate);
+		List<Tuple> tupleList = dslRepository.findSettleList(startDate,endDate);
 		for(Tuple t: tupleList) {
 			Integer paynum = t.get(0,Integer.class);
 			String status = t.get(1,String.class);

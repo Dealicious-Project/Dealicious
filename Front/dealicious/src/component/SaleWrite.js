@@ -219,14 +219,16 @@ const SaleWrite = () => {
 
     return (
         <div className='main' style={{ textAlign: 'left', overflow: "scroll", height: "632px", overflowX: "hidden" }}>
-            <div style={{ display: "flex" }}>
-                <Link to="/salelist">
-                    <IoArrowBackOutline size="20" color="14C38E" />
-                </Link>
+            <div style={{ display: "flex", lineHeight:"30px" }}>
+                <div style={{marginRight:"5px"}}>
+                    <Link to="/salelist">
+                        <IoArrowBackOutline size="20" color="14C38E" />
+                    </Link>
+                </div>
                 <div style={{ color: "#14C38E", fontSize: "20px" }}>판매글작성</div>
             </div>
             <br />
-            <div style={{display:"flex"}}>
+            <div style={{ display: "flex" }}>
                 <div style={{ border: "2px solid #E9E9E9", borderRadius: "5px", width: "50px", height: "50px", textAlign: "center", position: "relative", cursor: "pointer" }}>
                     <div style={{ textAlign: "center" }}>
                         <div onClick={() => document.getElementById("file").click()}>

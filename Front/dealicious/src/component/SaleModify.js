@@ -41,7 +41,7 @@ const SaleModify = () => {
     const [currentImage, setCurrentImage] = useState();
     const { sect, num } = useParams();
     useEffect(() => {
-        axios.get(url+`saledetail/${sect}/${num}`)
+        axios.get(url + `saledetail/${sect}/${num}`)
             .then(res => {
                 console.log(res.data);
                 setSale(res.data.sale);
@@ -153,7 +153,7 @@ const SaleModify = () => {
                 formData.append("file", file.data);
         }
 
-        axios.post(url+'salemodify', formData)
+        axios.post(url + 'salemodify', formData)
             .then(res => {
                 console.log(res);
                 let saleNum = res.data;
@@ -176,8 +176,8 @@ const SaleModify = () => {
             confirmButtonText: '삭제',
             cancelButtonText: '취소'
         }).then((result) => {
-            if(result.value){
-                axios.delete(url+`saledelete/${num}`)
+            if (result.value) {
+                axios.delete(url + `saledelete/${num}`)
                     .then(res => {
                         Swal.fire({
                             title: "삭제되었습니다",
@@ -193,56 +193,56 @@ const SaleModify = () => {
         })
 
     }
+    const formatPrice = (amount) => {
+        if (!amount) return '';
+        const numericPrice = parseInt(amount.replace(/[^0-9]/g, ''));
+
+        // 숫자를 천단위로 포맷팅합니다.
+        const formattedPrice = numericPrice.toLocaleString('ko-KR');
+        return `${formattedPrice}`;
+
+    };
     return (
         <div className='main' style={{ textAlign: 'left', overflow: "scroll", height: "632px", overflowX: "hidden" }}>
-            <br />
-            <div style={{ display: 'flex', marginBottom: "20px" }}>
-                <Link to="/salelist">
-                    <IoArrowBackOutline size="30" color="14C38E" />
-                </Link>
-                <div
-                    style={{
-                        color: "#14C38E",
-                        fontSize: "20px",
-                        textAlign: "center",
-                        width: "360px",
-                        marginLeft: "-20px"
-                    }}
-                >
-                    <b>판매글수정</b>
+            <div style={{ display: "flex", lineHeight: "30px" }}>
+                <div style={{ marginRight: "5px" }}>
+                    <Link to="/salelist">
+                        <IoArrowBackOutline size="20" color="14C38E" />
+                    </Link>
                 </div>
+                <div style={{ color: "#14C38E", fontSize: "20px" }}>판매글수정</div>
             </div>
-            <div style={{ backgroundColor: "#E9E9E9", width: "48px", height: "63px", textAlign: "center", paddingTop: "5px", position: "relative", cursor: "pointer" }}
-            >
-                <div style={{ display: "flex" }}>
-                    <div onClick={plusClick}>
-                        <div style={{ width: "48px", textAlign: "center" }}>
-                            <FaCamera size="30" color='gray' />
+            <br />
+            <div style={{ display: "flex" }}>
+                <div style={{ border: "2px solid #E9E9E9", borderRadius: "5px", width: "50px", height: "50px", textAlign: "center", position: "relative", cursor: "pointer" }}>
+                    <div style={{ textAlign: "center" }} onClick={plusClick}>
+                        <div >
+                            <FaCamera size="23" color='gray' />
+                            <div style={{ position: "absolute", textAlign: "center", width: "48px", fontWeight: "550", color: "gray", fontSize: "14px" }}>
+                                {imageCount}/5
+                            </div>
                         </div>
-                        <div style={{ position: "absolute", textAlign: "center", width: "48px", paddingBottom: "5px", fontWeight: "550", color: "gray" }}>
-                            {imageCount}/5
-                        </div>
+                        <Input name="file" type="file" id="file" accept="image/*" onChange={fileChange} hidden ref={fileInputRef} />
                     </div>
-                    <Input name="file" type="file" id="file" accept="image/*" onChange={fileChange} hidden ref={fileInputRef} />
-                    <div style={{ display: "flex", marginLeft: "10px" }}>
-                        {files.length !== 0 &&
-                            files.map((file, index) =>
-                                <span key={index}>
-                                    <div style={{ position: "relative", display: 'inline-block', marginRight: "10px" }}>
-                                        <img src={file.type === 'i' ? url+`img/${file.data}` : URL.createObjectURL(file.data)} width="45px" height="45px" alt='' id={index} onClick={imageClick} />
-                                        <button data-idx={index} onClick={() => deleteClick(index)} style={{ position: "absolute", top: "-15px", right: "-15px", background: "none", border: "none", cursor: "pointer" }}><GiCancel /></button>
-                                    </div>
-                                </span>
-                            )
-                        }
-                    </div>
+                </div>
+                <div style={{ display: "flex", marginLeft: "10px" }}>
+                    {files.length !== 0 &&
+                        files.map((file, index) =>
+                            <div key={index}>
+                                <div style={{ position: "relative", display: 'inline-block', marginRight: "10px", borderRadius: "10px" }}>
+                                    <img src={file.type === 'i' ? url + `img/${file.data}` : URL.createObjectURL(file.data)} alt='' id={index} onClick={imageClick} style={{ width: '50px', height: '50px', borderRadius: "10px" }} />
+                                    <button data-idx={index} onClick={() => deleteClick(index)} style={{ position: "absolute", top: "-15px", right: "-15px", background: "none", border: "none", cursor: "pointer" }}><GiCancel /></button>
+                                </div>
+                            </div>
+                        )
+                    }
                 </div>
             </div>
             <div style={{ marginBottom: "5px", fontSize: "18px", marginTop: "20px" }}>제목</div>
             <Input
                 type="text"
                 placeholder="제목을 입력해주세요"
-                style={{ width: "390px", height: "40px", borderColor: "lightgray" }}
+                style={{ width: "390px", height: "40px", borderColor: "lightgray", color: "black" }}
                 name="title"
                 value={sale.title}
                 onChange={handleInputChange}
@@ -277,7 +277,7 @@ const SaleModify = () => {
                 <div style={{ display: "flex" }}>
                     <div>
                         <div style={{ marginBottom: "5px", fontSize: "18px" }}>가격</div>
-                        <div><Input type="text" placeholder="10,000원" style={{ borderRadius: "5px", height: "40px", width: "180px", float: "left" }} name="amount" value={sale.amount} onChange={handleInputChange}></Input></div>
+                        <div><Input type="text" placeholder="10,000" style={{ borderRadius: "5px", height: "40px", width: "180px", float: "left" }} name="amount" value={formatPrice(sale.amount)} onChange={handleInputChange}></Input></div>
                     </div>
                     <div>
                         <div style={{ marginBottom: "5px", fontSize: "18px", marginLeft: "25px" }}>장소</div>

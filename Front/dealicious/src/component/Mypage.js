@@ -119,7 +119,7 @@ const Mypage = () => {
                             style={{
                                 cursor: "pointer",
                                 marginRight: "10px",
-                                fontWeight: filterOption === "전체" ? "bold" : "normal",
+                                fontWeight: filterOption === "전체" ? "550" : "normal",
                             }}
                         >
                             전체
@@ -129,7 +129,7 @@ const Mypage = () => {
                             style={{
                                 cursor: "pointer",
                                 marginRight: "10px",
-                                fontWeight: filterOption === "판매중" ? "bold" : "normal",
+                                fontWeight: filterOption === "판매중" ? "550" : "normal",
                             }}
                         >
                             판매중
@@ -138,7 +138,7 @@ const Mypage = () => {
                             onClick={() => handleFilterChange("거래완료")}
                             style={{
                                 cursor: "pointer",
-                                fontWeight: filterOption === "거래완료" ? "bold" : "normal",
+                                fontWeight: filterOption === "거래완료" ? "550" : "normal",
                             }}
                         >
                             판매완료
@@ -148,14 +148,14 @@ const Mypage = () => {
                         {saleList
                             .filter(item => filterOption === "전체" || (filterOption === "판매중" && item.status !== "수령완료" && item.status !== "판매완료" && item.status !== "거래완료") || (filterOption === "거래완료" && (item.status === "거래완료" || item.status === "판매완료" || item.status === "수령완료")))
                             .map((item, index) => (
-                                <Link to={"/saledetail/only-detail/" + item.num} key={index} style={{ textDecoration: "none", color: "black" }}>
+                                <Link to={"/saledetail/only-detail/" + item.num} key={index} style={{ textDecoration: "none", color: "black", marginBottom:"3px" }}>
                                     <div style={{ display: "inline-block", paddingRight: index % 3 === 2 ? "0px" : "10px" }}>
                                         {item.status === "거래완료" || item.status === "수령완료" || item.status === "판매완료" ? (
                                             <div style={{ width: "120px", height: "120px", borderRadius: "10px", position: "relative" }}>
                                                 <img src={url + `img/${item.fileurl.split(',')[0]}`} style={{ width: "120px", height: "120px", borderRadius: "10px", position: "absolute" }} />
                                                 <div style={{ width: "120px", height: "120px", position: "relative", borderRadius: "10px" }}>
                                                     <div style={{ backgroundColor: "gray", width: "100%", height: "100%", position: "absolute", borderRadius: "10px", opacity: "0.5" }}></div>
-                                                    <a style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", fontWeight: "bold", color: "white" }}>판매완료</a>
+                                                    <a style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", fontWeight: "550", color: "white" }}>판매완료</a>
                                                 </div>
                                             </div>
                                         ) : (

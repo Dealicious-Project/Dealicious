@@ -1,6 +1,7 @@
 package com.kosta.deal.repository;
 
-import java.sql.Date;
+
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -58,7 +59,7 @@ public class DslRepository {
 		QSale sale = QSale.sale;
 		return jpaQueryFactory.select(pay.paynum, sale.status, sale.title, sale.amount).from(pay).join(sale)
 				.on(pay.salenum.eq(sale.num))
-				// .where(pay.paydate.loe(eDate).and(pay.paydate.goe(sDate)).and(sale.status.eq("정산완료")))
+				.where(pay.paydate.between(sDate, eDate).and(sale.status.eq("정산완료").or(sale.status.eq("거래완료"))))
 				.fetch();
 	}
 

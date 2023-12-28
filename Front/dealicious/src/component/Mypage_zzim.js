@@ -117,7 +117,7 @@ const Mypage_zzim = () => {
                                             <img src={url + `img/${item.fileurl.split(',')[0]}`} style={{ width: "120px", height: "120px", borderRadius: "10px", position: "absolute" }} />
                                             <div style={{ width: "120px", height: "120px", position: "relative", borderRadius: "10px" }}>
                                                 <div style={{ backgroundColor: "gray", width: "100%", height: "100%", position: "absolute", borderRadius: "10px", opacity: "0.5" }}></div>
-                                                <a style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", fontWeight: "bold", color: "white" }}>판매완료</a>
+                                                <a style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", fontWeight: "550", color: "white" }}>판매완료</a>
                                             </div>
                                             <IoHeartCircleOutline color="#E57070" size="30" style={{ position: "absolute", top: "3%", left: "3%" }} />
                                         </div>

@@ -150,7 +150,7 @@ function SaleDetail() {
   };
 
   const gochat = () => {
-    if (user.email !== '' && user.email !==null && user.email !==undefined) {
+    if (user.email !== '' && user.email !== null && user.email !== undefined) {
       console.log(user)
       const uniqueString = uuidv4();
       const chatRoom = { channelId: uniqueString, creator: user.email, partner: writer.email, saleNum: num };
@@ -227,24 +227,14 @@ function SaleDetail() {
         overflowX: "hidden",
       }}
     >
-      <div style={{ marginTop: "10px", marginBottom: "20px", display: "flex" }}>
+      <div style={{ display: "flex", marginBottom: "10px" }}>
         <Link to="/salelist">
-          <div><IoArrowBackOutline size="30" color="14C38E" /></div>
+          <IoArrowBackOutline size="20" color="14C38E" />
         </Link>
-        <div
-          style={{
-            color: "#14C38E",
-            fontSize: "20px",
-            textAlign: "center",
-            width: "360px"
-          }}
-        >
-          <b>{sale.title}</b>
-        </div>
+        <div style={{ color: "#14C38E", fontSize: "20px", width: "370px", textAlign: "center" }}>{sale.title}</div>
       </div>
-
       <div>
-        <div style={{ paddingBottom: "20px" }}>
+        <div style={{ paddingBottom: "10px" }}>
           <Slider {...settings}>
             {fileurlList.map((imgnum, index) => (
               <div key={index}>
@@ -257,62 +247,58 @@ function SaleDetail() {
             ))}
           </Slider>
         </div>
-
-        <div style={{ marginTop: "15px" }}>
-          <div style={{ display: "flex" }}>
-            <div rowSpan={2}>
-              <img src={writer.fileurl == null ? Image : url + `img/${writer.fileurl}`} style={{ width: "60px", height: "60px", marginRight: "10px", borderRadius: "50px" }} />
-            </div>
-            <div
-              style={{
-                fontSize: "18px",
-                width: "180px",
-                marginLeft: "10px",
-                lineHeight: "60px"
-              }}
-            >
-              <b>{writer.nickname}</b>
-              <br />
-              {/* {writer.typename.length > 9
+        <div style={{ display: "flex", marginBottom:"10px" }}>
+          <div rowSpan={2}>
+            <img src={writer.fileurl == null ? Image : url + `img/${writer.fileurl}`} style={{ width: "60px", height: "60px", marginRight: "10px", borderRadius: "50px" }} />
+          </div>
+          <div
+            style={{
+              fontSize: "18px",
+              width: "180px",
+              marginLeft: "10px",
+              lineHeight: "60px"
+            }}
+          >
+            <b>{writer.nickname}</b>
+            <br />
+            {/* {writer.typename.length > 9
                 ? `${writer.typename.slice(0, 9)}...`
                 : writer.typename} */}
-            </div>
-            <div
-              style={{
-                border: "1px solid lightgray",
-                marginTop: "8px",
-                borderRadius: "10px",
-                width: "133px",
-                height: "44px",
-                textAlign: "center",
-              }}
-            >
-              {sale.status === "판매중" || sale.status === "예약중" ?
-                <div>
-                  {user.email === writer.email ?
-                    <select value={sale.status} style={{ borderStyle: "none", borderRadius: "10px", width: "130px", height: "42px", textAlign: "left" }} onChange={handleSelect}>
-                      {selectList.map((item) => {
-                        return <option value={item.value} key={item.value}>
-                          &nbsp;&nbsp;{item.name}
-                        </option>;
-                      })}
-                    </select> : <option style={{ lineHeight: "43px" }}>{sale.status}</option>}
-                </div>
-                :
-                <div style={{ lineHeight: "43px" }}>{sale.status === "결제완료" ? "거래중" : "판매완료"}</div>
-              }
+          </div>
+          <div
+            style={{
+              border: "1px solid lightgray",
+              marginTop: "8px",
+              borderRadius: "10px",
+              width: "133px",
+              height: "44px",
+              textAlign: "center",
+            }}
+          >
+            {sale.status === "판매중" || sale.status === "예약중" ?
+              <div>
+                {user.email === writer.email ?
+                  <select value={sale.status} style={{ borderStyle: "none", borderRadius: "10px", width: "130px", height: "42px", textAlign: "left" }} onChange={handleSelect}>
+                    {selectList.map((item) => {
+                      return <option value={item.value} key={item.value}>
+                        &nbsp;&nbsp;{item.name}
+                      </option>;
+                    })}
+                  </select> : <option style={{ lineHeight: "43px" }}>{sale.status}</option>}
+              </div>
+              :
+              <div style={{ lineHeight: "43px" }}>{sale.status === "결제완료" ? "거래중" : "판매완료"}</div>
+            }
 
-            </div>
           </div>
         </div>
-        <br />
         <div style={{ textAlign: "left" }}>
           {convertCategoryToKorean(sale.category)}
         </div>
         <tr >
-          <td style={{ textAlign: "left", width: "200px" }}><b>{sale.place}</b></td>
+          <td style={{ textAlign: "left", width: "300px", fontWeight:"550" }}>{sale.place}</td>
           <td
-            style={{ width: "250px", fontWeight: "550", textAlign: "right" }}
+            style={{ width: "150px", fontWeight: "550", textAlign: "right" }}
           >
             {formatPrice(sale.amount)}
           </td>
@@ -326,6 +312,7 @@ function SaleDetail() {
             height: "285px",
             resize: "none",
             backgroundColor: "white",
+            color: "black"
           }}
           disabled
           value={sale.content}

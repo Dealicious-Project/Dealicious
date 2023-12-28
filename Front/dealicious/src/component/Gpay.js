@@ -123,13 +123,13 @@ const Gpay = () => {
         const formattedPrice = numericPrice.toLocaleString('ko-KR');
         return `${formattedPrice}원`;
     };
-
-
-
+    const backButton = () => {
+        navigate(-1);
+    }
     return (
         <div className='main' style={{ overflow: "scroll", height: "632px", overflowX: "hidden" }}>
             <div style={{ textAlign: "left", paddingBottom: "10px", display:"flex" }}>
-                <IoArrowBackOutline style={{ marginRight:"5px", lineHeight:"27px", height:"27px" }} size="20" color="lightgray" />
+                <div onClick={backButton}><IoArrowBackOutline style={{ marginRight:"5px", lineHeight:"27px", height:"27px" }} size="20" color="lightgray" /></div>
                 <Label style={{ fontSize: "18px", fontWeight: "550", color: "black", lineHeight:"27px" }}>꿀페이 결제하기</Label>
             </div>
             <div style={{ textAlign: "left", paddingBottom: "10px", borderBottom: "1px solid lightgray", display: "flex", width: "390px" }}>
@@ -157,7 +157,7 @@ const Gpay = () => {
                         꿀페이 수수료 서비스 이용약관&nbsp;&nbsp;&nbsp;
                         <Link style={{ color: "gray", fontSize:"15px" }} onClick={() => setModalIsOpen(true)}>자세히
                             <Modal className="main" style={{
-                                width: "350px", top: "22%"
+                                width: "350px", top: "22%", left:"7%"
                             }} isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
                                 <div style={{ textAlign: "center", height: "100%" }}>
                                     <div>

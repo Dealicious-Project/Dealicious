@@ -16,6 +16,7 @@ const AdminSettleList = () => {
 
   const search = () => {
     const date = {sdate:startDate, edate:endDate};
+    console.log(date);
     axios.post(url+`settlelist`,date)
     .then(res => {
       console.log(res);
@@ -80,10 +81,10 @@ const AdminSettleList = () => {
           </div>
         </div>
       </div>
-      <Table style={{ marginBottom: "10px", borderBottom: "2px solid gray" }}>
+      <Table style={{ fontSize:"14px",marginBottom: "10px", borderBottom: "2px solid gray" }}>
         <thead>
           <td>번호</td>
-          <td>판매자</td>
+          <td>판매제목</td>
           <td>정산액</td>
           <td>수수료</td>
           <td>결제금액</td>
@@ -92,7 +93,7 @@ const AdminSettleList = () => {
           <tbody>
           <tr key={index}>
           <td style={{ textAlign: "center" }}>{item.paynum}</td>
-          <td style={{ textAlign: "center" }}>{item.status}</td>
+          <td style={{ textAlign: "center" }}>{item.title.length > 7 ? `${item.title.slice(0, 7)}...` : item.title}</td>
           <td style={{ textAlign: "right" }}>{item.amount}</td>
           <td style={{ textAlign: "right" }}>{item.amount*0.05}</td>
           <td style={{ textAlign: "right" }}>{item.amount*1.05}</td>
