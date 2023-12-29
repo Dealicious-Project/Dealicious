@@ -64,9 +64,7 @@ const Main = () => {
   };
   return (
     <div className='main' style={{ overflow: "scroll", height: "632px", overflowX: "hidden" }}>
-      <Link>
         <img src="..\dealmain.png" style={{ width: "390px" }} alt="Dealicious Main" />
-      </Link>
       <br /><br />
       <div style={{ textAlign: "left", fontSize: "18px", marginLeft: "2.5px", fontWeight: "550" }}>
         <div>지금 <span style={{ color: "#72DBBB" }}>{user.typename === "" || user.typename === undefined ? "딜리셔스" : user.typename}</span>에서</div>

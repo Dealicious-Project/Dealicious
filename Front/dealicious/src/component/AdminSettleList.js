@@ -114,7 +114,7 @@ const AdminSettleList = () => {
           <tbody>
             <tr key={index}>
               <td style={{ textAlign: "center" }}>{item.paynum}</td>
-              <td style={{ textAlign: "center" }}>{item.status}</td>
+              <td style={{ textAlign: "center" }}>{item.title.length > 7 ? `${item.title.slice(0, 7)}...` : item.title}</td>
               <td style={{ textAlign: "center" }}>{formatPrice3(item.amount)}</td>
               <td style={{ textAlign: "center" }}>{formatPrice2(item.amount)}</td>
               <td style={{ textAlign: "center" }}>{formatPrice(item.amount)}</td>

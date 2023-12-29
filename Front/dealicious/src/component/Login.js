@@ -52,14 +52,11 @@ const Login = () => {
                         console.log(res)
                         dispatch({ type: "user", payload: res.data });
                         alert("로그인성공")
-                            .then(() => {
-                                window.location.replace("/");
-                            });
+                        window.location.replace("/");
                     })
                     .catch(err => {
                         console.log(err)
                     })
-
             })
             .catch(error => {
                 if (error.response) {
