@@ -19,29 +19,39 @@ import com.kosta.deal.config.jwt.JwtProperties;
 
 @Component
 public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
-	
+
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
-		PrincipalDetails principalDetails = (PrincipalDetails)authentication.getPrincipal();
-		String jwtToken = JWT.create()
-				.withSubject(principalDetails.getUsername())
-				.withExpiresAt(new Date(System.currentTimeMillis()+JwtProperties.EXPIRATION_TIME))
+		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+		String jwtToken = JWT.create().withSubject(principalDetails.getUsername())
+				.withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME))
 				.withClaim("id", principalDetails.getUser().getId())
 				.withClaim("username", principalDetails.getUser().getUsername())
 				.sign(Algorithm.HMAC512(JwtProperties.SECRET));
 		response.setCharacterEncoding("UTF-8");
 		boolean aaValue = PrincipalOauth2UserService.getAa();
-		if(aaValue == false) {
+		if (aaValue == false) {
 			PrincipalOauth2UserService.setAa(true);
-			String targetUrl = UriComponentsBuilder.fromUriString("http://43.203.108.152:3000/oauth2/redirect/"+JwtProperties.TOKEN_PREFIX+jwtToken)
-					.build().toUriString();
-				response.sendRedirect(targetUrl);	
+			System.out.println(principalDetails.getUser());
+			if (principalDetails.getUser().getName() == null) {
+				System.out.println("여기들어옴?");
+				String targetUrl = UriComponentsBuilder
+						.fromUriString("http://43.203.108.152:3000/oauth/redirect/" + JwtProperties.TOKEN_PREFIX + jwtToken)
+						.build().toUriString();
+				response.sendRedirect(targetUrl);
+			} else {
+				String targetUrl = UriComponentsBuilder
+						.fromUriString("http://43.203.108.152:3000/oauth2/redirect/" + JwtProperties.TOKEN_PREFIX + jwtToken)
+						.build().toUriString();
+				response.sendRedirect(targetUrl);
+			}
 		} else {
-			String targetUrl = UriComponentsBuilder.fromUriString("http://43.203.108.152:3000/oauth/redirect/"+JwtProperties.TOKEN_PREFIX+jwtToken)
+			String targetUrl = UriComponentsBuilder
+					.fromUriString("http://43.203.108.152:3000/oauth/redirect/" + JwtProperties.TOKEN_PREFIX + jwtToken)
 					.build().toUriString();
-				response.sendRedirect(targetUrl);	
+			response.sendRedirect(targetUrl);
 		}
-			
+
 	}
 }
