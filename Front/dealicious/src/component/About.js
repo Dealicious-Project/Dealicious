@@ -4,7 +4,7 @@ const About = () => {
             <div style={{ backgroundColor: "#B8F1B0", width: "430px", height: "300px", display:"flex" }}>
                 <div style={{width:"230px"}}>
                     딜리셔스란?<br/>
-                    dkswjs
+                    맛있게 거래 하자
                 </div>
                 <div style={{textAlign:"right"}}>
                     <img src="/ggulee.png" style={{ width: "200px", marginTop:"100px" }} />

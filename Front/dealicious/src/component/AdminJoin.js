@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { Button, FormGroup, Input, Label } from "reactstrap";
 import { useWebSocket } from './WebSocketProvider';
 
